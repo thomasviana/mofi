@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "970340898687",
+    "project_id": "mofi-flutter",
+    "storage_bucket": "mofi-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:970340898687:android:107bebede68814fe5eac4a",
+        "android_client_info": {
+          "package_name": "com.thomasviana.mofi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "970340898687-0al046qishevt5jt9s2f3mq29rhi38j3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsvds_rutn48mHDrhWC-2OVpkFDP5QpHo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "970340898687-0al046qishevt5jt9s2f3mq29rhi38j3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
