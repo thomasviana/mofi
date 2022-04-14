@@ -13,9 +13,19 @@ class HomeAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverAppBar(
       backgroundColor: AppColors.primaryColor,
-      title: Text(
-        'B u d g e t s',
-        style: TextStyle(color: AppColors.white),
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
+          Icon(
+            Icons.donut_large_outlined,
+            color: AppColors.white,
+          ),
+          SizedBox(width: 8),
+          Text(
+            'mofi',
+            style: TextStyle(color: AppColors.white),
+          ),
+        ],
       ),
       pinned: true,
       leading: Platform.isIOS
