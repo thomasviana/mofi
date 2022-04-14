@@ -1,83 +1,102 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:injectable/injectable.dart';
 
+import 'di/dependency_injection.dart';
 import 'firebase_options.dart';
+import 'presentation/core/auth/auth_bloc.dart';
+import 'presentation/core/date/date_bloc.dart';
+import 'presentation/core/settings/settings_bloc.dart';
+import 'presentation/resources/resources.dart';
+import 'presentation/routes/routes.dart';
 
-Future<void> main() async {
+Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await configureInjection(Environment.prod);
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final _navigatorKey = GlobalKey<NavigatorState>();
+  final _appRouter = AppRouter();
+  final _authBloc = sl<AuthBloc>();
+  final _dateBloc = sl<DateBloc>();
+  final _settingsBloc = sl<SettingsBloc>();
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  void initState() {
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider.value(
+          value: _authBloc..add(AuthStatusRequested()),
+        ),
+        BlocProvider.value(
+          value: _settingsBloc
+            ..add(GetUserAccounts())
+            ..add(GetUserCategories())
+            ..add(GetUserBudgets()),
+        ),
+        BlocProvider.value(
+          value: _dateBloc,
+        ),
+      ],
+      child: MaterialApp(
+        title: 'Budgets App',
+        debugShowCheckedModeBanner: false,
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('en', ''), // English, no country code
+          Locale('es', ''), // Spanish, no country code
+        ],
+        builder: (context, child) {
+          // This custom MediaQuery forces the app to ignore any
+          // font-size set by the system to avoid errors with texts
+          // getting clipped out or not rendered appropriately.
+          //
+          // This is by no intention a good solution and its only
+          // purpose is to serve as a temporary fix.
+          //
+          // Additional design research and testing needs to be done
+          // in order to find a proper layout scalability based on
+          // font-size.
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+            child: child!,
+          );
+        },
+        theme: AppTheme.light,
+        home: WillPopScope(
+          child: Navigator(
+            key: _navigatorKey,
+            onGenerateRoute: _appRouter.routes,
+          ),
+          onWillPop: () async =>
+              !(await _navigatorKey.currentState!.maybePop()),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
