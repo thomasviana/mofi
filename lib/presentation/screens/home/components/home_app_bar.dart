@@ -14,7 +14,8 @@ class HomeAppBar extends StatelessWidget {
     return SliverAppBar(
       backgroundColor: AppColors.primaryColor,
       title: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment:
+            Platform.isIOS ? MainAxisAlignment.center : MainAxisAlignment.start,
         children: const [
           Icon(
             Icons.donut_large_outlined,
