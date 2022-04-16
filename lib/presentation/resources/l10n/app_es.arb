@@ -19,6 +19,7 @@
     "misc_phone": "Celular",
     "misc_profile": "Perfil",
     "misc_required": "Requerido",
+    "misc_save": "Guardar",
     "misc_search": "Buscar",
     "misc_settings": "Ajustes",
     "misc_subcategory": "Subcategoría",
@@ -88,5 +89,8 @@
     "onboarding_description_4": "Podrás salir de deudas y alcanzar libertad financiera.",
     "onboarding_get_started_ready": "¿Estás listo?",
     "onboarding_get_started_cta": "Comenzar",
-    "onboarding_skip": "Omitir"
+    "onboarding_skip": "Omitir",
+    "settings_restore_data_dialog_title": "Restablecer datos de fábrica",
+    "settings_restore_data_dialog_content": "Si restableces los datos de fábrica, se perderán todos los cambios guardados en tus ajustes.",
+    "settings_restore_data_dialog_restore": "Restablecer"
 }
