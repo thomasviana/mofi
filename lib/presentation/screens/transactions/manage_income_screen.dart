@@ -2,6 +2,7 @@ import 'dart:io' show Platform;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../common/extensions.dart';
 import '../../../core/budgets/domain.dart';
@@ -55,13 +56,14 @@ class _ManageIncomeScreenState extends State<ManageIncomeScreen> {
     } else {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Administrar'),
+          title: Text(AppLocalizations.of(context)!
+              .transactions_edit_transaction_manage),
           actions: [
             Padding(
               padding: const EdgeInsets.only(right: 8.0),
               child: TextButton(
                 child: Text(
-                  'Hecho',
+                  AppLocalizations.of(context)!.misc_done,
                   style: TextStyle(
                     color: state.isDoneEnabled
                         ? Platform.isIOS
@@ -87,8 +89,7 @@ class _ManageIncomeScreenState extends State<ManageIncomeScreen> {
           child: Column(
             children: [
               const SizedBox(height: kDefaultPadding),
-              // ? Option 1
-              Text('Ingreso'),
+              Text(AppLocalizations.of(context)!.misc_income),
               const SizedBox(height: 8),
               Text(
                 widget.transaction.amount.toCurrencyFormat(),
@@ -105,7 +106,8 @@ class _ManageIncomeScreenState extends State<ManageIncomeScreen> {
                   children: [
                     Column(
                       children: [
-                        Text('Administrado'),
+                        Text(AppLocalizations.of(context)!
+                            .transactions_manage_income_managed),
                         const SizedBox(height: 8),
                         Text(
                           state.managedAmount!.toCurrencyFormat(),
@@ -119,7 +121,8 @@ class _ManageIncomeScreenState extends State<ManageIncomeScreen> {
                     ),
                     Column(
                       children: [
-                        Text('Pendiente'),
+                        Text(AppLocalizations.of(context)!
+                            .transactions_manage_income_pending),
                         const SizedBox(height: 8),
                         Text(
                           state.pendingAmount!.toCurrencyFormat(),
@@ -134,66 +137,11 @@ class _ManageIncomeScreenState extends State<ManageIncomeScreen> {
                   ],
                 ),
               ),
-              // ? Option 2
-              // Padding(
-              //   padding:
-              //       const EdgeInsets.symmetric(horizontal: kDefaultPadding * 3),
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //     children: [
-              //       Text('Ingreso'),
-              //       Text(
-              //         '\$${currency.format(widget.incomeAmount)}',
-              //         style: TextStyle(
-              //           color: AppColors.primaryColor,
-              //           fontSize: 20,
-              //           fontWeight: FontWeight.bold,
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              // Padding(
-              //   padding:
-              //       const EdgeInsets.symmetric(horizontal: kDefaultPadding * 3),
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //     children: [
-              //       Text('Administrado'),
-              //       Text(
-              //         '\$${currency.format(state.managedAmount)}',
-              //         style: TextStyle(
-              //           color: AppColors.green,
-              //           fontSize: 20,
-              //           fontWeight: FontWeight.bold,
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              // Padding(
-              //   padding:
-              //       const EdgeInsets.symmetric(horizontal: kDefaultPadding * 3),
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //     children: [
-              //       Text('Pendiente'),
-              //       Text(
-              //         '\$${currency.format(state.pendingAmount)}',
-              //         style: TextStyle(
-              //           color: AppColors.amber,
-              //           fontSize: 20,
-              //           fontWeight: FontWeight.bold,
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              // const SizedBox(height: kDefaultPadding),
               Padding(
                 padding: const EdgeInsets.all(kDefaultPadding).copyWith(top: 0),
                 child: Text(
-                  'Asigna un porcentaje de tu ingreso a cada uno de tus presupuestos',
+                  AppLocalizations.of(context)!
+                      .transactions_manage_instructions,
                   style: TextStyle(fontWeight: FontWeight.w200, fontSize: 12),
                   textAlign: TextAlign.center,
                 ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:intl/intl.dart';
 
 import '../../../core/stats/stats_bloc.dart';
 import '../../../resources/resources.dart';
@@ -14,7 +13,7 @@ class IncomesByCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WidgetCard(
-      title: 'Por categoría',
+      title: AppLocalizations.of(context)!.stats_incomes_by_category,
       content: Observer<StatsBloc, StatsState>(
         onSuccess: (context, state) {
           return PieChartWidget(
@@ -22,19 +21,7 @@ class IncomesByCategory extends StatelessWidget {
             total: state.incomes,
           );
         },
-        onFailure: (context, state) {
-          final dateString = DateFormat(
-            'MMMM - yyyy',
-            AppLocalizations.of(context)!.localeName,
-          ).format(state.date);
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              'No hay transacciones en $dateString',
-              style: TextStyle(color: AppColors.greyDisabled),
-            ),
-          );
-        },
+        onFailure: (context, state) => NoTransactionsWidget(onDate: state.date),
       ),
     );
   }

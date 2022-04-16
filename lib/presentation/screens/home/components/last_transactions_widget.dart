@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:intl/intl.dart';
 
 import '../../../../core/budgets/domain.dart';
 import '../../../../core/transactions/domain.dart';
@@ -30,46 +29,35 @@ class LastTransactionsWidget extends StatelessWidget {
       onActionPressed: () =>
           context.read<MainScreenCubit>().onSelectedPageIndexChanged(2),
       content: Observer<TransactionsBloc, TransactionsState>(
-        onSuccess: (context, state) {
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ListView.builder(
-                shrinkWrap: true,
-                padding: EdgeInsets.zero,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  final transaction = state.filteredTransactions[index];
-                  return LastTransactionsListTile(
-                    transaction: transaction,
-                    budget: _getBudget(transaction.txBudgetId),
-                    onPressed: () => AppNavigator.navigateToEditTransactionPage(
-                      context,
+          onSuccess: (context, state) {
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ListView.builder(
+                  shrinkWrap: true,
+                  padding: EdgeInsets.zero,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    final transaction = state.filteredTransactions[index];
+                    return LastTransactionsListTile(
                       transaction: transaction,
-                    ),
-                  );
-                },
-                itemCount: state.filteredTransactions.length < 4
-                    ? state.filteredTransactions.length
-                    : 4,
-              ),
-            ],
-          );
-        },
-        onFailure: (context, state) {
-          final dateString = DateFormat(
-            'MMMM - yyyy',
-            AppLocalizations.of(context)!.localeName,
-          ).format(state.date);
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              '${AppLocalizations.of(context)!.global_no_transactions_message} $dateString',
-              style: TextStyle(color: AppColors.greyDisabled),
-            ),
-          );
-        },
-      ),
+                      budget: _getBudget(transaction.txBudgetId),
+                      onPressed: () =>
+                          AppNavigator.navigateToEditTransactionPage(
+                        context,
+                        transaction: transaction,
+                      ),
+                    );
+                  },
+                  itemCount: state.filteredTransactions.length < 4
+                      ? state.filteredTransactions.length
+                      : 4,
+                ),
+              ],
+            );
+          },
+          onFailure: (context, state) =>
+              NoTransactionsWidget(onDate: state.date)),
     );
   }
 }

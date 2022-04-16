@@ -2,6 +2,7 @@ import 'dart:io' show Platform;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/budgets/domain.dart';
 import '../../resources/resources.dart';
@@ -25,13 +26,13 @@ class SelectBudgetScreen extends StatelessWidget {
   Widget _buildState(BuildContext context, EditTransactionScreenState state) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Presupuesto'),
+        title: Text(AppLocalizations.of(context)!.misc_budget),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextButton(
               child: Text(
-                'Editar',
+                AppLocalizations.of(context)!.misc_edit,
                 style: TextStyle(
                   color:
                       Platform.isIOS ? AppColors.primaryColor : AppColors.white,
@@ -53,7 +54,7 @@ class SelectBudgetScreen extends StatelessWidget {
               bottom: 8,
             ),
             child: Text(
-              'PRESUPUESTOS',
+              AppLocalizations.of(context)!.misc_budgets.toUpperCase(),
               style: TextStyle(fontWeight: FontWeight.w200, fontSize: 12),
               textAlign: TextAlign.start,
             ),

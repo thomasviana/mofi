@@ -23,13 +23,13 @@ class IncomesScreen extends StatelessWidget {
               if (Platform.isIOS)
                 CupertinoSliverNavigationBar(
                   stretch: true,
-                  largeTitle: Text('Ingresos'),
+                  largeTitle: Text(AppLocalizations.of(context)!.misc_incomes),
                   previousPageTitle: AppLocalizations.of(context)!.misc_back,
                 ),
               if (Platform.isAndroid)
                 SliverAppBar(
                   title: Text(
-                    'Ingresos',
+                    AppLocalizations.of(context)!.misc_incomes,
                   ),
                   elevation: 0.5,
                   floating: true,

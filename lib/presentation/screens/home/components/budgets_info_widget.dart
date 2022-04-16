@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:intl/intl.dart';
 
 import '../../../../common/extensions.dart';
 import '../../../core/stats/stats_bloc.dart';
@@ -100,19 +99,8 @@ class BudgetsInfoWidget extends StatelessWidget {
                 ],
               );
             },
-            onFailure: (context, state) {
-              final dateString = DateFormat(
-                'MMMM - yyyy',
-                AppLocalizations.of(context)!.localeName,
-              ).format(state.date);
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  '${AppLocalizations.of(context)!.global_no_transactions_message} $dateString',
-                  style: TextStyle(color: AppColors.greyDisabled),
-                ),
-              );
-            },
+            onFailure: (context, state) =>
+                NoTransactionsWidget(onDate: state.date),
           ),
         ],
       ),

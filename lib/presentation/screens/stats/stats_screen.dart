@@ -3,6 +3,7 @@ import 'dart:io' show Platform;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../core/stats/stats_bloc.dart';
 import '../../resources/resources.dart';
@@ -29,12 +30,12 @@ class _StatsScreenState extends State<StatsScreen> {
               if (Platform.isIOS)
                 CupertinoSliverNavigationBar(
                   stretch: true,
-                  largeTitle: Text('Stats'),
+                  largeTitle: Text(AppLocalizations.of(context)!.misc_stats),
                 ),
               if (Platform.isAndroid)
                 SliverAppBar(
                   title: Text(
-                    'Stats',
+                    AppLocalizations.of(context)!.misc_stats,
                   ),
                   elevation: 0.5,
                   floating: true,
@@ -45,19 +46,22 @@ class _StatsScreenState extends State<StatsScreen> {
                 delegate: DateFilterDelegate(),
               ),
               StatsCard(
-                title: 'INGRESOS',
+                title: AppLocalizations.of(context)!.misc_incomes.toUpperCase(),
                 amount: state.incomes,
                 trailing: TrailingPieChart(data: state.incomeCategoriesData),
                 onTap: () => AppNavigator.navigateToIncomesPage(context),
               ),
               StatsCard(
-                title: 'EGRESOS',
+                title:
+                    AppLocalizations.of(context)!.misc_expenses.toUpperCase(),
                 amount: state.expenses,
                 trailing: TrailingPieChart(data: state.expenseCategoriesData),
                 onTap: () => AppNavigator.navigateToExpensesPage(context),
               ),
               StatsCard(
-                title: 'FLUJO DE EFECTIVO',
+                title: AppLocalizations.of(context)!
+                    .global_cash_flow
+                    .toUpperCase(),
                 amount: state.balance,
                 trailing: state.balance == 0
                     ? Icon(
@@ -79,7 +83,7 @@ class _StatsScreenState extends State<StatsScreen> {
                 onTap: () => AppNavigator.navigateToCashFlowPage(context),
               ),
               StatsCard(
-                title: 'PRESUPUESTOS',
+                title: AppLocalizations.of(context)!.misc_budgets.toUpperCase(),
                 amount: state.expenses,
                 trailing: TrailingProgressBars(data: state.budgetsData),
                 onTap: () => AppNavigator.navigateToBudgetsStatsPage(context),

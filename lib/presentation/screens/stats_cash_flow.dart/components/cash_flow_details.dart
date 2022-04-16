@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:intl/intl.dart';
 
 import '../../../../common/extensions.dart';
 import '../../../core/stats/stats_bloc.dart';
@@ -15,7 +14,7 @@ class CashFlowDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WidgetCard(
-      title: 'Detalle',
+      title: AppLocalizations.of(context)!.stats_cash_flow_detail,
       content: Observer<StatsBloc, StatsState>(
         onSuccess: (context, state) {
           return Column(
@@ -34,7 +33,8 @@ class CashFlowDetails extends StatelessWidget {
                   child:
                       Icon(Icons.arrow_forward_rounded, color: AppColors.white),
                 ),
-                title: Text('Ingresos totales'),
+                title: Text(AppLocalizations.of(context)!
+                    .stats_cash_flow_total_incomes),
                 trailing: Text(state.incomes.toCurrencyFormat()),
               ),
               ListTile(
@@ -49,7 +49,8 @@ class CashFlowDetails extends StatelessWidget {
                   ),
                   child: Icon(Icons.arrow_back_rounded, color: AppColors.white),
                 ),
-                title: Text('Egresos totales'),
+                title: Text(AppLocalizations.of(context)!
+                    .stats_cash_flow_total_expenses),
                 trailing: Text(state.expenses.toCurrencyFormat()),
               ),
               const Divider(),
@@ -57,7 +58,7 @@ class CashFlowDetails extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Flujo de efectivo',
+                    AppLocalizations.of(context)!.global_cash_flow,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
@@ -74,19 +75,7 @@ class CashFlowDetails extends StatelessWidget {
             ],
           );
         },
-        onFailure: (context, state) {
-          final dateString = DateFormat(
-            'MMMM - yyyy',
-            AppLocalizations.of(context)!.localeName,
-          ).format(state.date);
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              'No hay transacciones en $dateString',
-              style: TextStyle(color: AppColors.greyDisabled),
-            ),
-          );
-        },
+        onFailure: (context, state) => NoTransactionsWidget(onDate: state.date),
       ),
     );
   }

@@ -182,7 +182,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
         child: Scaffold(
           appBar: AppBar(
             title: Text(
-              'Transaction',
+              AppLocalizations.of(context)!.misc_transaction,
             ),
             leading: IconButton(
               icon: const Icon(Icons.close),
@@ -198,7 +198,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
                 padding: const EdgeInsets.all(8.0),
                 child: TextButton(
                   child: Text(
-                    'Guardar',
+                    AppLocalizations.of(context)!.misc_save,
                     style: TextStyle(
                       color: state.isSaveEnabled
                           ? Platform.isIOS
@@ -232,9 +232,9 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: CupertinoSlidingSegmentedControl(
-                    children: const {
-                      0: Text('Egreso'),
-                      1: Text('Ingreso'),
+                    children: {
+                      0: Text(AppLocalizations.of(context)!.misc_expense),
+                      1: Text(AppLocalizations.of(context)!.misc_income),
                     },
                     onValueChanged: (int? index) =>
                         bloc.add(TransactionTypeChanged(index: index)),
@@ -289,7 +289,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
                     child: isImageAvailable ? null : accountIcon,
                   ),
                   minLeadingWidth: 2,
-                  title: Text('Cuenta'),
+                  title: Text(AppLocalizations.of(context)!.misc_account),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -316,8 +316,8 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
                       backgroundColor: AppColors.primaryColor,
                       child: Text(
                         state.transaction.incomeType == IncomeType.active
-                            ? 'IA'
-                            : 'IP',
+                            ? AppLocalizations.of(context)!.global_incomes_ai
+                            : AppLocalizations.of(context)!.global_incomes_pi,
                         style: TextStyle(
                           color: AppColors.white,
                           fontWeight: FontWeight.bold,
@@ -326,13 +326,13 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
                       ),
                     ),
                     minLeadingWidth: 2,
-                    title: Text('Tipo'),
+                    title: Text(AppLocalizations.of(context)!.misc_type),
                     trailing: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: CupertinoSlidingSegmentedControl(
-                        children: const {
-                          0: Text('Activo'),
-                          1: Text('Pasivo'),
+                        children: {
+                          0: Text(AppLocalizations.of(context)!.misc_active),
+                          1: Text(AppLocalizations.of(context)!.misc_pasive),
                         },
                         onValueChanged: (int? index) =>
                             bloc.add(IncomeTypeChanged(index: index)),
@@ -367,13 +367,13 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
                       color: subCategory.color,
                     ),
                   ),
-                  title: Text('Categoría'),
+                  title: Text(AppLocalizations.of(context)!.misc_category),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       state.subCategory.fold(
                         () => Text(
-                          'Requerido',
+                          AppLocalizations.of(context)!.misc_required,
                           style: TextStyle(color: AppColors.red),
                         ),
                         (subCategory) => Text(
@@ -381,14 +381,14 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
                           style: TextStyle(color: AppColors.greySecondary),
                         ),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       const Icon(CupertinoIcons.forward)
                     ],
                   ),
                   onTap: () =>
                       AppNavigator.navigateToSelectCategoryPage(context),
                 ),
-                Divider(height: 2),
+                const Divider(height: 2),
                 if (state.transaction.isExpense)
                   ListTile(
                     leading: CircleAvatar(
@@ -409,7 +409,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
                             ),
                     ),
                     minLeadingWidth: 2,
-                    title: Text('Presupuesto'),
+                    title: Text(AppLocalizations.of(context)!.misc_budget),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -417,7 +417,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
                           budget.name,
                           style: TextStyle(color: AppColors.greySecondary),
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         const Icon(CupertinoIcons.forward)
                       ],
                     ),
@@ -439,21 +439,22 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
                       ),
                     ),
                     minLeadingWidth: 2,
-                    title: Text('Administrar'),
+                    title: Text(AppLocalizations.of(context)!
+                        .transactions_edit_transaction_manage),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         if (state.transaction.isIncomeManaged)
                           Text(
-                            'Hecho',
+                            AppLocalizations.of(context)!.misc_done,
                             style: TextStyle(color: AppColors.green),
                           )
                         else
                           Text(
-                            'Requerido',
+                            AppLocalizations.of(context)!.misc_required,
                             style: TextStyle(color: AppColors.red),
                           ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         const Icon(CupertinoIcons.forward)
                       ],
                     ),
@@ -471,7 +472,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
                 ListTile(
                   leading: Icon(Icons.drive_file_rename_outline_outlined),
                   minLeadingWidth: 2,
-                  title: Text('Nota'),
+                  title: Text(AppLocalizations.of(context)!.misc_note),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -498,7 +499,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
                     leading: Icon(Icons.calendar_today_rounded),
                     title: Transform.translate(
                       offset: Offset(-20, 0),
-                      child: Text('Fecha'),
+                      child: Text(AppLocalizations.of(context)!.misc_date),
                     ),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -541,9 +542,10 @@ void _showCancelOptions(
   showDialog(
     context: context,
     builder: (context) => CustomAlertDialog(
-      title: 'Descartar cambios',
-      content:
-          'Si decides descartar, se perderán todos los cambios realizados.',
+      title: AppLocalizations.of(context)!
+          .transactions_edit_transaction_cancel_dialog_title,
+      content: AppLocalizations.of(context)!
+          .transactions_edit_transaction_cancel_dialog_content,
       actions: [
         TextButton(
           onPressed: () {
@@ -551,7 +553,7 @@ void _showCancelOptions(
             onDiscardPressed();
           },
           child: Text(
-            'Descartar',
+            AppLocalizations.of(context)!.misc_discard,
             style: TextStyle(
               color: AppColors.red,
               fontWeight: FontWeight.bold,

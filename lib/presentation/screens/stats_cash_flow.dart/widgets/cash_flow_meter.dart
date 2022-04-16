@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../common/extensions.dart';
 import '../../../resources/colors.dart';
@@ -39,11 +40,14 @@ class _CashFlowMeterState extends State<CashFlowMeter>
     balance = widget.incomes - widget.expenses;
     cashFlowRatio = widget.incomes / (widget.incomes + widget.expenses);
     if (cashFlowRatio == 0.5) {
-      cashFlowLabel = 'Neutro';
+      cashFlowLabel =
+          AppLocalizations.of(context)!.stats_cash_flow_meter_neutral;
     } else if (cashFlowRatio > 0.5) {
-      cashFlowLabel = 'Superávit';
+      cashFlowLabel =
+          AppLocalizations.of(context)!.stats_cash_flow_meter_surplus;
     } else if (cashFlowRatio < 0.5) {
-      cashFlowLabel = 'Déficit';
+      cashFlowLabel =
+          AppLocalizations.of(context)!.stats_cash_flow_meter_deficit;
     }
     _animationController = AnimationController(
       duration: Duration(seconds: 2),

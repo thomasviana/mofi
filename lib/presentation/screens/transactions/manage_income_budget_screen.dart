@@ -1,6 +1,7 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../common/extensions.dart';
 import '../../../core/budgets/domain.dart';
@@ -56,7 +57,7 @@ class _ManageIncomeBudgetScreenState extends State<ManageIncomeBudgetScreen> {
       }
       return Scaffold(
         appBar: AppBar(
-          title: Text('Detalle'),
+          title: Text(AppLocalizations.of(context)!.global_detail),
         ),
         body: SingleChildScrollView(
           child: Padding(

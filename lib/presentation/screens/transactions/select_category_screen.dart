@@ -2,6 +2,7 @@ import 'dart:io' show Platform;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/categories/domain.dart';
 import '../../core/settings/settings_bloc.dart';
@@ -54,7 +55,7 @@ class _SelectCategoryScreenState extends State<SelectCategoryScreen>
         .toList();
     return Scaffold(
       appBar: AppBar(
-        title: Text('Categoría'),
+        title: Text(AppLocalizations.of(context)!.misc_category),
         leading: IconButton(
           icon: Platform.isIOS
               ? Icon(Icons.arrow_back_ios)
@@ -72,7 +73,7 @@ class _SelectCategoryScreenState extends State<SelectCategoryScreen>
             padding: const EdgeInsets.all(8.0),
             child: TextButton(
               child: Text(
-                'Editar',
+                AppLocalizations.of(context)!.misc_edit,
                 style: TextStyle(
                   color:
                       Platform.isIOS ? AppColors.primaryColor : AppColors.white,
@@ -96,7 +97,8 @@ class _SelectCategoryScreenState extends State<SelectCategoryScreen>
         children: [
           SearchBox(
             text: state.query!,
-            hintText: 'Buscar categoría',
+            hintText: AppLocalizations.of(context)!
+                .transactions_select_category_search,
             onChanged: (query) =>
                 bloc.add(SearchSubCategory(query: query.trim())),
           ),
@@ -144,7 +146,9 @@ class _SubCategorySuggestions extends StatelessWidget {
                 bottom: 8,
               ),
               child: Text(
-                'SUGERENCIAS',
+                AppLocalizations.of(context)!
+                    .transactions_select_category_suggestions
+                    .toUpperCase(),
                 style: TextStyle(fontWeight: FontWeight.w200, fontSize: 12),
                 textAlign: TextAlign.start,
               ),
@@ -213,7 +217,7 @@ class _CategoriesList extends StatelessWidget {
                 bottom: 8,
               ),
               child: Text(
-                'CATEGORÍAS',
+                AppLocalizations.of(context)!.misc_categories.toUpperCase(),
                 style: TextStyle(fontWeight: FontWeight.w200, fontSize: 12),
                 textAlign: TextAlign.start,
               ),
@@ -313,7 +317,7 @@ class _SubCategoriesList extends StatelessWidget {
                 bottom: 8,
               ),
               child: Text(
-                'SUBCATEGORÍAS',
+                AppLocalizations.of(context)!.misc_subcategories.toUpperCase(),
                 style: TextStyle(fontWeight: FontWeight.w200, fontSize: 12),
                 textAlign: TextAlign.start,
               ),
@@ -325,7 +329,7 @@ class _SubCategoriesList extends StatelessWidget {
                 (category) => Padding(
                   padding: const EdgeInsets.all(kDefaultPadding),
                   child: Text(
-                    'No hay subcategorias añadidas aún para la categoria:  ${category.name}.',
+                    '${AppLocalizations.of(context)!.transactions_select_category_no_subcategories} ${category.name}.',
                     style: TextStyle(color: AppColors.greySecondary),
                   ),
                 ),

@@ -23,13 +23,13 @@ class ExpensesScreen extends StatelessWidget {
               if (Platform.isIOS)
                 CupertinoSliverNavigationBar(
                   stretch: true,
-                  largeTitle: Text('Egresos'),
+                  largeTitle: Text(AppLocalizations.of(context)!.misc_expenses),
                   previousPageTitle: AppLocalizations.of(context)!.misc_back,
                 ),
               if (Platform.isAndroid)
                 SliverAppBar(
                   title: Text(
-                    'Egresos',
+                    AppLocalizations.of(context)!.misc_expenses,
                   ),
                   elevation: 0.5,
                   floating: true,

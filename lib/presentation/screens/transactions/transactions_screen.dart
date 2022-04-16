@@ -76,7 +76,7 @@ class _TransactionssScreenState extends State<TransactionsScreen> {
         slivers: [
           SliverAppBar(
             title: Text(
-              'Transactions',
+              AppLocalizations.of(context)!.misc_transactions,
             ),
             elevation: 0.5,
             floating: true,
@@ -102,7 +102,7 @@ class _TransactionssScreenState extends State<TransactionsScreen> {
                     vertical: MediaQuery.of(context).size.height / 3,
                   ),
                   child: Text(
-                    'No hay transacciones\nen $dateString.',
+                    '${AppLocalizations.of(context)!.transactions_no_transactions_in} $dateString.',
                     style: TextStyle(
                       color: AppColors.greyDisabled,
                       fontSize: 20,

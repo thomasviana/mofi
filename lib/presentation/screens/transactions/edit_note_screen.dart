@@ -2,6 +2,7 @@ import 'dart:io' show Platform;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../resources/colors.dart';
 import '../../routes/app_navigator.dart';
@@ -43,13 +44,13 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
   Widget _buildState(BuildContext context, EditTransactionScreenState state) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Nota'),
+        title: Text(AppLocalizations.of(context)!.misc_note),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextButton(
               child: Text(
-                'Listo',
+                AppLocalizations.of(context)!.misc_done,
                 style: TextStyle(
                   color:
                       Platform.isIOS ? AppColors.primaryColor : AppColors.white,
@@ -81,7 +82,7 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
               alignLabelWithHint: true,
               label: Center(
                 child: Text(
-                  'Agregar nota',
+                  AppLocalizations.of(context)!.transactions_edit_note_add_note,
                 ),
               ),
               labelStyle: TextStyle(

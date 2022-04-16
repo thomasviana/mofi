@@ -22,13 +22,14 @@ class CashFlowScreen extends StatelessWidget {
               if (Platform.isIOS)
                 CupertinoSliverNavigationBar(
                   stretch: true,
-                  largeTitle: Text('Flujo de efectivo'),
+                  largeTitle:
+                      Text(AppLocalizations.of(context)!.global_cash_flow),
                   previousPageTitle: AppLocalizations.of(context)!.misc_back,
                 ),
               if (Platform.isAndroid)
                 SliverAppBar(
                   title: Text(
-                    'Flujo de efectivo',
+                    AppLocalizations.of(context)!.global_cash_flow,
                   ),
                   elevation: 0.5,
                   floating: true,

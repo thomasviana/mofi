@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:intl/intl.dart';
 
 import '../../../../common/extensions.dart';
 import '../../../core/stats/stats_bloc.dart';
@@ -15,7 +14,7 @@ class IncomesByType extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WidgetCard(
-      title: 'Por tipo',
+      title: AppLocalizations.of(context)!.stats_incomes_by_type,
       content: Observer<StatsBloc, StatsState>(
         onSuccess: (context, state) {
           return Column(
@@ -32,12 +31,13 @@ class IncomesByType extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
-                    'IA',
+                    AppLocalizations.of(context)!.global_incomes_ai,
                     textAlign: TextAlign.center,
                     style: TextStyle(color: AppColors.white),
                   ),
                 ),
-                title: Text('Ingresos Activos'),
+                title: Text(
+                    AppLocalizations.of(context)!.stats_incomes_active_incomes),
                 trailing: Text(state.activeIncomes.toCurrencyFormat()),
               ),
               ListTile(
@@ -51,12 +51,13 @@ class IncomesByType extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
-                    'IP',
+                    AppLocalizations.of(context)!.global_incomes_pi,
                     textAlign: TextAlign.center,
                     style: TextStyle(color: AppColors.white),
                   ),
                 ),
-                title: Text('Ingresos Pasivos'),
+                title: Text(
+                    AppLocalizations.of(context)!.stats_incomes_pasive_incomes),
                 trailing: Text(state.pasiveIncomes.toCurrencyFormat()),
               ),
               const Divider(),
@@ -64,7 +65,7 @@ class IncomesByType extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Total',
+                    AppLocalizations.of(context)!.misc_total,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
@@ -81,19 +82,7 @@ class IncomesByType extends StatelessWidget {
             ],
           );
         },
-        onFailure: (context, state) {
-          final dateString = DateFormat(
-            'MMMM - yyyy',
-            AppLocalizations.of(context)!.localeName,
-          ).format(state.date);
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              'No hay transacciones en $dateString',
-              style: TextStyle(color: AppColors.greyDisabled),
-            ),
-          );
-        },
+        onFailure: (context, state) => NoTransactionsWidget(onDate: state.date),
       ),
     );
   }

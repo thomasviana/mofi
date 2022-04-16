@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/accounts/domain.dart';
 import '../../resources/resources.dart';
@@ -23,12 +24,12 @@ class SelectAccountScreen extends StatelessWidget {
   Widget _buildState(BuildContext context, EditTransactionScreenState state) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cuenta'),
+        title: Text(AppLocalizations.of(context)!.misc_account),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextButton(
-              child: Text('Editar'),
+              child: Text(AppLocalizations.of(context)!.misc_edit),
               onPressed: () => AppNavigator.navigateToAccountsPage(context),
             ),
           ),
@@ -45,7 +46,7 @@ class SelectAccountScreen extends StatelessWidget {
               bottom: 8,
             ),
             child: Text(
-              'CUENTAS',
+              AppLocalizations.of(context)!.misc_accounts.toUpperCase(),
               style: TextStyle(fontWeight: FontWeight.w200, fontSize: 12),
               textAlign: TextAlign.start,
             ),
