@@ -534,31 +534,42 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
   }
 }
 
-Future<void> _showCancelOptions(
+void _showCancelOptions(
   BuildContext context, {
   required VoidCallback onDiscardPressed,
-}) async {
-  await showCupertinoModalPopup<void>(
+}) {
+  showDialog(
     context: context,
-    builder: (BuildContext context) => CupertinoActionSheet(
-      actions: <CupertinoActionSheetAction>[
-        CupertinoActionSheetAction(
-          child: const Text(
-            'Descartar cambios',
-            style: TextStyle(color: AppColors.red),
-          ),
+    builder: (context) => CustomAlertDialog(
+      title: 'Descartar cambios',
+      content:
+          'Si decides descartar, se perderán todos los cambios realizados.',
+      actions: [
+        TextButton(
           onPressed: () {
             Navigator.pop(context);
             onDiscardPressed();
           },
+          child: Text(
+            'Descartar',
+            style: TextStyle(
+              color: AppColors.red,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
+        ),
+        TextButton(
+          onPressed: Navigator.of(context).pop,
+          child: Text(
+            AppLocalizations.of(context)!.misc_cancel,
+            style: TextStyle(
+              color: AppColors.textColor,
+              fontSize: 16,
+            ),
+          ),
         ),
       ],
-      cancelButton: CupertinoActionSheetAction(
-        child: const Text(
-          'Continuar editando',
-        ),
-        onPressed: () => Navigator.pop(context),
-      ),
     ),
   );
 }
