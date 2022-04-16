@@ -19,6 +19,7 @@
     "misc_phone": "Phone",
     "misc_profile": "Profile",
     "misc_required": "Required",
+    "misc_save": "Save",
     "misc_search": "Search",
     "misc_settings": "Settings",
     "misc_subcategory": "Subcategory",
@@ -88,5 +89,8 @@
     "onboarding_description_4": "Get out of debt and achieve financial freedom.",
     "onboarding_get_started_ready": "Now you are ready",
     "onboarding_get_started_cta": "Get started",
-    "onboarding_skip": "Skip"
+    "onboarding_skip": "Skip",
+    "settings_restore_data_dialog_title": "Restore data from factory",
+    "settings_restore_data_dialog_content": "If you restore data from factory, you will lose any changes and saved settings.",
+    "settings_restore_data_dialog_restore": "Restore"
 }
