@@ -100,7 +100,7 @@ class UserProfile extends StatelessWidget {
                         return AnimatedCheck();
                       } else {
                         return RoundedButton(
-                          label: 'Save',
+                          label: AppLocalizations.of(context)!.misc_save,
                           isEnabled: state.isSaveButtonEnabled,
                           onPressed: () {
                             context

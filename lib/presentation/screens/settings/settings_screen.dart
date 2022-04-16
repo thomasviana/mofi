@@ -7,7 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../core/auth/auth_bloc.dart';
 import '../../core/settings/settings_bloc.dart';
-import '../../resources/colors.dart';
+import '../../resources/resources.dart';
 import '../../routes/app_navigator.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -29,7 +29,7 @@ class SettingsScreen extends StatelessWidget {
                   color: AppColors.primaryColor,
                   size: 24,
                 ),
-                onTap: () => _showResetOption(context, Platform.isIOS),
+                onTap: () => _showResetOption(context),
               ),
             ),
             SliverToBoxAdapter(
@@ -47,7 +47,7 @@ class SettingsScreen extends StatelessWidget {
           ),
           actions: [
             IconButton(
-              onPressed: () => _showResetOption(context, false),
+              onPressed: () => _showResetOption(context),
               icon: Icon(
                 Icons.restart_alt,
               ),
@@ -116,64 +116,41 @@ class SettingsContent extends StatelessWidget {
   }
 }
 
-Future<void> _showResetOption(
+void _showResetOption(
   BuildContext context,
-  bool isIOS,
-) async {
-  if (isIOS)
-    await showCupertinoModalPopup<void>(
-      context: context,
-      builder: (BuildContext context) => CupertinoActionSheet(
-        actions: <CupertinoActionSheetAction>[
-          CupertinoActionSheetAction(
-            child: const Text('Restaurar datos de fabrica'),
-            onPressed: () {
-              Navigator.pop(context);
-              context.read<SettingsBloc>().add(ResetFromFactoryRequested());
-            },
-          ),
-        ],
-        cancelButton: CupertinoActionSheetAction(
-          child: const Text(
-            'Cancelar',
-            style: TextStyle(color: AppColors.red),
-          ),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
-    );
-  else
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(16),
-          ),
-        ),
-        title: Text(
-          'Restablecer datos de fabrica',
-          textAlign: TextAlign.center,
-        ),
-        content: Text(
-          'Los datos guardados serán eliminados y se restablecerán los datos de fábrica.',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-              context.read<SettingsBloc>().add(ResetFromFactoryRequested());
-            },
-            child: Text(
-              'Restablecer',
-              style: TextStyle(color: AppColors.red),
+) {
+  showDialog(
+    context: context,
+    builder: (context) => CustomAlertDialog(
+      title: AppLocalizations.of(context)!.settings_restore_data_dialog_title,
+      content:
+          AppLocalizations.of(context)!.settings_restore_data_dialog_content,
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+            context.read<SettingsBloc>().add(ResetFromFactoryRequested());
+          },
+          child: Text(
+            AppLocalizations.of(context)!.settings_restore_data_dialog_restore,
+            style: TextStyle(
+              color: AppColors.red,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
             ),
           ),
-          TextButton(
-            onPressed: Navigator.of(context).pop,
-            child: Text('Cerrar'),
+        ),
+        TextButton(
+          onPressed: Navigator.of(context).pop,
+          child: Text(
+            AppLocalizations.of(context)!.misc_cancel,
+            style: TextStyle(
+              color: AppColors.textColor,
+              fontSize: 16,
+            ),
           ),
-        ],
-      ),
-    );
+        ),
+      ],
+    ),
+  );
 }
