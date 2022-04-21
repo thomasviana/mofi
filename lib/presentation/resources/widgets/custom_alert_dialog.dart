@@ -22,7 +22,6 @@ class CustomAlertDialog extends StatelessWidget {
         top: 16,
         left: 8,
         right: 8,
-        bottom: 0,
       ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
@@ -34,29 +33,32 @@ class CustomAlertDialog extends StatelessWidget {
         textAlign: TextAlign.center,
         style: TextStyle(fontWeight: FontWeight.bold),
       ),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(
-              top: 0.0,
-              bottom: 30.0,
-              left: 8.0,
-              right: 8.0,
+      content: SizedBox(
+        width: double.maxFinite,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                bottom: 30.0,
+                left: 8.0,
+                right: 8.0,
+              ),
+              child: Text(
+                content,
+                textAlign: TextAlign.center,
+                style: TextStyle(color: AppColors.greySecondary),
+              ),
             ),
-            child: Text(
-              content,
-              textAlign: TextAlign.center,
-              style: TextStyle(color: AppColors.greySecondary),
-            ),
-          ),
-          ListView.separated(
-            shrinkWrap: true,
-            itemBuilder: ((context, index) => actions[index]),
-            separatorBuilder: (context, index) => const Divider(height: 0.0),
-            itemCount: actions.length,
-          )
-        ],
+            const Divider(height: 0.0),
+            ListView.separated(
+              shrinkWrap: true,
+              itemBuilder: (context, index) => actions[index],
+              separatorBuilder: (context, index) => const Divider(height: 0.0),
+              itemCount: actions.length,
+            )
+          ],
+        ),
       ),
     );
   }
