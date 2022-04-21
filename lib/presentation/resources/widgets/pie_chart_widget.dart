@@ -8,7 +8,7 @@ import '../resources.dart';
 
 class PieChartWidget extends StatefulWidget {
   static const double _defaultRadious = 72;
-  static const double _tileHeight = 50;
+  static const double _tileHeight = 60;
   static const double _aditionalPadding = 84;
   final List<PieData> data;
   final double total;
@@ -73,6 +73,21 @@ class _PieChartWidgetState extends State<PieChartWidget>
       int touchedIndex,
       List<PieData> data,
     ) {
+      if (data.isEmpty)
+        return [
+          PieChartSectionData(
+            color: AppColors.greyDisabled,
+            value: 3,
+            title: '',
+            radius: 32,
+          ),
+          PieChartSectionData(
+            color: AppColors.greyDisabled,
+            value: 1,
+            title: '',
+            radius: 32,
+          ),
+        ];
       return data
           .asMap()
           .map<int, PieChartSectionData>((index, data) {
@@ -118,20 +133,22 @@ class _PieChartWidgetState extends State<PieChartWidget>
               children: [
                 PieChart(
                   PieChartData(
-                    pieTouchData: PieTouchData(
-                      touchCallback: (touchEvent, pieTouchResponse) {
-                        setState(() {
-                          if (touchEvent is FlLongPressEnd) {
-                            touchedIndex = -1;
-                          } else {
-                            if (pieTouchResponse != null) {
-                              touchedIndex = pieTouchResponse
-                                  .touchedSection!.touchedSectionIndex;
-                            }
-                          }
-                        });
-                      },
-                    ),
+                    pieTouchData: widget.data.isNotEmpty
+                        ? PieTouchData(
+                            touchCallback: (touchEvent, pieTouchResponse) {
+                              setState(() {
+                                if (touchEvent is FlLongPressEnd) {
+                                  touchedIndex = -1;
+                                } else {
+                                  if (pieTouchResponse != null) {
+                                    touchedIndex = pieTouchResponse
+                                        .touchedSection!.touchedSectionIndex;
+                                  }
+                                }
+                              });
+                            },
+                          )
+                        : null,
                     borderData: FlBorderData(show: false),
                     sectionsSpace: 4,
                     centerSpaceRadius: PieChartWidget._defaultRadious,
@@ -208,7 +225,6 @@ class IndicatorsWidget extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         final category = data[index];
         return ListTile(
-          dense: true,
           horizontalTitleGap: 0,
           contentPadding: EdgeInsets.zero,
           title: Text(category.name),
