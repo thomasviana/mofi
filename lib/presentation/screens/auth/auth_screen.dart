@@ -104,14 +104,16 @@ class _AuthScreenState extends State<AuthScreen> {
                       ),
                     if (!state.isSubmitting)
                       RoundedButton(
-                        label: state.isCreateAccountMode
-                            ? AppLocalizations.of(context)!
-                                .auth_screen_create_account_button
-                            : AppLocalizations.of(context)!
-                                .auth_screen_login_button,
-                        isEnabled: true,
-                        onPressed: trySubmit,
-                      ),
+                          label: state.isCreateAccountMode
+                              ? AppLocalizations.of(context)!
+                                  .auth_screen_create_account_button
+                              : AppLocalizations.of(context)!
+                                  .auth_screen_login_button,
+                          isEnabled: true,
+                          onPressed: () {
+                            FocusScope.of(context).unfocus();
+                            trySubmit();
+                          }),
                     SizedBox(height: 20),
                     CustomDivider(),
                     SizedBox(height: 20),

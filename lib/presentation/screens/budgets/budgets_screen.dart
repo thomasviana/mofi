@@ -98,7 +98,6 @@ class BudgetsContent extends StatelessWidget {
               ),
               title: Text(
                 budget.name,
-                style: Theme.of(context).textTheme.bodyText1,
               ),
               trailing:
                   Platform.isIOS ? const Icon(CupertinoIcons.forward) : null,

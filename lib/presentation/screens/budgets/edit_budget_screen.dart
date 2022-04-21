@@ -208,7 +208,7 @@ class _EditBudgetScreenState extends State<EditBudgetScreen> {
             ),
             child: Text(
               'GENERAL',
-              style: TextStyle(fontWeight: FontWeight.w200, fontSize: 12),
+              style: TextStyle(fontWeight: FontWeight.w200),
               textAlign: TextAlign.start,
             ),
           ),

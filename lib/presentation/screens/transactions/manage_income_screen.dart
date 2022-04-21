@@ -56,8 +56,9 @@ class _ManageIncomeScreenState extends State<ManageIncomeScreen> {
     } else {
       return Scaffold(
         appBar: AppBar(
-          title: Text(AppLocalizations.of(context)!
-              .transactions_edit_transaction_manage),
+          title: Text(
+            AppLocalizations.of(context)!.transactions_edit_transaction_manage,
+          ),
           actions: [
             Padding(
               padding: const EdgeInsets.only(right: 8.0),
@@ -106,8 +107,10 @@ class _ManageIncomeScreenState extends State<ManageIncomeScreen> {
                   children: [
                     Column(
                       children: [
-                        Text(AppLocalizations.of(context)!
-                            .transactions_manage_income_managed),
+                        Text(
+                          AppLocalizations.of(context)!
+                              .transactions_manage_income_managed,
+                        ),
                         const SizedBox(height: 8),
                         Text(
                           state.managedAmount!.toCurrencyFormat(),
@@ -121,8 +124,10 @@ class _ManageIncomeScreenState extends State<ManageIncomeScreen> {
                     ),
                     Column(
                       children: [
-                        Text(AppLocalizations.of(context)!
-                            .transactions_manage_income_pending),
+                        Text(
+                          AppLocalizations.of(context)!
+                              .transactions_manage_income_pending,
+                        ),
                         const SizedBox(height: 8),
                         Text(
                           state.pendingAmount!.toCurrencyFormat(),
@@ -142,7 +147,7 @@ class _ManageIncomeScreenState extends State<ManageIncomeScreen> {
                 child: Text(
                   AppLocalizations.of(context)!
                       .transactions_manage_instructions,
-                  style: TextStyle(fontWeight: FontWeight.w200, fontSize: 12),
+                  style: TextStyle(fontWeight: FontWeight.w200),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -202,7 +207,6 @@ class _ManageIncomeScreenState extends State<ManageIncomeScreen> {
                                     ? budget.abbreviation!
                                     : budget.name,
                                 style: TextStyle(
-                                  fontSize: 14,
                                   fontWeight: FontWeight.bold,
                                   color: AppColors.white,
                                 ),

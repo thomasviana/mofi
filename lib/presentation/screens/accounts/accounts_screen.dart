@@ -102,7 +102,6 @@ class AccountsContent extends StatelessWidget {
               ),
               title: Text(
                 account.name,
-                style: Theme.of(context).textTheme.bodyText1,
               ),
               trailing:
                   Platform.isIOS ? const Icon(CupertinoIcons.forward) : null,

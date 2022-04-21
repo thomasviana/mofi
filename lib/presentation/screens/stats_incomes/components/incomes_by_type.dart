@@ -21,7 +21,6 @@ class IncomesByType extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                dense: true,
                 contentPadding: EdgeInsets.zero,
                 leading: Container(
                   padding: const EdgeInsets.all(8.0),
@@ -37,11 +36,11 @@ class IncomesByType extends StatelessWidget {
                   ),
                 ),
                 title: Text(
-                    AppLocalizations.of(context)!.stats_incomes_active_incomes),
+                  AppLocalizations.of(context)!.stats_incomes_active_incomes,
+                ),
                 trailing: Text(state.activeIncomes.toCurrencyFormat()),
               ),
               ListTile(
-                dense: true,
                 contentPadding: EdgeInsets.zero,
                 leading: Container(
                   padding: const EdgeInsets.all(8.0),
@@ -57,7 +56,8 @@ class IncomesByType extends StatelessWidget {
                   ),
                 ),
                 title: Text(
-                    AppLocalizations.of(context)!.stats_incomes_pasive_incomes),
+                  AppLocalizations.of(context)!.stats_incomes_pasive_incomes,
+                ),
                 trailing: Text(state.pasiveIncomes.toCurrencyFormat()),
               ),
               const Divider(),

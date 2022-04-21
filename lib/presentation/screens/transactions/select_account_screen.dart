@@ -47,7 +47,7 @@ class SelectAccountScreen extends StatelessWidget {
             ),
             child: Text(
               AppLocalizations.of(context)!.misc_accounts.toUpperCase(),
-              style: TextStyle(fontWeight: FontWeight.w200, fontSize: 12),
+              style: TextStyle(fontWeight: FontWeight.w200),
               textAlign: TextAlign.start,
             ),
           ),
@@ -83,7 +83,6 @@ class SelectAccountScreen extends StatelessWidget {
                 ),
                 title: Text(
                   account.name,
-                  style: Theme.of(context).textTheme.bodyText1,
                 ),
                 trailing: state.account.fold(
                   () {

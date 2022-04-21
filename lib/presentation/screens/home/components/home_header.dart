@@ -164,7 +164,6 @@ class _AnimatedHeaderState extends State<AnimatedHeader>
                       Text(
                         AppLocalizations.of(context)!.misc_balance,
                         style: TextStyle(
-                          fontSize: 12,
                           color:
                               AppColors.white.withOpacity(0.5 * headerOpacity),
                         ),

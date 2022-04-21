@@ -33,7 +33,7 @@ class SelectCategoryTypeScreen extends StatelessWidget {
               AppLocalizations.of(context)!
                   .categories_category_types
                   .toUpperCase(),
-              style: TextStyle(fontWeight: FontWeight.w200, fontSize: 12),
+              style: TextStyle(fontWeight: FontWeight.w200),
               textAlign: TextAlign.start,
             ),
           ),
@@ -45,7 +45,6 @@ class SelectCategoryTypeScreen extends StatelessWidget {
             minLeadingWidth: 2,
             title: Text(
               AppLocalizations.of(context)!.categories_type_expense_category,
-              style: Theme.of(context).textTheme.bodyText1,
             ),
             trailing: state.category!.type == CategoryType.expense
                 ? Icon(Icons.check, color: AppColors.primaryColor)
@@ -66,7 +65,6 @@ class SelectCategoryTypeScreen extends StatelessWidget {
             minLeadingWidth: 2,
             title: Text(
               AppLocalizations.of(context)!.categories_type_income_category,
-              style: Theme.of(context).textTheme.bodyText1,
             ),
             trailing: state.category!.type == CategoryType.income
                 ? Icon(Icons.check, color: AppColors.primaryColor)

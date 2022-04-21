@@ -21,7 +21,6 @@ class CashFlowDetails extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                dense: true,
                 contentPadding: EdgeInsets.zero,
                 leading: Container(
                   padding: const EdgeInsets.all(8.0),
@@ -33,12 +32,12 @@ class CashFlowDetails extends StatelessWidget {
                   child:
                       Icon(Icons.arrow_forward_rounded, color: AppColors.white),
                 ),
-                title: Text(AppLocalizations.of(context)!
-                    .stats_cash_flow_total_incomes),
+                title: Text(
+                  AppLocalizations.of(context)!.stats_cash_flow_total_incomes,
+                ),
                 trailing: Text(state.incomes.toCurrencyFormat()),
               ),
               ListTile(
-                dense: true,
                 contentPadding: EdgeInsets.zero,
                 leading: Container(
                   padding: const EdgeInsets.all(8.0),
@@ -49,8 +48,9 @@ class CashFlowDetails extends StatelessWidget {
                   ),
                   child: Icon(Icons.arrow_back_rounded, color: AppColors.white),
                 ),
-                title: Text(AppLocalizations.of(context)!
-                    .stats_cash_flow_total_expenses),
+                title: Text(
+                  AppLocalizations.of(context)!.stats_cash_flow_total_expenses,
+                ),
                 trailing: Text(state.expenses.toCurrencyFormat()),
               ),
               const Divider(),

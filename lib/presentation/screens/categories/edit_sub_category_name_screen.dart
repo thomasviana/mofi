@@ -128,7 +128,6 @@ class EditCategoryNameContent extends StatelessWidget {
             labelStyle: TextStyle(
               color: AppColors.black,
               fontWeight: FontWeight.w300,
-              fontSize: 14,
             ),
             hintStyle: TextStyle(fontSize: 18),
             border: InputBorder.none,

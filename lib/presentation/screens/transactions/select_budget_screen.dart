@@ -55,7 +55,7 @@ class SelectBudgetScreen extends StatelessWidget {
             ),
             child: Text(
               AppLocalizations.of(context)!.misc_budgets.toUpperCase(),
-              style: TextStyle(fontWeight: FontWeight.w200, fontSize: 12),
+              style: TextStyle(fontWeight: FontWeight.w200),
               textAlign: TextAlign.start,
             ),
           ),
@@ -78,7 +78,6 @@ class SelectBudgetScreen extends StatelessWidget {
                       ? Text(
                           budget.abbreviation!,
                           style: TextStyle(
-                            fontSize: 14,
                             fontWeight: FontWeight.bold,
                             color: AppColors.white,
                           ),
@@ -88,10 +87,7 @@ class SelectBudgetScreen extends StatelessWidget {
                           color: AppColors.white,
                         ),
                 ),
-                title: Text(
-                  budget.name,
-                  style: Theme.of(context).textTheme.bodyText1,
-                ),
+                title: Text(budget.name),
                 trailing: state.budget.fold(
                   () => null,
                   (stateBudget) {

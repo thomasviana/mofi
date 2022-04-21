@@ -49,11 +49,10 @@ class BudgetsSavings extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final budget = state.budgetsDataSortedBySavings[index];
                   return ListTile(
-                    dense: true,
                     contentPadding: EdgeInsets.zero,
                     leading: Container(
                       padding: const EdgeInsets.all(8.0),
-                      width: 40,
+                      width: 50,
                       decoration: BoxDecoration(
                         color: Color(budget.color),
                         borderRadius: BorderRadius.circular(8),
@@ -61,10 +60,7 @@ class BudgetsSavings extends StatelessWidget {
                       child: Text(
                         budget.abbreviation ?? '---',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: AppColors.white,
-                          fontSize: 11,
-                        ),
+                        style: TextStyle(color: AppColors.white),
                       ),
                     ),
                     title: Text(budget.name),

@@ -149,7 +149,7 @@ class _SubCategorySuggestions extends StatelessWidget {
                 AppLocalizations.of(context)!
                     .transactions_select_category_suggestions
                     .toUpperCase(),
-                style: TextStyle(fontWeight: FontWeight.w200, fontSize: 12),
+                style: TextStyle(fontWeight: FontWeight.w200),
                 textAlign: TextAlign.start,
               ),
             ),
@@ -218,7 +218,7 @@ class _CategoriesList extends StatelessWidget {
               ),
               child: Text(
                 AppLocalizations.of(context)!.misc_categories.toUpperCase(),
-                style: TextStyle(fontWeight: FontWeight.w200, fontSize: 12),
+                style: TextStyle(fontWeight: FontWeight.w200),
                 textAlign: TextAlign.start,
               ),
             ),
@@ -281,7 +281,7 @@ class _SubCategoriesList extends StatelessWidget {
               ),
               child: Text(
                 'GENERAL',
-                style: TextStyle(fontWeight: FontWeight.w200, fontSize: 12),
+                style: TextStyle(fontWeight: FontWeight.w200),
                 textAlign: TextAlign.start,
               ),
             ),
@@ -318,7 +318,7 @@ class _SubCategoriesList extends StatelessWidget {
               ),
               child: Text(
                 AppLocalizations.of(context)!.misc_subcategories.toUpperCase(),
-                style: TextStyle(fontWeight: FontWeight.w200, fontSize: 12),
+                style: TextStyle(fontWeight: FontWeight.w200),
                 textAlign: TextAlign.start,
               ),
             ),

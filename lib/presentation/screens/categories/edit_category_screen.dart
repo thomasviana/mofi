@@ -177,7 +177,7 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
               ),
               child: Text(
                 'GENERAL',
-                style: TextStyle(fontWeight: FontWeight.w200, fontSize: 12),
+                style: TextStyle(fontWeight: FontWeight.w200),
                 textAlign: TextAlign.start,
               ),
             ),
@@ -250,7 +250,7 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
               ),
               child: Text(
                 AppLocalizations.of(context)!.misc_subcategories.toUpperCase(),
-                style: TextStyle(fontWeight: FontWeight.w200, fontSize: 12),
+                style: TextStyle(fontWeight: FontWeight.w200),
                 textAlign: TextAlign.start,
               ),
             ),

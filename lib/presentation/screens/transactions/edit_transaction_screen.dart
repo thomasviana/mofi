@@ -356,7 +356,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
                         '?',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 25,
+                          fontSize: 24,
                           color: AppColors.white,
                         ),
                       ),
@@ -398,7 +398,6 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
                           ? Text(
                               budget.abbreviation!,
                               style: TextStyle(
-                                fontSize: 14,
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.white,
                               ),
@@ -439,8 +438,10 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
                       ),
                     ),
                     minLeadingWidth: 2,
-                    title: Text(AppLocalizations.of(context)!
-                        .transactions_edit_transaction_manage),
+                    title: Text(
+                      AppLocalizations.of(context)!
+                          .transactions_edit_transaction_manage,
+                    ),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [

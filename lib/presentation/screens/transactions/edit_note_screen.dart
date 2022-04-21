@@ -88,7 +88,6 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
               labelStyle: TextStyle(
                 color: AppColors.black,
                 fontWeight: FontWeight.w300,
-                fontSize: 14,
               ),
               hintStyle: TextStyle(fontSize: 18),
               border: InputBorder.none,

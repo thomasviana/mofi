@@ -40,14 +40,12 @@ class TransactionListTile extends StatelessWidget {
         ],
       ),
       child: ListTile(
-        dense: true,
         leading: ListTileLeadingIcon(
           icon: transaction.icon,
           color: transaction.color,
         ),
         title: Text(
           transaction.title ?? '',
-          style: Theme.of(context).textTheme.bodyText1,
         ),
         subtitle: Row(
           children: [
@@ -65,10 +63,7 @@ class TransactionListTile extends StatelessWidget {
             if (transaction.note!.isNotEmpty)
               Text(
                 ' - ${transaction.note}',
-                style: TextStyle(
-                  fontWeight: FontWeight.w200,
-                  fontSize: 12,
-                ),
+                style: TextStyle(fontWeight: FontWeight.w200),
               )
           ],
         ),
@@ -109,7 +104,6 @@ class LastTransactionsListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      dense: true,
       minLeadingWidth: 8,
       contentPadding: EdgeInsets.zero,
       leading: CircleAvatar(
@@ -129,7 +123,6 @@ class LastTransactionsListTile extends StatelessWidget {
       ),
       title: Text(
         transaction.title ?? '',
-        style: Theme.of(context).textTheme.bodyText1,
       ),
       subtitle: Row(
         children: [
@@ -147,10 +140,7 @@ class LastTransactionsListTile extends StatelessWidget {
           if (transaction.note!.isNotEmpty)
             Text(
               ' - ${transaction.note}',
-              style: TextStyle(
-                fontWeight: FontWeight.w200,
-                fontSize: 12,
-              ),
+              style: TextStyle(fontWeight: FontWeight.w200),
             )
         ],
       ),
