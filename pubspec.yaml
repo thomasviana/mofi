@@ -39,6 +39,7 @@ dependencies:
   page_indicator: ^0.4.1
   path: ^1.8.0
   path_provider: ^2.0.9
+  permission_handler: ^9.2.0
   rxdart: ^0.27.3
   sqlite3_flutter_libs: ^0.5.5
   syncfusion_flutter_datepicker: ^20.1.48
