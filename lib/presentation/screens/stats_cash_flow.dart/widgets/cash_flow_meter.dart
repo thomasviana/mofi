@@ -39,16 +39,7 @@ class _CashFlowMeterState extends State<CashFlowMeter>
     super.initState();
     balance = widget.incomes - widget.expenses;
     cashFlowRatio = widget.incomes / (widget.incomes + widget.expenses);
-    if (cashFlowRatio == 0.5) {
-      cashFlowLabel =
-          AppLocalizations.of(context)!.stats_cash_flow_meter_neutral;
-    } else if (cashFlowRatio > 0.5) {
-      cashFlowLabel =
-          AppLocalizations.of(context)!.stats_cash_flow_meter_surplus;
-    } else if (cashFlowRatio < 0.5) {
-      cashFlowLabel =
-          AppLocalizations.of(context)!.stats_cash_flow_meter_deficit;
-    }
+
     _animationController = AnimationController(
       duration: Duration(seconds: 2),
       vsync: this,
@@ -74,6 +65,21 @@ class _CashFlowMeterState extends State<CashFlowMeter>
         });
       });
     triggerAnimation();
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (cashFlowRatio == 0.5) {
+      cashFlowLabel =
+          AppLocalizations.of(context)!.stats_cash_flow_meter_neutral;
+    } else if (cashFlowRatio > 0.5) {
+      cashFlowLabel =
+          AppLocalizations.of(context)!.stats_cash_flow_meter_surplus;
+    } else if (cashFlowRatio < 0.5) {
+      cashFlowLabel =
+          AppLocalizations.of(context)!.stats_cash_flow_meter_deficit;
+    }
+    super.didChangeDependencies();
   }
 
   @override
