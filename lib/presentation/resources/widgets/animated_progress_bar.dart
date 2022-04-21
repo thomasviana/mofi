@@ -19,6 +19,7 @@ class AnimatedProgressBar extends StatefulWidget {
     this.changeColorValue,
     this.changeProgressColor = AppColors.red,
     this.displayText,
+    this.isSmall = false,
     this.displayTextStyle =
         const TextStyle(color: Color(0xFFFFFFFF), fontSize: 12),
   })  : _borderRadius = borderRadius ?? BorderRadius.circular(8),
@@ -37,6 +38,7 @@ class AnimatedProgressBar extends StatefulWidget {
   final Color changeProgressColor;
   final String? displayText;
   final TextStyle displayTextStyle;
+  final bool isSmall;
 
   @override
   _FAProgressBarState createState() => _FAProgressBarState();
@@ -155,9 +157,12 @@ class _AProgressBar extends AnimatedWidget {
         child: Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: Text(
-            isInfinite
-                ? AppLocalizations.of(context)!.widgets_progress_bar_no_budget
-                : '${(animation.value * widget.maxValue).toInt().toString()} ${widget.displayText!} ',
+            widget.isSmall
+                ? ''
+                : isInfinite
+                    ? AppLocalizations.of(context)!
+                        .widgets_progress_bar_no_budget
+                    : '${(animation.value * widget.maxValue).toInt().toString()} ${widget.displayText!} ',
             softWrap: false,
             style: widget.displayTextStyle,
           ),
