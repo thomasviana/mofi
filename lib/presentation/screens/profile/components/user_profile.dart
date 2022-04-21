@@ -103,6 +103,7 @@ class UserProfile extends StatelessWidget {
                           label: AppLocalizations.of(context)!.misc_save,
                           isEnabled: state.isSaveButtonEnabled,
                           onPressed: () {
+                            FocusScope.of(context).unfocus();
                             context
                                 .read<ProfileScreenBloc>()
                                 .add(ProfileInfoUpdated());
