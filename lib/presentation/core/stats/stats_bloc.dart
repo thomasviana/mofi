@@ -56,7 +56,6 @@ class StatsBloc extends Bloc<StatsEvent, StatsState> {
     await emit.onEach<Option<List<Budget>>>(
       _getBudgets(),
       onData: (optionBudgets) {
-        print(optionBudgets);
         optionBudgets.fold(
           () => emit(
             state.copyWith(
@@ -84,7 +83,6 @@ class StatsBloc extends Bloc<StatsEvent, StatsState> {
     await emit.onEach<Option<List<Category>>>(
       _getCategories(),
       onData: (optionCategories) {
-        print(optionCategories);
         optionCategories.fold(
           () => emit(
             state.copyWith(
@@ -112,7 +110,6 @@ class StatsBloc extends Bloc<StatsEvent, StatsState> {
     await emit.onEach<Option<List<Account>>>(
       _getAccounts(),
       onData: (optionAccounts) {
-        print(optionAccounts);
         optionAccounts.fold(
           () => emit(
             state.copyWith(
@@ -140,12 +137,11 @@ class StatsBloc extends Bloc<StatsEvent, StatsState> {
     await emit.onEach<Option<List<Transaction>>>(
       _getTransactions(),
       onData: (optionTransactions) {
-        print(optionTransactions);
         optionTransactions.fold(
           () => emit(
             state.copyWith(
               transactions: [],
-              status: Status.failure,
+              status: Status.success,
             ),
           ),
           (transactions) => emit(
