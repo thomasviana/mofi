@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>342857845929-1u5j3ioo06alg9p5dip7cs82q65b8002.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.342857845929-1u5j3ioo06alg9p5dip7cs82q65b8002</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAjJgitM13kb8U3aBoZS6olZUs1tf8MH-c</string>
+	<key>GCM_SENDER_ID</key>
+	<string>342857845929</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.thomasviana.mofi</string>
+	<key>PROJECT_ID</key>
+	<string>mofi-flutter-prod-688ca</string>
+	<key>STORAGE_BUCKET</key>
+	<string>mofi-flutter-prod-688ca.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true/>
+	<key>IS_GCM_ENABLED</key>
+	<true/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:342857845929:ios:82d49522e8e96dd6796db8</string>
+</dict>
+</plist>

@@ -46,6 +46,7 @@ android {
 
     defaultConfig {
         applicationId "com.thomasviana.mofi"
+        // minSdkVersion 16 //For logo generation
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
@@ -59,6 +60,29 @@ android {
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
         }
+    }
+
+    flavorDimensions "default"
+
+    productFlavors {
+        prod {
+            dimension "default"
+            applicationId "com.thomasviana.mofi"
+            applicationIdSuffix ""
+            manifestPlaceholders["appLabel"] = "Mofi"
+        }
+        uat {
+            dimension "default"
+            versionNameSuffix "-UAT"
+            applicationIdSuffix ".uat"
+            manifestPlaceholders["appLabel"] = "Mofi (UAT)"
+        } 
+        dev {
+            dimension "default"
+            versionNameSuffix "-DEV"
+            applicationIdSuffix ".dev"
+            manifestPlaceholders["appLabel"] = "Mofi (DEV)"
+        } 
     }
 }
 

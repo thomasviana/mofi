@@ -1,0 +1,50 @@
+{
+  "project_info": {
+    "project_number": "214668990940",
+    "project_id": "mofi-flutter-dev-33c2a",
+    "storage_bucket": "mofi-flutter-dev-33c2a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:214668990940:android:3c7f835ce5233b8b14d719",
+        "android_client_info": {
+          "package_name": "com.thomasviana.mofi.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "214668990940-0utoa7m8ekob430v3lps6bnc5edujv4c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.thomasviana.mofi.dev",
+            "certificate_hash": "b5aaec280fb1fe39e7045a44085b993b5465a837"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsXPmd3_zPPuTqdanHowFTjPCZtmqbZ1c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "214668990940-ur0k12mnr4k32ni7sgouil58b4hi9uih.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "214668990940-b2rs6ctp5d3mp32oimqlhvviadb562bb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.thomasviana.mofi.dev"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

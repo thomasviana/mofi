@@ -4,9 +4,11 @@ import 'package:injectable/injectable.dart';
 
 import 'dependency_injection.config.dart';
 
+enum Environment { prod, uat, dev }
+
 final GetIt sl = GetIt.instance;
 
 @injectableInit
-Future<void> configureInjection(String env) async {
-  $initGetIt(sl, environment: env);
+Future<void> configureInjection(Environment env) async {
+  $initGetIt(sl, environment: env.toString());
 }

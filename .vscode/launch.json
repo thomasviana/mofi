@@ -6,20 +6,55 @@
     "configurations": [
         {
             "name": "mofi",
+            "program": "lib/main_dev.dart",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "args": [
+                "--flavor",
+                "dev"
+            ]
         },
         {
             "name": "iPhone 13",
+            "program": "lib/main_dev.dart",
             "request": "launch",
             "type": "dart",
+            "args": [
+                "--flavor",
+                "dev"
+            ],
             "deviceId": "0B82F9A3-56AE-46C6-B7A4-3CCEC8704DCC"
         },
         {
             "name": "Android",
+            "program": "lib/main_dev.dart",
             "request": "launch",
             "type": "dart",
+            "args": [
+                "--flavor",
+                "dev"
+            ],
             "deviceId": "emulator-5554"
-        },    
+        },
+        {
+            "name": "UAT",
+            "program": "lib/main_uat.dart",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--flavor",
+                "uat"
+            ]
+        },   
+        {
+            "name": "Prod",
+            "program": "lib/main_prod.dart",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--flavor",
+                "prod"
+            ]
+        },   
     ]
 }

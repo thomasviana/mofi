@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:mofi/di/dependency_injection.dart';
 
 extension Flatten on Iterable<bool> {
   bool flatten() => fold(
@@ -25,4 +26,10 @@ extension MyPercentageFormat on num {
   String toPercentFormat() {
     return _percentage.format(this);
   }
+}
+
+extension EnvironmentExt on Environment {
+  bool get isUat => this == Environment.uat;
+
+  bool get isProd => this == Environment.prod;
 }
