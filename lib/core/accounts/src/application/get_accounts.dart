@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
+import 'package:rxdart/rxdart.dart';
 
 import '../../../user/application.dart';
 import '../../domain.dart';
@@ -17,9 +18,12 @@ class GetAccounts {
   );
 
   Stream<Option<List<Account>>> call() async* {
-    final user = await _getProfileInfo().first;
-    if (user != null) {
-      yield* _accountRepository.fetchAccounts(AccountUserId(user.id.value));
-    }
+    yield* _getProfileInfo().switchMap((user) {
+      if (user != null) {
+        return _accountRepository.fetchAccounts(AccountUserId(user.id.value));
+      } else {
+        return Stream.value(None());
+      }
+    });
   }
 }

@@ -7,7 +7,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'di/dependency_injection.dart';
 import 'presentation/core/auth/auth_bloc.dart';
 import 'presentation/core/date/date_bloc.dart';
-import 'presentation/core/settings/settings_bloc.dart';
 import 'presentation/resources/resources.dart';
 import 'presentation/routes/routes.dart';
 
@@ -21,7 +20,6 @@ class _MyAppState extends State<MyApp> {
   final _appRouter = AppRouter();
   final _authBloc = sl<AuthBloc>();
   final _dateBloc = sl<DateBloc>();
-  final _settingsBloc = sl<SettingsBloc>();
 
   @override
   void initState() {
@@ -35,12 +33,6 @@ class _MyAppState extends State<MyApp> {
       providers: [
         BlocProvider.value(
           value: _authBloc..add(AuthStatusRequested()),
-        ),
-        BlocProvider.value(
-          value: _settingsBloc
-            ..add(GetUserAccounts())
-            ..add(GetUserCategories())
-            ..add(GetUserBudgets()),
         ),
         BlocProvider.value(
           value: _dateBloc,

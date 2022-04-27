@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
+import 'package:rxdart/rxdart.dart';
 
 import '../../../user/application.dart';
 import '../../domain.dart';
@@ -17,9 +18,13 @@ class GetCategories {
   );
 
   Stream<Option<List<Category>>> call() async* {
-    final user = await _getProfileInfo().first;
-    if (user != null) {
-      yield* _categoryRepository.fetchCategories(CategoryUserId(user.id.value));
-    }
+    yield* _getProfileInfo().switchMap((user) {
+      if (user != null) {
+        return _categoryRepository
+            .fetchCategories(CategoryUserId(user.id.value));
+      } else {
+        return Stream.value(None());
+      }
+    });
   }
 }

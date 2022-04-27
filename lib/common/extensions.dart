@@ -1,5 +1,6 @@
 import 'package:intl/intl.dart';
-import 'package:mofi/di/dependency_injection.dart';
+
+import '../di/dependency_injection.dart';
 
 extension Flatten on Iterable<bool> {
   bool flatten() => fold(

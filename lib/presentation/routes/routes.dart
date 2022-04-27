@@ -6,6 +6,7 @@ import '../../core/budgets/domain.dart';
 import '../../core/categories/domain.dart';
 import '../../core/transactions/domain.dart';
 import '../../di/dependency_injection.dart';
+import '../core/settings/settings_bloc.dart';
 import '../core/stats/stats_bloc.dart';
 import '../core/transactions/transactions_bloc.dart';
 import '../screens/accounts/accounts_screen.dart';
@@ -49,6 +50,8 @@ import '../screens/transactions/select_category_screen.dart';
 import 'app_navigator.dart';
 
 class AppRouter {
+  final SettingsBloc _settingsBloc = sl<SettingsBloc>();
+
   final EditTransactionScreenBloc _editTransactionScreenBloc =
       sl<EditTransactionScreenBloc>();
 
@@ -100,6 +103,12 @@ class AppRouter {
               ),
               BlocProvider.value(
                 value: _transactionsBloc..add(TransactionsRequested()),
+              ),
+              BlocProvider.value(
+                value: _settingsBloc
+                  ..add(GetUserAccounts())
+                  ..add(GetUserBudgets())
+                  ..add(GetUserCategories()),
               ),
               BlocProvider.value(
                 value: _statsBloc
@@ -200,7 +209,10 @@ class AppRouter {
       case AppNavigator.ROUTE_CATEGORIES_PAGE:
         return _buildRoute(
           settings,
-          CategoriesScreen(),
+          BlocProvider.value(
+            value: _settingsBloc,
+            child: CategoriesScreen(),
+          ),
         );
       case AppNavigator.ROUTE_EDIT_CATEGORY_PAGE:
         final category = settings.arguments as Category?;
@@ -253,7 +265,10 @@ class AppRouter {
       case AppNavigator.ROUTE_ACCOUNTS_PAGE:
         return _buildRoute(
           settings,
-          AccountsScreen(),
+          BlocProvider.value(
+            value: _settingsBloc,
+            child: AccountsScreen(),
+          ),
         );
       case AppNavigator.ROUTE_EDIT_ACCOUNT_PAGE:
         final account = settings.arguments as Account?;
@@ -278,7 +293,10 @@ class AppRouter {
       case AppNavigator.ROUTE_BUDGETS_PAGE:
         return _buildRoute(
           settings,
-          BudgetsScreen(),
+          BlocProvider.value(
+            value: _settingsBloc,
+            child: BudgetsScreen(),
+          ),
         );
 
       case AppNavigator.ROUTE_EDIT_BUDGET_PAGE:
@@ -317,8 +335,15 @@ class AppRouter {
         return MaterialPageRoute(
           fullscreenDialog: true,
           settings: settings,
-          builder: (context) => BlocProvider.value(
-            value: _editTransactionScreenBloc,
+          builder: (context) => MultiBlocProvider(
+            providers: [
+              BlocProvider.value(
+                value: _editTransactionScreenBloc,
+              ),
+              BlocProvider.value(
+                value: _settingsBloc,
+              ),
+            ],
             child: EditTransactionScreen(transaction: transaction),
           ),
         );
@@ -336,8 +361,15 @@ class AppRouter {
       case AppNavigator.ROUTE_SELECT_CATEGORY_PAGE:
         return _buildRoute(
           settings,
-          BlocProvider.value(
-            value: _editTransactionScreenBloc,
+          MultiBlocProvider(
+            providers: [
+              BlocProvider.value(
+                value: _editTransactionScreenBloc,
+              ),
+              BlocProvider.value(
+                value: _settingsBloc,
+              ),
+            ],
             child: SelectCategoryScreen(),
           ),
         );

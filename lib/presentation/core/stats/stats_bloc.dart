@@ -56,21 +56,14 @@ class StatsBloc extends Bloc<StatsEvent, StatsState> {
     await emit.onEach<Option<List<Budget>>>(
       _getBudgets(),
       onData: (optionBudgets) {
-        optionBudgets.fold(
-          () => emit(
+        return optionBudgets.fold(
+          () => state.copyWith(budgets: []),
+          (budgets) => emit(
             state.copyWith(
-              budgets: [],
-              status: Status.failure,
+              budgets: budgets,
+              status: Status.success,
             ),
           ),
-          (budgets) {
-            emit(
-              state.copyWith(
-                budgets: budgets,
-                status: Status.success,
-              ),
-            );
-          },
         );
       },
     );
@@ -85,17 +78,11 @@ class StatsBloc extends Bloc<StatsEvent, StatsState> {
       onData: (optionCategories) {
         optionCategories.fold(
           () => emit(
-            state.copyWith(
-              categories: [],
-              status: Status.failure,
-            ),
+            state.copyWith(categories: []),
           ),
           (categories) {
             emit(
-              state.copyWith(
-                categories: categories,
-                status: Status.success,
-              ),
+              state.copyWith(categories: categories),
             );
           },
         );
@@ -112,17 +99,11 @@ class StatsBloc extends Bloc<StatsEvent, StatsState> {
       onData: (optionAccounts) {
         optionAccounts.fold(
           () => emit(
-            state.copyWith(
-              accounts: [],
-              status: Status.failure,
-            ),
+            state.copyWith(accounts: []),
           ),
           (accounts) {
             emit(
-              state.copyWith(
-                accounts: accounts,
-                status: Status.success,
-              ),
+              state.copyWith(accounts: accounts),
             );
           },
         );
@@ -159,6 +140,8 @@ class StatsBloc extends Bloc<StatsEvent, StatsState> {
     StatsDateUpdated event,
     Emitter<StatsState> emit,
   ) async {
-    emit(state.copyWith(date: event.date, status: Status.success));
+    emit(
+      state.copyWith(date: event.date),
+    );
   }
 }
