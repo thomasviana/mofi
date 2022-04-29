@@ -4,7 +4,7 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: 'assets/icons/prod-icon.png'
+  image_path: 'assets/icons/app-icon.png'
   adaptive_icon_background: 'assets/icons/icon-background.png'
-  adaptive_icon_foreground: 'assets/icons/prod-icon-foreground.png'
+  adaptive_icon_foreground: 'assets/icons/icon-foreground.png'
   remove_alpha_ios: true
