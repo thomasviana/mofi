@@ -52,6 +52,7 @@ class _MyAppState extends State<MyApp> {
           Locale('es', ''), // Spanish, no country code
         ],
         theme: AppTheme.light,
+        darkTheme: AppTheme.dark,
         home: WillPopScope(
           child: Navigator(
             key: _navigatorKey,
