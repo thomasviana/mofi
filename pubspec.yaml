@@ -58,7 +58,9 @@ dev_dependencies:
 
 flutter_native_splash:
   background_image: assets/images/splash_background.png
-  image: assets/images/splash.png
+  background_image_dark: assets/images/splash_background_dark.png
+  image: assets/images/splash_icon.png
+  image_dark: assets/images/splash_icon_dark.png
 
 flutter:
   uses-material-design: true
