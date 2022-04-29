@@ -6,5 +6,3 @@ cd ios
 rm -f ios/Podfile.lock
 pod install
 cd ..
-
-flutter run
