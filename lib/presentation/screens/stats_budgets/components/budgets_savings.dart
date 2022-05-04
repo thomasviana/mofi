@@ -15,7 +15,7 @@ class BudgetsSavings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WidgetCard(
-      title: 'Ahorros',
+      title: AppLocalizations.of(context)!.misc_savings,
       content: Observer<StatsBloc, StatsState>(
         onSuccess: (context, state) {
           return Column(
@@ -25,14 +25,14 @@ class BudgetsSavings extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'PRESUPUESTO',
+                    AppLocalizations.of(context)!.misc_budget.toUpperCase(),
                     style: Theme.of(context)
                         .textTheme
                         .caption!
                         .copyWith(fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    'AHORROS',
+                    AppLocalizations.of(context)!.misc_savings.toUpperCase(),
                     style: Theme.of(context)
                         .textTheme
                         .caption!
@@ -73,7 +73,8 @@ class BudgetsSavings extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Total ahorros',
+                    AppLocalizations.of(context)!
+                        .stats_budgets_progress_total_savings,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),

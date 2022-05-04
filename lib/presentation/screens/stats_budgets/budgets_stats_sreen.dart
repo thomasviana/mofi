@@ -22,14 +22,12 @@ class BudgetsStatsScreen extends StatelessWidget {
               if (Platform.isIOS)
                 CupertinoSliverNavigationBar(
                   stretch: true,
-                  largeTitle: Text('Presupuestos'),
+                  largeTitle: Text(AppLocalizations.of(context)!.misc_budgets),
                   previousPageTitle: AppLocalizations.of(context)!.misc_back,
                 ),
               if (Platform.isAndroid)
                 SliverAppBar(
-                  title: Text(
-                    'Presupuestos',
-                  ),
+                  title: Text(AppLocalizations.of(context)!.misc_budgets),
                   elevation: 0.5,
                   floating: true,
                   pinned: true,
