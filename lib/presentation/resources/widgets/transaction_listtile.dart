@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 
@@ -32,11 +33,10 @@ class TransactionListTile extends StatelessWidget {
             DismissiblePane(onDismissed: () => onDeletePressed(context)),
         children: [
           SlidableAction(
-            onPressed: onDeletePressed,
-            backgroundColor: AppColors.red,
-            icon: Icons.delete_outline_outlined,
-            label: 'Eliminar',
-          ),
+              onPressed: onDeletePressed,
+              backgroundColor: AppColors.red,
+              icon: Icons.delete_outline_outlined,
+              label: AppLocalizations.of(context)!.misc_delete),
         ],
       ),
       child: ListTile(
@@ -53,8 +53,8 @@ class TransactionListTile extends StatelessWidget {
               transaction.isExpense
                   ? budget.abbreviation!
                   : transaction.incomeType == IncomeType.active
-                      ? 'IA'
-                      : 'IP',
+                      ? AppLocalizations.of(context)!.global_incomes_ai
+                      : AppLocalizations.of(context)!.global_incomes_pi,
               style: TextStyle(
                 color: Color(budget.color),
                 fontWeight: FontWeight.bold,
@@ -75,6 +75,7 @@ class TransactionListTile extends StatelessWidget {
               transaction.amount.toCurrencyFormat(),
               style: TextStyle(
                 color: transaction.isExpense ? AppColors.red : AppColors.green,
+                fontSize: 16,
               ),
             ),
             Text(
@@ -132,8 +133,8 @@ class LastTransactionsListTile extends StatelessWidget {
             transaction.isExpense
                 ? budget.abbreviation!
                 : transaction.incomeType == IncomeType.active
-                    ? 'IA'
-                    : 'IP',
+                    ? AppLocalizations.of(context)!.global_incomes_ai
+                    : AppLocalizations.of(context)!.global_incomes_pi,
             style: TextStyle(
               color: Color(budget.color),
               fontWeight: FontWeight.bold,

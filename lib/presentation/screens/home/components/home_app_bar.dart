@@ -96,11 +96,14 @@ class _HomeAppBarDelegate extends SliverPersistentHeaderDelegate {
           if (Platform.isAndroid) Spacer(),
           Row(
             children: [
-              IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.notifications_on,
-                  color: Colors.white,
+              Padding(
+                padding: const EdgeInsets.only(right: 4.0),
+                child: IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.notifications_on,
+                    color: Colors.white,
+                  ),
                 ),
               ),
               if (Platform.isAndroid)
