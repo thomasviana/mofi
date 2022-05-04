@@ -1,5 +1,6 @@
 import 'dart:io' show Platform;
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
@@ -15,11 +16,19 @@ class AppTheme {
     secondaryContainer: AppColors.greySecondary,
   );
 
+  static const ColorScheme _colorSchemeDark = ColorScheme.dark(
+    background: AppColors.black,
+    primary: AppColors.primaryColor,
+    primaryContainer: AppColors.primaryVariant,
+    secondary: AppColors.primaryColor,
+    secondaryContainer: AppColors.greySecondary,
+  );
+
   final iconTheme = IconThemeData(color: AppColors.white);
   final listTileTheme =
       ListTileTheme(child: Text(''), iconColor: _colorSchemeLight.surface);
 
-  static final appBarTheme = Platform.isIOS
+  static final appBarThemeLight = Platform.isIOS
       ? AppBarTheme(
           color: AppColors.white,
           titleTextStyle: TextStyle(
@@ -39,8 +48,22 @@ class AppTheme {
       colorScheme: _colorSchemeLight,
       visualDensity: VisualDensity.adaptivePlatformDensity,
       iconTheme: IconThemeData(color: Colors.white, size: 20),
-      appBarTheme: appBarTheme,
+      appBarTheme: appBarThemeLight,
       listTileTheme: ListTileThemeData(tileColor: AppColors.white),
+    );
+  }
+
+  static ThemeData get dark {
+    return ThemeData.dark().copyWith(
+      colorScheme: _colorSchemeDark,
+      visualDensity: VisualDensity.adaptivePlatformDensity,
+      iconTheme: IconThemeData(color: Colors.white, size: 20),
+      cupertinoOverrideTheme: CupertinoThemeData(
+        brightness: Brightness.dark,
+        textTheme: CupertinoTextThemeData()
+            .copyWith(primaryColor: AppColors.primaryColor),
+        barBackgroundColor: CupertinoColors.systemBackground,
+      ),
     );
   }
 }
