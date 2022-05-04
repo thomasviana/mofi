@@ -396,12 +396,13 @@ class _SearchBoxState extends State<SearchBox> {
     final styleActive = TextStyle(color: AppColors.black);
     final styleHint = TextStyle(color: Colors.black54);
     final style = widget.text.isEmpty ? styleHint : styleActive;
+    final _isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Container(
       height: 42,
       margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        color: AppColors.white,
+        color: _isDarkMode ? AppColors.greySecondary : AppColors.white,
         border: Border.all(color: Colors.black26),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 8),

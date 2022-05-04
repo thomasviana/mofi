@@ -222,84 +222,120 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
               ),
             ],
           ),
-          body: Container(
-            color: AppColors.white,
-            child: ListView(
-              controller: _scrollController,
-              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-              children: [
-                SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: CupertinoSlidingSegmentedControl(
-                    children: {
-                      0: Text(AppLocalizations.of(context)!.misc_expense),
-                      1: Text(AppLocalizations.of(context)!.misc_income),
-                    },
-                    onValueChanged: (int? index) =>
-                        bloc.add(TransactionTypeChanged(index: index)),
-                    groupValue: state.transaction.transactionType.index,
-                  ),
+          body: ListView(
+            controller: _scrollController,
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+            children: [
+              SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: CupertinoSlidingSegmentedControl(
+                  children: {
+                    0: Text(AppLocalizations.of(context)!.misc_expense),
+                    1: Text(AppLocalizations.of(context)!.misc_income),
+                  },
+                  onValueChanged: (int? index) =>
+                      bloc.add(TransactionTypeChanged(index: index)),
+                  groupValue: state.transaction.transactionType.index,
                 ),
-                const SizedBox(height: 25),
-                TextField(
-                  inputFormatters: [formatter],
-                  keyboardType: TextInputType.numberWithOptions(decimal: true),
-                  autofocus: true,
-                  textAlign: TextAlign.center,
-                  cursorColor: AppColors.greyDisabled,
-                  style: TextStyle(
+              ),
+              const SizedBox(height: 25),
+              TextField(
+                inputFormatters: [formatter],
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                autofocus: true,
+                textAlign: TextAlign.center,
+                cursorColor: AppColors.greyDisabled,
+                style: TextStyle(
+                  color: state.transaction.isExpense
+                      ? AppColors.red
+                      : AppColors.green,
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                ),
+                decoration: InputDecoration(
+                  hintStyle: TextStyle(
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
                     color: state.transaction.isExpense
                         ? AppColors.red
                         : AppColors.green,
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
                   ),
-                  decoration: InputDecoration(
-                    hintStyle: TextStyle(
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                      color: state.transaction.isExpense
-                          ? AppColors.red
-                          : AppColors.green,
-                    ),
-                    focusedBorder: InputBorder.none,
-                    enabledBorder: InputBorder.none,
-                    hintText: state.transaction.amount.toCurrencyFormat(),
-                  ),
-                  onChanged: (amount) => bloc.add(
-                    AmountUpdated(
-                      amount: amount.isEmpty
-                          ? 0.0
-                          : double.parse(
-                              amount.replaceAll(RegExp(r'[^\w\s]+'), ''),
-                            ),
-                    ),
+                  focusedBorder: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  hintText: state.transaction.amount.toCurrencyFormat(),
+                ),
+                onChanged: (amount) => bloc.add(
+                  AmountUpdated(
+                    amount: amount.isEmpty
+                        ? 0.0
+                        : double.parse(
+                            amount.replaceAll(RegExp(r'[^\w\s]+'), ''),
+                          ),
                   ),
                 ),
-                SizedBox(
-                  height: 20,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Divider(height: 2),
+              ListTile(
+                leading: CircleAvatar(
+                  maxRadius: 20,
+                  backgroundColor: Color(account.color),
+                  backgroundImage: image,
+                  child: isImageAvailable ? null : accountIcon,
                 ),
+                minLeadingWidth: 2,
+                title: Text(AppLocalizations.of(context)!.misc_account),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      account.name,
+                      style: TextStyle(color: AppColors.greySecondary),
+                    ),
+                    SizedBox(width: 10),
+                    const Icon(CupertinoIcons.forward)
+                  ],
+                ),
+                onTap: () {
+                  AppNavigator.navigateToSelectAccountPage(
+                    context,
+                    settingsBloc.state.accounts,
+                  );
+                },
+              ),
+              if (state.transaction.isIncome) ...[
                 Divider(height: 2),
                 ListTile(
                   leading: CircleAvatar(
                     maxRadius: 20,
-                    backgroundColor: Color(account.color),
-                    backgroundImage: image,
-                    child: isImageAvailable ? null : accountIcon,
+                    backgroundColor: AppColors.primaryColor,
+                    child: Text(
+                      state.transaction.incomeType == IncomeType.active
+                          ? AppLocalizations.of(context)!.global_incomes_ai
+                          : AppLocalizations.of(context)!.global_incomes_pi,
+                      style: TextStyle(
+                        color: AppColors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    ),
                   ),
                   minLeadingWidth: 2,
-                  title: Text(AppLocalizations.of(context)!.misc_account),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        account.name,
-                        style: TextStyle(color: AppColors.greySecondary),
-                      ),
-                      SizedBox(width: 10),
-                      const Icon(CupertinoIcons.forward)
-                    ],
+                  title: Text(AppLocalizations.of(context)!.misc_type),
+                  trailing: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: CupertinoSlidingSegmentedControl(
+                      children: {
+                        0: Text(AppLocalizations.of(context)!.misc_active),
+                        1: Text(AppLocalizations.of(context)!.misc_pasive),
+                      },
+                      onValueChanged: (int? index) =>
+                          bloc.add(IncomeTypeChanged(index: index)),
+                      groupValue: state.transaction.incomeType!.index,
+                    ),
                   ),
                   onTap: () {
                     AppNavigator.navigateToSelectAccountPage(
@@ -308,227 +344,188 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
                     );
                   },
                 ),
-                if (state.transaction.isIncome) ...[
-                  Divider(height: 2),
-                  ListTile(
-                    leading: CircleAvatar(
-                      maxRadius: 20,
-                      backgroundColor: AppColors.primaryColor,
-                      child: Text(
-                        state.transaction.incomeType == IncomeType.active
-                            ? AppLocalizations.of(context)!.global_incomes_ai
-                            : AppLocalizations.of(context)!.global_incomes_pi,
-                        style: TextStyle(
-                          color: AppColors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
+              ],
+              Divider(height: 2),
+              ListTile(
+                leading: state.subCategory.fold(
+                  () => CircleAvatar(
+                    maxRadius: 20,
+                    child: Text(
+                      '?',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24,
+                        color: AppColors.white,
                       ),
                     ),
-                    minLeadingWidth: 2,
-                    title: Text(AppLocalizations.of(context)!.misc_type),
-                    trailing: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: CupertinoSlidingSegmentedControl(
-                        children: {
-                          0: Text(AppLocalizations.of(context)!.misc_active),
-                          1: Text(AppLocalizations.of(context)!.misc_pasive),
-                        },
-                        onValueChanged: (int? index) =>
-                            bloc.add(IncomeTypeChanged(index: index)),
-                        groupValue: state.transaction.incomeType!.index,
-                      ),
-                    ),
-                    onTap: () {
-                      AppNavigator.navigateToSelectAccountPage(
-                        context,
-                        settingsBloc.state.accounts,
-                      );
-                    },
+                    backgroundColor: AppColors.greyDisabled,
                   ),
-                ],
-                Divider(height: 2),
+                  (subCategory) => ListTileLeadingIcon(
+                    icon: subCategory.icon,
+                    color: subCategory.color,
+                  ),
+                ),
+                title: Text(AppLocalizations.of(context)!.misc_category),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    state.subCategory.fold(
+                      () => Text(
+                        AppLocalizations.of(context)!.misc_required,
+                        style: TextStyle(color: AppColors.red),
+                      ),
+                      (subCategory) => Text(
+                        subCategory.name,
+                        style: TextStyle(color: AppColors.greySecondary),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    const Icon(CupertinoIcons.forward)
+                  ],
+                ),
+                onTap: () => AppNavigator.navigateToSelectCategoryPage(context),
+              ),
+              const Divider(height: 2),
+              if (state.transaction.isExpense)
                 ListTile(
-                  leading: state.subCategory.fold(
-                    () => CircleAvatar(
-                      maxRadius: 20,
-                      child: Text(
-                        '?',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24,
-                          color: AppColors.white,
-                        ),
-                      ),
-                      backgroundColor: AppColors.greyDisabled,
-                    ),
-                    (subCategory) => ListTileLeadingIcon(
-                      icon: subCategory.icon,
-                      color: subCategory.color,
-                    ),
+                  leading: CircleAvatar(
+                    maxRadius: 20,
+                    backgroundColor: Color(budget.color),
+                    child: hasAbbreviation
+                        ? Text(
+                            budget.abbreviation!,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                              color: AppColors.white,
+                            ),
+                          )
+                        : Icon(
+                            Icons.inbox,
+                            color: AppColors.white,
+                          ),
                   ),
-                  title: Text(AppLocalizations.of(context)!.misc_category),
+                  minLeadingWidth: 2,
+                  title: Text(AppLocalizations.of(context)!.misc_budget),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      state.subCategory.fold(
-                        () => Text(
-                          AppLocalizations.of(context)!.misc_required,
-                          style: TextStyle(color: AppColors.red),
-                        ),
-                        (subCategory) => Text(
-                          subCategory.name,
-                          style: TextStyle(color: AppColors.greySecondary),
-                        ),
+                      Text(
+                        budget.name,
+                        style: TextStyle(color: AppColors.greySecondary),
                       ),
                       const SizedBox(width: 10),
                       const Icon(CupertinoIcons.forward)
                     ],
                   ),
-                  onTap: () =>
-                      AppNavigator.navigateToSelectCategoryPage(context),
+                  onTap: () {
+                    AppNavigator.navigateToSelectBudgetPage(
+                      context,
+                      budgets: settingsBloc.state.budgets,
+                    );
+                  },
                 ),
-                const Divider(height: 2),
-                if (state.transaction.isExpense)
-                  ListTile(
-                    leading: CircleAvatar(
-                      maxRadius: 20,
-                      backgroundColor: Color(budget.color),
-                      child: hasAbbreviation
-                          ? Text(
-                              budget.abbreviation!,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.white,
-                              ),
-                            )
-                          : Icon(
-                              Icons.inbox,
-                              color: AppColors.white,
-                            ),
-                    ),
-                    minLeadingWidth: 2,
-                    title: Text(AppLocalizations.of(context)!.misc_budget),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          budget.name,
-                          style: TextStyle(color: AppColors.greySecondary),
-                        ),
-                        const SizedBox(width: 10),
-                        const Icon(CupertinoIcons.forward)
-                      ],
-                    ),
-                    onTap: () {
-                      AppNavigator.navigateToSelectBudgetPage(
-                        context,
-                        budgets: settingsBloc.state.budgets,
-                      );
-                    },
-                  ),
-                if (state.transaction.isIncome)
-                  ListTile(
-                    leading: CircleAvatar(
-                      maxRadius: 20,
-                      backgroundColor: AppColors.primaryColor,
-                      child: Icon(
-                        Icons.all_inbox_rounded,
-                        color: AppColors.white,
-                      ),
-                    ),
-                    minLeadingWidth: 2,
-                    title: Text(
-                      AppLocalizations.of(context)!
-                          .transactions_edit_transaction_manage,
-                    ),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        if (state.transaction.isIncomeManaged)
-                          Text(
-                            AppLocalizations.of(context)!.misc_done,
-                            style: TextStyle(color: AppColors.green),
-                          )
-                        else
-                          Text(
-                            AppLocalizations.of(context)!.misc_required,
-                            style: TextStyle(color: AppColors.red),
-                          ),
-                        const SizedBox(width: 10),
-                        const Icon(CupertinoIcons.forward)
-                      ],
-                    ),
-                    onTap: state.transaction.amount == 0
-                        ? () {}
-                        : () => AppNavigator.navigateToManageIncomePage(
-                              context,
-                              arguments: [
-                                state.transaction,
-                                settingsBloc.state.budgets,
-                              ],
-                            ),
-                  ),
-                Divider(height: 2),
+              if (state.transaction.isIncome)
                 ListTile(
-                  leading: Icon(Icons.drive_file_rename_outline_outlined),
+                  leading: CircleAvatar(
+                    maxRadius: 20,
+                    backgroundColor: AppColors.primaryColor,
+                    child: Icon(
+                      Icons.all_inbox_rounded,
+                      color: AppColors.white,
+                    ),
+                  ),
                   minLeadingWidth: 2,
-                  title: Text(AppLocalizations.of(context)!.misc_note),
+                  title: Text(
+                    AppLocalizations.of(context)!
+                        .transactions_edit_transaction_manage,
+                  ),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (state.transaction.isIncomeManaged)
+                        Text(
+                          AppLocalizations.of(context)!.misc_done,
+                          style: TextStyle(color: AppColors.green),
+                        )
+                      else
+                        Text(
+                          AppLocalizations.of(context)!.misc_required,
+                          style: TextStyle(color: AppColors.red),
+                        ),
+                      const SizedBox(width: 10),
+                      const Icon(CupertinoIcons.forward)
+                    ],
+                  ),
+                  onTap: state.transaction.amount == 0
+                      ? () {}
+                      : () => AppNavigator.navigateToManageIncomePage(
+                            context,
+                            arguments: [
+                              state.transaction,
+                              settingsBloc.state.budgets,
+                            ],
+                          ),
+                ),
+              Divider(height: 2),
+              ListTile(
+                leading: Icon(Icons.drive_file_rename_outline_outlined),
+                minLeadingWidth: 2,
+                title: Text(AppLocalizations.of(context)!.misc_note),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      state.transaction.note ?? '',
+                      style: TextStyle(color: AppColors.greySecondary),
+                    ),
+                    SizedBox(width: 10),
+                    const Icon(CupertinoIcons.forward)
+                  ],
+                ),
+                onTap: () {
+                  AppNavigator.navigateToEditNotePage(
+                    context,
+                    content: state.transaction.note,
+                  );
+                },
+              ),
+              Divider(height: 2),
+              Theme(
+                data: Theme.of(context)
+                    .copyWith(dividerColor: Colors.transparent),
+                child: ExpansionTile(
+                  leading: Icon(Icons.calendar_today_rounded),
+                  title: Transform.translate(
+                    offset: Offset(-20, 0),
+                    child: Text(AppLocalizations.of(context)!.misc_date),
+                  ),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        state.transaction.note ?? '',
+                        getFormattedDate(dateTime.toDate()),
                         style: TextStyle(color: AppColors.greySecondary),
                       ),
                       SizedBox(width: 10),
-                      const Icon(CupertinoIcons.forward)
+                      Transform.rotate(
+                        angle: dateArrowTransform,
+                        child: Icon(CupertinoIcons.forward),
+                      )
                     ],
                   ),
-                  onTap: () {
-                    AppNavigator.navigateToEditNotePage(
-                      context,
-                      content: state.transaction.note,
-                    );
+                  onExpansionChanged: (value) {
+                    triggerArrowAnimation(collapsed: value);
+                    FocusScope.of(context).unfocus();
+                    scrollDown(collapsed: value);
                   },
+                  children: [
+                    buildDatePicker(),
+                  ],
                 ),
-                Divider(height: 2),
-                Theme(
-                  data: Theme.of(context)
-                      .copyWith(dividerColor: Colors.transparent),
-                  child: ExpansionTile(
-                    leading: Icon(Icons.calendar_today_rounded),
-                    title: Transform.translate(
-                      offset: Offset(-20, 0),
-                      child: Text(AppLocalizations.of(context)!.misc_date),
-                    ),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          getFormattedDate(dateTime.toDate()),
-                          style: TextStyle(color: AppColors.greySecondary),
-                        ),
-                        SizedBox(width: 10),
-                        Transform.rotate(
-                          angle: dateArrowTransform,
-                          child: Icon(CupertinoIcons.forward),
-                        )
-                      ],
-                    ),
-                    onExpansionChanged: (value) {
-                      triggerArrowAnimation(collapsed: value);
-                      FocusScope.of(context).unfocus();
-                      scrollDown(collapsed: value);
-                    },
-                    children: [
-                      buildDatePicker(),
-                    ],
-                  ),
-                ),
-                Divider(height: 2),
-              ],
-            ),
+              ),
+              Divider(height: 2),
+            ],
           ),
         ),
       );
@@ -567,7 +564,7 @@ void _showCancelOptions(
           child: Text(
             AppLocalizations.of(context)!.misc_cancel,
             style: TextStyle(
-              color: AppColors.textColor,
+              color: Theme.of(context).textTheme.bodyText1!.color,
               fontSize: 16,
             ),
           ),

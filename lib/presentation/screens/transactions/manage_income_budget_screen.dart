@@ -45,6 +45,7 @@ class _ManageIncomeBudgetScreenState extends State<ManageIncomeBudgetScreen> {
   }
 
   Widget _buildState(BuildContext context, ManageIncomeScreenState state) {
+    final _isDarkMode = Theme.of(context).brightness == Brightness.dark;
     if (state.isLoading) {
       return Center(
         child: CircularProgressIndicator(),
@@ -66,11 +67,11 @@ class _ManageIncomeBudgetScreenState extends State<ManageIncomeBudgetScreen> {
               alignment: Alignment.center,
               margin: const EdgeInsets.all(4.0),
               decoration: BoxDecoration(
-                color: AppColors.white,
+                color: Theme.of(context).cardColor,
                 borderRadius: BorderRadius.circular(15),
-                boxShadow: const [
+                boxShadow: [
                   BoxShadow(
-                    color: Colors.grey,
+                    color: _isDarkMode ? AppColors.greyPrimary : Colors.grey,
                     blurRadius: 4.0,
                     offset: Offset(0, 2.0),
                   )
@@ -126,7 +127,9 @@ class _ManageIncomeBudgetScreenState extends State<ManageIncomeBudgetScreen> {
                                     widget.index,
                                     0.01,
                                   )
-                                      ? AppColors.primaryColor
+                                      ? _isDarkMode
+                                          ? AppColors.white
+                                          : AppColors.primaryColor
                                       : AppColors.greyDisabled,
                                 ),
                               ),
@@ -155,7 +158,9 @@ class _ManageIncomeBudgetScreenState extends State<ManageIncomeBudgetScreen> {
                                     widget.index,
                                     0.1,
                                   )
-                                      ? AppColors.primaryColor
+                                      ? _isDarkMode
+                                          ? AppColors.white
+                                          : AppColors.primaryColor
                                       : AppColors.greyDisabled,
                                 ),
                               ),
@@ -195,7 +200,9 @@ class _ManageIncomeBudgetScreenState extends State<ManageIncomeBudgetScreen> {
                                     widget.index,
                                     0.01,
                                   )
-                                      ? AppColors.primaryColor
+                                      ? _isDarkMode
+                                          ? AppColors.white
+                                          : AppColors.primaryColor
                                       : AppColors.greyDisabled,
                                 ),
                               ),
@@ -224,7 +231,9 @@ class _ManageIncomeBudgetScreenState extends State<ManageIncomeBudgetScreen> {
                                     widget.index,
                                     0.1,
                                   )
-                                      ? AppColors.primaryColor
+                                      ? _isDarkMode
+                                          ? AppColors.white
+                                          : AppColors.primaryColor
                                       : AppColors.greyDisabled,
                                 ),
                               ),

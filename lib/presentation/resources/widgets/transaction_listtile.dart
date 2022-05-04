@@ -103,6 +103,7 @@ class LastTransactionsListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return ListTile(
       minLeadingWidth: 8,
       contentPadding: EdgeInsets.zero,
@@ -110,6 +111,8 @@ class LastTransactionsListTile extends StatelessWidget {
         radius: 18,
         backgroundColor: Color(transaction.color),
         child: CircleAvatar(
+          backgroundColor:
+              _isDarkMode ? AppColors.greyPrimary : AppColors.white,
           radius: 16,
           child: Icon(
             IconData(

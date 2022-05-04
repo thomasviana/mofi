@@ -49,6 +49,7 @@ class _ManageIncomeScreenState extends State<ManageIncomeScreen> {
   }
 
   Widget _buildState(BuildContext context, ManageIncomeScreenState state) {
+    final _isDarkMode = Theme.of(context).brightness == Brightness.dark;
     if (state.isLoading) {
       return Center(
         child: CircularProgressIndicator(),
@@ -174,11 +175,13 @@ class _ManageIncomeScreenState extends State<ManageIncomeScreen> {
                       alignment: Alignment.center,
                       margin: const EdgeInsets.all(4.0),
                       decoration: BoxDecoration(
-                        color: AppColors.white,
+                        color: Theme.of(context).cardColor,
                         borderRadius: BorderRadius.circular(15),
-                        boxShadow: const [
+                        boxShadow: [
                           BoxShadow(
-                            color: Colors.grey,
+                            color: _isDarkMode
+                                ? AppColors.greyPrimary
+                                : Colors.grey,
                             blurRadius: 4.0,
                             offset: Offset(0, 2.0),
                           )
@@ -247,7 +250,9 @@ class _ManageIncomeScreenState extends State<ManageIncomeScreen> {
                                   icon: Icon(
                                     Icons.remove,
                                     color: state.isDecrementEnabled(index, 0.1)
-                                        ? AppColors.primaryColor
+                                        ? _isDarkMode
+                                            ? AppColors.white
+                                            : AppColors.primaryColor
                                         : AppColors.greyDisabled,
                                   ),
                                 ),
@@ -273,7 +278,9 @@ class _ManageIncomeScreenState extends State<ManageIncomeScreen> {
                                   icon: Icon(
                                     Icons.add,
                                     color: state.isIncrementEnabled(index, 0.1)
-                                        ? AppColors.primaryColor
+                                        ? _isDarkMode
+                                            ? AppColors.white
+                                            : AppColors.primaryColor
                                         : AppColors.greyDisabled,
                                   ),
                                 ),

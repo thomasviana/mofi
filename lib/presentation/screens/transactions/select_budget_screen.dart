@@ -80,6 +80,7 @@ class SelectBudgetScreen extends StatelessWidget {
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: AppColors.white,
+                            fontSize: 14,
                           ),
                         )
                       : Icon(

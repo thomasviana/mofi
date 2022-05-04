@@ -132,6 +132,7 @@ class _StickyHeaderList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _isDarkMode = Theme.of(context).brightness == Brightness.dark;
     Budget _getBudget(TransactionBudgetId? id) {
       final budgets = context.read<SettingsBloc>().state.budgets;
       final budget = budgets.firstWhere(
@@ -144,7 +145,7 @@ class _StickyHeaderList extends StatelessWidget {
       key: UniqueKey(),
       header: Container(
         height: 30,
-        color: Theme.of(context).appBarTheme.backgroundColor,
+        color: _isDarkMode ? AppColors.greyPrimary : AppColors.white,
         padding: EdgeInsets.symmetric(horizontal: 16.0),
         alignment: Alignment.centerLeft,
         child: Text(
