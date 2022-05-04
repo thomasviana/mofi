@@ -38,8 +38,6 @@ class _CashFlowMeterState extends State<CashFlowMeter>
   void initState() {
     super.initState();
     balance = widget.incomes - widget.expenses;
-    cashFlowRatio = widget.incomes / (widget.incomes + widget.expenses);
-
     _animationController = AnimationController(
       duration: Duration(seconds: 2),
       vsync: this,
@@ -69,6 +67,11 @@ class _CashFlowMeterState extends State<CashFlowMeter>
 
   @override
   void didChangeDependencies() {
+    if (widget.incomes == 0 && widget.expenses == 0) {
+      cashFlowRatio = 0.5;
+    } else {
+      cashFlowRatio = widget.incomes / (widget.incomes + widget.expenses);
+    }
     if (cashFlowRatio == 0.5) {
       cashFlowLabel =
           AppLocalizations.of(context)!.stats_cash_flow_meter_neutral;
@@ -217,7 +220,10 @@ class _CashFlowMeterState extends State<CashFlowMeter>
                           cashFlowLabel,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: AppColors.textColor
+                            color: Theme.of(context)
+                                .textTheme
+                                .bodyText1!
+                                .color!
                                 .withOpacity(animatedOpacity),
                           ),
                         ),
@@ -227,7 +233,10 @@ class _CashFlowMeterState extends State<CashFlowMeter>
                         child: Text(
                           balance.toCurrencyFormat(),
                           style: TextStyle(
-                            color: AppColors.textColor
+                            color: Theme.of(context)
+                                .textTheme
+                                .bodyText1!
+                                .color!
                                 .withOpacity(animatedOpacity),
                           ),
                         ),
