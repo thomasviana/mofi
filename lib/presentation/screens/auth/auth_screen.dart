@@ -69,10 +69,10 @@ class _AuthScreenState extends State<AuthScreen> {
                 padding: const EdgeInsets.all(kDefaultPadding),
                 child: Column(
                   children: [
-                    Icon(
-                      Icons.donut_large,
-                      size: 150,
-                      color: AppColors.primaryColor,
+                    Image.asset(
+                      'assets/images/logo.png',
+                      width: 180,
+                      height: 180,
                     ),
                     SizedBox(height: 24),
                     Text(
@@ -104,16 +104,17 @@ class _AuthScreenState extends State<AuthScreen> {
                       ),
                     if (!state.isSubmitting)
                       RoundedButton(
-                          label: state.isCreateAccountMode
-                              ? AppLocalizations.of(context)!
-                                  .auth_screen_create_account_button
-                              : AppLocalizations.of(context)!
-                                  .auth_screen_login_button,
-                          isEnabled: true,
-                          onPressed: () {
-                            FocusScope.of(context).unfocus();
-                            trySubmit();
-                          }),
+                        label: state.isCreateAccountMode
+                            ? AppLocalizations.of(context)!
+                                .auth_screen_create_account_button
+                            : AppLocalizations.of(context)!
+                                .auth_screen_login_button,
+                        isEnabled: true,
+                        onPressed: () {
+                          FocusScope.of(context).unfocus();
+                          trySubmit();
+                        },
+                      ),
                     SizedBox(height: 20),
                     CustomDivider(),
                     SizedBox(height: 20),
@@ -196,7 +197,6 @@ class LoginButton extends StatelessWidget {
         onTap: onTap,
         child: CircleAvatar(
           backgroundImage: AssetImage(imagePath),
-          backgroundColor: AppColors.greyBackground,
         ),
       ),
     );
