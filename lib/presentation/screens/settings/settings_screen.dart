@@ -143,7 +143,7 @@ void _showResetOption(
           child: Text(
             AppLocalizations.of(context)!.misc_cancel,
             style: TextStyle(
-              color: AppColors.textColor,
+              color: Theme.of(context).textTheme.bodyText1!.color,
               fontSize: 16,
             ),
           ),
