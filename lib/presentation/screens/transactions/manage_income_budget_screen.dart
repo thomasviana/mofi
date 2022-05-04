@@ -1,5 +1,6 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -135,12 +136,15 @@ class _ManageIncomeBudgetScreenState extends State<ManageIncomeBudgetScreen> {
                               ),
                               onPressed:
                                   state.isDecrementEnabled(widget.index, 0.01)
-                                      ? () => bloc.add(
+                                      ? () {
+                                          HapticFeedback.selectionClick();
+                                          bloc.add(
                                             BudgetDecremented(
                                               index: widget.index,
                                               step: 1,
                                             ),
-                                          )
+                                          );
+                                        }
                                       : null,
                             ),
                           ),
@@ -166,12 +170,15 @@ class _ManageIncomeBudgetScreenState extends State<ManageIncomeBudgetScreen> {
                               ),
                               onPressed:
                                   state.isDecrementEnabled(widget.index, 0.1)
-                                      ? () => bloc.add(
+                                      ? () {
+                                          HapticFeedback.selectionClick();
+                                          bloc.add(
                                             BudgetDecremented(
                                               index: widget.index,
                                               step: 10,
                                             ),
-                                          )
+                                          );
+                                        }
                                       : null,
                             ),
                           ),
@@ -208,12 +215,15 @@ class _ManageIncomeBudgetScreenState extends State<ManageIncomeBudgetScreen> {
                               ),
                               onPressed:
                                   state.isIncrementEnabled(widget.index, 0.01)
-                                      ? () => bloc.add(
+                                      ? () {
+                                          HapticFeedback.selectionClick();
+                                          bloc.add(
                                             BudgetIncremented(
                                               index: widget.index,
                                               step: 1,
                                             ),
-                                          )
+                                          );
+                                        }
                                       : null,
                             ),
                           ),
@@ -239,12 +249,15 @@ class _ManageIncomeBudgetScreenState extends State<ManageIncomeBudgetScreen> {
                               ),
                               onPressed:
                                   state.isIncrementEnabled(widget.index, 0.1)
-                                      ? () => bloc.add(
+                                      ? () {
+                                          HapticFeedback.selectionClick();
+                                          bloc.add(
                                             BudgetIncremented(
                                               index: widget.index,
                                               step: 10,
                                             ),
-                                          )
+                                          );
+                                        }
                                       : null,
                             ),
                           ),

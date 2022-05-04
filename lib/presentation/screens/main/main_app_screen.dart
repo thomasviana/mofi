@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../di/dependency_injection.dart';
@@ -105,8 +106,10 @@ class _MainAppScreenState extends State<MainAppScreen> {
                           color: AppColors.white,
                           size: 28,
                         ),
-                        onPressed: () =>
-                            AppNavigator.navigateToEditTransactionPage(context),
+                        onPressed: () {
+                          HapticFeedback.mediumImpact();
+                          AppNavigator.navigateToEditTransactionPage(context);
+                        },
                       ),
                     ),
                     NavBarButton(

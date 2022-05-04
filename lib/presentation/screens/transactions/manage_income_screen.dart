@@ -1,6 +1,7 @@
 import 'dart:io' show Platform;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -240,12 +241,15 @@ class _ManageIncomeScreenState extends State<ManageIncomeScreen> {
                                 child: IconButton(
                                   onPressed:
                                       state.isDecrementEnabled(index, 0.1)
-                                          ? () => bloc.add(
+                                          ? () {
+                                              HapticFeedback.selectionClick();
+                                              bloc.add(
                                                 BudgetDecremented(
                                                   index: index,
                                                   step: 10,
                                                 ),
-                                              )
+                                              );
+                                            }
                                           : null,
                                   icon: Icon(
                                     Icons.remove,
@@ -268,12 +272,15 @@ class _ManageIncomeScreenState extends State<ManageIncomeScreen> {
                                 child: IconButton(
                                   onPressed:
                                       state.isIncrementEnabled(index, 0.1)
-                                          ? () => bloc.add(
+                                          ? () {
+                                              HapticFeedback.selectionClick();
+                                              bloc.add(
                                                 BudgetIncremented(
                                                   index: index,
                                                   step: 10,
                                                 ),
-                                              )
+                                              );
+                                            }
                                           : null,
                                   icon: Icon(
                                     Icons.add,

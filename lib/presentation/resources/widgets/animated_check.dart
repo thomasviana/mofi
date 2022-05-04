@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class AnimatedCheck extends StatefulWidget {
   @override
@@ -23,6 +24,7 @@ class _AnimatedCheckState extends State<AnimatedCheck>
   @override
   void initState() {
     super.initState();
+    HapticFeedback.heavyImpact();
     scaleController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         checkController.forward();

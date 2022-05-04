@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart' as f;
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -187,6 +188,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
             leading: IconButton(
               icon: const Icon(Icons.close),
               onPressed: () {
+                FocusScope.of(context).unfocus();
                 _showCancelOptions(
                   context,
                   onDiscardPressed: () => AppNavigator.navigateBack(context),
@@ -234,8 +236,10 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
                     0: Text(AppLocalizations.of(context)!.misc_expense),
                     1: Text(AppLocalizations.of(context)!.misc_income),
                   },
-                  onValueChanged: (int? index) =>
-                      bloc.add(TransactionTypeChanged(index: index)),
+                  onValueChanged: (int? index) {
+                    HapticFeedback.selectionClick();
+                    bloc.add(TransactionTypeChanged(index: index));
+                  },
                   groupValue: state.transaction.transactionType.index,
                 ),
               ),
@@ -332,8 +336,10 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
                         0: Text(AppLocalizations.of(context)!.misc_active),
                         1: Text(AppLocalizations.of(context)!.misc_pasive),
                       },
-                      onValueChanged: (int? index) =>
-                          bloc.add(IncomeTypeChanged(index: index)),
+                      onValueChanged: (int? index) {
+                        HapticFeedback.selectionClick();
+                        bloc.add(IncomeTypeChanged(index: index));
+                      },
                       groupValue: state.transaction.incomeType!.index,
                     ),
                   ),
