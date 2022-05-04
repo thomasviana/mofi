@@ -343,6 +343,7 @@ Future _pickColor(
 ) {
   return showDialog(
     context: context,
+    barrierDismissible: false,
     builder: (context) => AlertDialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
@@ -378,6 +379,7 @@ Future _pickImage(
 ) {
   return showDialog(
     context: context,
+    barrierDismissible: false,
     builder: (context) => AlertDialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(

@@ -119,6 +119,7 @@ void _showResetOption(
 ) {
   showDialog(
     context: context,
+    barrierDismissible: false,
     builder: (context) => CustomAlertDialog(
       title: AppLocalizations.of(context)!.settings_restore_data_dialog_title,
       content:
