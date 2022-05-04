@@ -5,7 +5,7 @@ PODS:
   - AppAuth/Core (1.5.0)
   - AppAuth/ExternalUserAgent (1.5.0):
     - AppAuth/Core
-  - cloud_firestore (3.1.13):
+  - cloud_firestore (3.1.14):
     - Firebase/Firestore (= 8.15.0)
     - firebase_core
     - Flutter
@@ -20,14 +20,14 @@ PODS:
   - Firebase/Storage (8.15.0):
     - Firebase/CoreOnly
     - FirebaseStorage (~> 8.15.0)
-  - firebase_auth (3.3.16):
+  - firebase_auth (3.3.17):
     - Firebase/Auth (= 8.15.0)
     - firebase_core
     - Flutter
-  - firebase_core (1.15.0):
+  - firebase_core (1.16.0):
     - Firebase/CoreOnly (= 8.15.0)
     - Flutter
-  - firebase_storage (10.2.14):
+  - firebase_storage (10.2.15):
     - Firebase/Storage (= 8.15.0)
     - firebase_core
     - Flutter
@@ -120,7 +120,7 @@ PODS:
     - sqlite3/common
   - sqlite3_flutter_libs (0.0.1):
     - Flutter
-    - sqlite3 (~> 3.38.2)
+    - sqlite3 (~> 3.38.3)
     - sqlite3/fts5
     - sqlite3/json1
     - sqlite3/perf-threadsafe
@@ -195,11 +195,11 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AppAuth: 80317d99ac7ff2801a2f18ff86b48cd315ed465d
-  cloud_firestore: a7a94d8f25b77b84533eb8bd5627437a0cdb49f0
+  cloud_firestore: d6f0fcf4be1240c9e01207b4dfba93ebe96d044b
   Firebase: 5f8193dff4b5b7c5d5ef72ae54bb76c08e2b841d
-  firebase_auth: 4f80bfd9e8814edc0dc6a135f9c4d5e1b1d67347
-  firebase_core: fa19947d8db1c0a62d8872c45039b3113829cd2e
-  firebase_storage: 4a44819c634c80214d685192033925c220e429dd
+  firebase_auth: 99f8d104a93f4424a4b3b2c4cc5b7596f8181eb7
+  firebase_core: 6ef152b7d6a361e24105e2cc56ab458f1f8367fe
+  firebase_storage: 5601da26ed29e80bee1641d4f3a833abbba8132e
   FirebaseAuth: 3e73bf8abf4fbb40f8b421f361f4cc48ee57388c
   FirebaseCore: 5743c5785c074a794d35f2fff7ecc254a91e08b1
   FirebaseCoreDiagnostics: 92e07a649aeb66352b319d43bdd2ee3942af84cb
@@ -221,7 +221,7 @@ SPEC CHECKSUMS:
   PromisesObjC: 99b6f43f9e1044bd87a95a60beff28c2c44ddb72
   sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
   sqlite3: 3315c18c19fd107a68bf466f9f0adce934b03eaa
-  sqlite3_flutter_libs: e21c8c90448ce608a0d685e717727c46f37c6695
+  sqlite3_flutter_libs: 98c5c7c59b1ecfd0530a03412015d22db89ea261
 
 PODFILE CHECKSUM: b795830ddfbe8e8ec0addc946ebee83e088578f3
 
