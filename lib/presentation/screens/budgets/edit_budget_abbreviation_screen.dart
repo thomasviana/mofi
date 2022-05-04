@@ -41,7 +41,6 @@ class _EditBudgetAbbreviationScreenState
   Widget build(BuildContext context) {
     if (Platform.isIOS) {
       return CupertinoPageScaffold(
-        backgroundColor: AppColors.greyBackground,
         navigationBar: CupertinoNavigationBar(
           middle: Text(AppLocalizations.of(context)!.butgets_abbreviation),
           previousPageTitle: AppLocalizations.of(context)!.misc_back,
@@ -67,7 +66,6 @@ class _EditBudgetAbbreviationScreenState
       );
     } else {
       return Scaffold(
-        backgroundColor: AppColors.white,
         appBar: AppBar(
           title: Text(AppLocalizations.of(context)!.butgets_abbreviation),
           actions: [
@@ -139,7 +137,6 @@ class EditCategoryNameContent extends StatelessWidget {
               enabledBorder: InputBorder.none,
               errorBorder: InputBorder.none,
               disabledBorder: InputBorder.none,
-              hintText: '',
             ),
           ),
         )

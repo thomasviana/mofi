@@ -21,7 +21,6 @@ class _StatsScreenState extends State<StatsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
       body: BlocBuilder<StatsBloc, StatsState>(
         builder: (context, state) {
           return CustomScrollView(

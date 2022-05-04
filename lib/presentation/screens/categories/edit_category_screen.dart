@@ -43,7 +43,6 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
   Widget _buildState(BuildContext context, EditCategoryScreenState state) {
     if (Platform.isIOS) {
       return CupertinoPageScaffold(
-        backgroundColor: AppColors.greyBackground,
         child: CustomScrollView(
           physics:
               BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
@@ -78,7 +77,6 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
       );
     } else {
       return Scaffold(
-        backgroundColor: AppColors.white,
         appBar: AppBar(
           title: Text(
             state.isEditMode
@@ -122,6 +120,7 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
         child: CircularProgressIndicator(),
       );
     } else {
+      final _isDarkMode = Theme.of(context).brightness == Brightness.dark;
       return SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -139,8 +138,10 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
                       radius: 40,
                       backgroundColor: Color(state.category!.color),
                       child: CircleAvatar(
+                        backgroundColor: _isDarkMode
+                            ? AppColors.greyPrimary
+                            : AppColors.white,
                         radius: 36,
-                        backgroundColor: AppColors.white,
                         child: Icon(
                           IconData(
                             state.category!.icon,
@@ -181,64 +182,59 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
                 textAlign: TextAlign.start,
               ),
             ),
-            Container(
-              color: AppColors.white,
-              child: Column(
-                children: [
+            Column(
+              children: [
+                ListTile(
+                  leading: Icon(Icons.drive_file_rename_outline_outlined),
+                  minLeadingWidth: 2,
+                  title: Text(AppLocalizations.of(context)!.misc_name),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (state.category!.name.isNotEmpty)
+                        Text(
+                          state.category!.name,
+                          style: TextStyle(color: AppColors.greySecondary),
+                        ),
+                      if (state.category!.name.isEmpty)
+                        Text(
+                          AppLocalizations.of(context)!.misc_required,
+                          style: TextStyle(color: AppColors.red),
+                        ),
+                      SizedBox(width: 10),
+                      if (Platform.isIOS) const Icon(CupertinoIcons.forward),
+                    ],
+                  ),
+                  onTap: () => AppNavigator.navigateToEditCategoryNamePage(
+                    context,
+                    name: state.category!.name,
+                  ),
+                ),
+                if (!state.isEditMode)
                   ListTile(
-                    leading: Icon(Icons.drive_file_rename_outline_outlined),
+                    leading: Icon(Icons.compare_outlined),
                     minLeadingWidth: 2,
-                    title: Text(AppLocalizations.of(context)!.misc_name),
+                    title: Text(AppLocalizations.of(context)!.misc_type),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        if (state.category!.name.isNotEmpty)
-                          Text(
-                            state.category!.name,
-                            style: TextStyle(color: AppColors.greySecondary),
-                          ),
-                        if (state.category!.name.isEmpty)
-                          Text(
-                            AppLocalizations.of(context)!.misc_required,
-                            style: TextStyle(color: AppColors.red),
-                          ),
+                        Text(
+                          state.category!.type == CategoryType.income
+                              ? AppLocalizations.of(context)!
+                                  .categories_type_income_category
+                              : AppLocalizations.of(context)!
+                                  .categories_type_expense_category,
+                          style: TextStyle(color: AppColors.greySecondary),
+                        ),
                         SizedBox(width: 10),
                         if (Platform.isIOS) const Icon(CupertinoIcons.forward),
                       ],
                     ),
-                    onTap: () => AppNavigator.navigateToEditCategoryNamePage(
+                    onTap: () => AppNavigator.navigateToSelectCategoryTypePage(
                       context,
-                      name: state.category!.name,
                     ),
                   ),
-                  if (!state.isEditMode)
-                    ListTile(
-                      leading: Icon(Icons.compare_outlined),
-                      minLeadingWidth: 2,
-                      title: Text(AppLocalizations.of(context)!.misc_type),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            state.category!.type == CategoryType.income
-                                ? AppLocalizations.of(context)!
-                                    .categories_type_income_category
-                                : AppLocalizations.of(context)!
-                                    .categories_type_expense_category,
-                            style: TextStyle(color: AppColors.greySecondary),
-                          ),
-                          SizedBox(width: 10),
-                          if (Platform.isIOS)
-                            const Icon(CupertinoIcons.forward),
-                        ],
-                      ),
-                      onTap: () =>
-                          AppNavigator.navigateToSelectCategoryTypePage(
-                        context,
-                      ),
-                    ),
-                ],
-              ),
+              ],
             ),
             if (Platform.isAndroid) Divider(height: 2),
             Padding(
@@ -254,63 +250,53 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
                 textAlign: TextAlign.start,
               ),
             ),
-            Container(
-              color: state.subCategories == null || state.subCategories!.isEmpty
-                  ? null
-                  : AppColors.white,
-              child: ListView.separated(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                padding: subCategories.length == 1
-                    ? EdgeInsets.zero
-                    : EdgeInsets.only(top: 4, bottom: 4),
-                itemCount:
-                    subCategories.isNotEmpty ? subCategories.length - 1 : 0,
-                separatorBuilder: (BuildContext context, int index) =>
-                    Platform.isIOS
-                        ? const Divider(height: 2)
-                        : const SizedBox(),
-                itemBuilder: (BuildContext context, int index) {
-                  final subCategory = subCategories[index + 1];
-                  return ListTile(
-                    title: Text(subCategory.name),
-                    leading: ListTileLeadingIcon(
-                      icon: subCategory.icon,
-                      color: subCategory.color,
-                    ),
-                    trailing: Platform.isIOS
-                        ? const Icon(CupertinoIcons.forward)
-                        : null,
-                    onTap: () {
-                      AppNavigator.navigateToEditSubCategoryPage(
-                        context,
-                        subCategory,
-                      );
-                    },
-                  );
-                },
-              ),
+            ListView.separated(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              padding: subCategories.length == 1
+                  ? EdgeInsets.zero
+                  : EdgeInsets.only(top: 4, bottom: 4),
+              itemCount:
+                  subCategories.isNotEmpty ? subCategories.length - 1 : 0,
+              separatorBuilder: (BuildContext context, int index) =>
+                  Platform.isIOS ? const Divider(height: 2) : const SizedBox(),
+              itemBuilder: (BuildContext context, int index) {
+                final subCategory = subCategories[index + 1];
+                return ListTile(
+                  title: Text(subCategory.name),
+                  leading: ListTileLeadingIcon(
+                    icon: subCategory.icon,
+                    color: subCategory.color,
+                  ),
+                  trailing: Platform.isIOS
+                      ? const Icon(CupertinoIcons.forward)
+                      : null,
+                  onTap: () {
+                    AppNavigator.navigateToEditSubCategoryPage(
+                      context,
+                      subCategory,
+                    );
+                  },
+                );
+              },
             ),
             SizedBox(height: 40),
             if (Platform.isAndroid) Divider(height: 2),
-            Container(
-              color: AppColors.white,
-              child: ListTile(
-                title: Text(
-                  AppLocalizations.of(context)!.categories_add_subcategory,
-                ),
-                leading: CircleAvatar(
-                  maxRadius: 20,
-                  child: Icon(
-                    Icons.add,
-                    color: AppColors.white,
-                  ),
-                  backgroundColor: AppColors.greyDisabled,
-                ),
-                trailing:
-                    Platform.isIOS ? const Icon(CupertinoIcons.forward) : null,
-                onTap: () => bloc.add(SubcategoryAdded()),
+            ListTile(
+              title: Text(
+                AppLocalizations.of(context)!.categories_add_subcategory,
               ),
+              leading: CircleAvatar(
+                maxRadius: 20,
+                child: Icon(
+                  Icons.add,
+                  color: _isDarkMode ? null : AppColors.white,
+                ),
+                backgroundColor: AppColors.greyDisabled,
+              ),
+              trailing:
+                  Platform.isIOS ? const Icon(CupertinoIcons.forward) : null,
+              onTap: () => bloc.add(SubcategoryAdded()),
             ),
             SizedBox(height: 80),
           ],

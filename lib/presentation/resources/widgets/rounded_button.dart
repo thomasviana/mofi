@@ -22,7 +22,7 @@ class RoundedButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         primary: isEnabled ? theme.colorScheme.primary : AppColors.greyDisabled,
         elevation: 8,
-        minimumSize: Size(200, 50),
+        minimumSize: Size(240, 50),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25),
         ),

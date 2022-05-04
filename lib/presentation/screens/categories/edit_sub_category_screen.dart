@@ -36,16 +36,13 @@ class _EditSubCategoryScreenState extends State<EditSubCategoryScreen> {
   Widget build(BuildContext context) {
     if (Platform.isIOS) {
       return CupertinoPageScaffold(
-        backgroundColor: AppColors.greyBackground,
         child: CustomScrollView(
           physics:
               BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           slivers: [
             CupertinoSliverNavigationBar(
               stretch: true,
-              largeTitle: Text(
-                AppLocalizations.of(context)!.misc_subcategory,
-              ),
+              largeTitle: Text(AppLocalizations.of(context)!.misc_subcategory),
               previousPageTitle: AppLocalizations.of(context)!.misc_back,
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -86,7 +83,6 @@ class _EditSubCategoryScreenState extends State<EditSubCategoryScreen> {
       );
     } else {
       return Scaffold(
-        backgroundColor: AppColors.white,
         appBar: AppBar(
           title: Text(
             AppLocalizations.of(context)!.misc_subcategory,
@@ -159,7 +155,6 @@ class EditSubCategoryContent extends StatelessWidget {
                           backgroundColor: Color(state.subCategory!.color),
                           child: CircleAvatar(
                             radius: 36,
-                            backgroundColor: AppColors.white,
                             child: Icon(
                               IconData(
                                 state.subCategory!.icon,
@@ -200,41 +195,37 @@ class EditSubCategoryContent extends StatelessWidget {
                     textAlign: TextAlign.start,
                   ),
                 ),
-                Container(
-                  color: AppColors.white,
-                  child: Column(
-                    children: [
-                      ListTile(
-                        leading: Icon(Icons.drive_file_rename_outline_outlined),
-                        minLeadingWidth: 2,
-                        title: Text(AppLocalizations.of(context)!.misc_name),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            if (state.subCategory!.name.isNotEmpty)
-                              Text(
-                                state.subCategory!.name,
-                                style:
-                                    TextStyle(color: AppColors.greySecondary),
-                              ),
-                            if (state.subCategory!.name.isEmpty)
-                              Text(
-                                AppLocalizations.of(context)!.misc_required,
-                                style: TextStyle(color: AppColors.red),
-                              ),
-                            SizedBox(width: 10),
-                            if (Platform.isIOS)
-                              const Icon(CupertinoIcons.forward),
-                          ],
-                        ),
-                        onTap: () =>
-                            AppNavigator.navigateToEditSubCategoryNamePage(
-                          context,
-                          name: state.subCategory!.name,
-                        ),
+                Column(
+                  children: [
+                    ListTile(
+                      leading: Icon(Icons.drive_file_rename_outline_outlined),
+                      minLeadingWidth: 2,
+                      title: Text(AppLocalizations.of(context)!.misc_name),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          if (state.subCategory!.name.isNotEmpty)
+                            Text(
+                              state.subCategory!.name,
+                              style: TextStyle(color: AppColors.greySecondary),
+                            ),
+                          if (state.subCategory!.name.isEmpty)
+                            Text(
+                              AppLocalizations.of(context)!.misc_required,
+                              style: TextStyle(color: AppColors.red),
+                            ),
+                          SizedBox(width: 10),
+                          if (Platform.isIOS)
+                            const Icon(CupertinoIcons.forward),
+                        ],
                       ),
-                    ],
-                  ),
+                      onTap: () =>
+                          AppNavigator.navigateToEditSubCategoryNamePage(
+                        context,
+                        name: state.subCategory!.name,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

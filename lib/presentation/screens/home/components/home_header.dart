@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
@@ -137,6 +138,9 @@ class _AnimatedHeaderState extends State<AnimatedHeader>
 
   @override
   Widget build(BuildContext context) {
+    final Brightness _brightness =
+        SchedulerBinding.instance!.window.platformBrightness;
+    final bool _isDarkMode = _brightness == Brightness.dark;
     return BlocBuilder<StatsBloc, StatsState>(
       builder: (context, state) {
         return Material(
@@ -146,7 +150,19 @@ class _AnimatedHeaderState extends State<AnimatedHeader>
               Positioned.fill(
                 bottom: 50 * widget.opacity,
                 child: Container(
-                  color: AppColors.primaryColor,
+                  decoration: _isDarkMode
+                      ? null
+                      : BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: FractionalOffset(1.1, 0.0),
+                            end: FractionalOffset(0.0, 0.0),
+                            stops: const [0.0, 1.0],
+                            colors: const [
+                              AppColors.primaryColor,
+                              AppColors.primaryVariant,
+                            ],
+                          ),
+                        ),
                 ),
               ),
               Positioned(
@@ -177,6 +193,7 @@ class _AnimatedHeaderState extends State<AnimatedHeader>
                               AppColors.white.withOpacity(0.9 * headerOpacity),
                         ),
                       ),
+                      if (_isDarkMode) const SizedBox(height: 8),
                       FittedBox(
                         fit: BoxFit.fitWidth,
                         child: Container(

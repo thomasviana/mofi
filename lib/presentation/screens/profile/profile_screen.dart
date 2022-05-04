@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../resources/resources.dart';
 import 'components/user_profile.dart';
 
 class ProfileSreen extends StatelessWidget {
@@ -31,11 +30,8 @@ class ProfileSreen extends StatelessWidget {
       );
     } else {
       return Scaffold(
-        backgroundColor: AppColors.white,
         appBar: AppBar(
-          title: Text(
-            AppLocalizations.of(context)!.misc_settings,
-          ),
+          title: Text(AppLocalizations.of(context)!.misc_profile),
         ),
         body: const UserProfile(),
       );

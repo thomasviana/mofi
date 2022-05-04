@@ -15,7 +15,6 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     if (Platform.isIOS) {
       return CupertinoPageScaffold(
-        backgroundColor: AppColors.greyBackground,
         child: CustomScrollView(
           physics:
               BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
@@ -40,7 +39,6 @@ class SettingsScreen extends StatelessWidget {
       );
     } else {
       return Scaffold(
-        backgroundColor: AppColors.white,
         appBar: AppBar(
           title: Text(
             AppLocalizations.of(context)!.misc_settings,

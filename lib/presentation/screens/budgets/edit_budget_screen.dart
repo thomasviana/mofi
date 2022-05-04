@@ -42,7 +42,6 @@ class _EditBudgetScreenState extends State<EditBudgetScreen> {
   Widget _buildState(BuildContext context, EditBudgetScreenState state) {
     if (Platform.isIOS) {
       return CupertinoPageScaffold(
-        backgroundColor: AppColors.greyBackground,
         child: CustomScrollView(
           physics:
               BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
@@ -101,7 +100,6 @@ class _EditBudgetScreenState extends State<EditBudgetScreen> {
       );
     } else {
       return Scaffold(
-        backgroundColor: AppColors.white,
         appBar: AppBar(
           title: Text(
             state.isEditMode
@@ -212,61 +210,56 @@ class _EditBudgetScreenState extends State<EditBudgetScreen> {
               textAlign: TextAlign.start,
             ),
           ),
-          Container(
-            color: AppColors.white,
-            child: Column(
-              children: [
-                ListTile(
-                  leading: Icon(Icons.drive_file_rename_outline_outlined),
-                  minLeadingWidth: 2,
-                  title: Text(AppLocalizations.of(context)!.misc_name),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      if (state.budget!.name.isNotEmpty)
-                        Text(
-                          state.budget!.name,
-                          style: TextStyle(color: AppColors.greySecondary),
-                        ),
-                      if (state.budget!.name.isEmpty)
-                        Text(
-                          AppLocalizations.of(context)!.misc_required,
-                          style: TextStyle(color: AppColors.red),
-                        ),
-                      SizedBox(width: 10),
-                      if (Platform.isIOS) const Icon(CupertinoIcons.forward),
-                    ],
-                  ),
-                  onTap: () => AppNavigator.navigateToEditBudgetNamePage(
-                    context,
-                    name: state.budget!.name,
-                  ),
-                ),
-                if (Platform.isIOS) Divider(height: 2),
-                ListTile(
-                  leading: Icon(Icons.inbox),
-                  minLeadingWidth: 2,
-                  title:
-                      Text(AppLocalizations.of(context)!.butgets_abbreviation),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
+          Column(
+            children: [
+              ListTile(
+                leading: Icon(Icons.drive_file_rename_outline_outlined),
+                minLeadingWidth: 2,
+                title: Text(AppLocalizations.of(context)!.misc_name),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (state.budget!.name.isNotEmpty)
                       Text(
-                        state.budget!.abbreviation ?? '',
+                        state.budget!.name,
                         style: TextStyle(color: AppColors.greySecondary),
                       ),
-                      SizedBox(width: 10),
-                      if (Platform.isIOS) const Icon(CupertinoIcons.forward),
-                    ],
-                  ),
-                  onTap: () =>
-                      AppNavigator.navigateToEditBudgetAbbreviationPage(
-                    context,
-                    abbreviation: state.budget!.abbreviation ?? '',
-                  ),
+                    if (state.budget!.name.isEmpty)
+                      Text(
+                        AppLocalizations.of(context)!.misc_required,
+                        style: TextStyle(color: AppColors.red),
+                      ),
+                    SizedBox(width: 10),
+                    if (Platform.isIOS) const Icon(CupertinoIcons.forward),
+                  ],
                 ),
-              ],
-            ),
+                onTap: () => AppNavigator.navigateToEditBudgetNamePage(
+                  context,
+                  name: state.budget!.name,
+                ),
+              ),
+              if (Platform.isIOS) Divider(height: 2),
+              ListTile(
+                leading: Icon(Icons.inbox),
+                minLeadingWidth: 2,
+                title: Text(AppLocalizations.of(context)!.butgets_abbreviation),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      state.budget!.abbreviation ?? '',
+                      style: TextStyle(color: AppColors.greySecondary),
+                    ),
+                    SizedBox(width: 10),
+                    if (Platform.isIOS) const Icon(CupertinoIcons.forward),
+                  ],
+                ),
+                onTap: () => AppNavigator.navigateToEditBudgetAbbreviationPage(
+                  context,
+                  abbreviation: state.budget!.abbreviation ?? '',
+                ),
+              ),
+            ],
           ),
         ],
       );

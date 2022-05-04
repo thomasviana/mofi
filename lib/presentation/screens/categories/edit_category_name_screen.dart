@@ -39,7 +39,6 @@ class _EditCategoryNameScreenState extends State<EditCategoryNameScreen> {
   Widget build(BuildContext context) {
     if (Platform.isIOS) {
       return CupertinoPageScaffold(
-        backgroundColor: AppColors.greyBackground,
         navigationBar: CupertinoNavigationBar(
           middle: Text(AppLocalizations.of(context)!.misc_name),
           previousPageTitle: AppLocalizations.of(context)!.misc_back,
@@ -65,7 +64,6 @@ class _EditCategoryNameScreenState extends State<EditCategoryNameScreen> {
       );
     } else {
       return Scaffold(
-        backgroundColor: AppColors.white,
         appBar: AppBar(
           title: Text(AppLocalizations.of(context)!.misc_name),
           actions: [
@@ -123,7 +121,7 @@ class EditCategoryNameContent extends StatelessWidget {
               child: Text(AppLocalizations.of(context)!.global_new_name),
             ),
             labelStyle: TextStyle(
-              color: AppColors.black,
+              color: AppColors.greyDisabled,
               fontWeight: FontWeight.w300,
             ),
             hintStyle: TextStyle(fontSize: 18),
@@ -132,7 +130,6 @@ class EditCategoryNameContent extends StatelessWidget {
             enabledBorder: InputBorder.none,
             errorBorder: InputBorder.none,
             disabledBorder: InputBorder.none,
-            hintText: '',
           ),
         )
       ],

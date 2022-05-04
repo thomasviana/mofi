@@ -39,7 +39,6 @@ class _TransactionssScreenState extends State<TransactionsScreen> {
   Widget _buildState(BuildContext context, TransactionsState state) {
     return DefaultStickyHeaderController(
       child: Scaffold(
-        backgroundColor: AppColors.white,
         body: _buildBody(context, state),
       ),
     );
@@ -75,6 +74,7 @@ class _TransactionssScreenState extends State<TransactionsScreen> {
       return CustomScrollView(
         slivers: [
           SliverAppBar(
+            backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
             title: Text(
               AppLocalizations.of(context)!.misc_transactions,
             ),
@@ -144,7 +144,7 @@ class _StickyHeaderList extends StatelessWidget {
       key: UniqueKey(),
       header: Container(
         height: 30,
-        color: AppColors.white,
+        color: Theme.of(context).appBarTheme.backgroundColor,
         padding: EdgeInsets.symmetric(horizontal: 16.0),
         alignment: Alignment.centerLeft,
         child: Text(

@@ -14,7 +14,6 @@ class CategoriesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     if (Platform.isIOS) {
       return CupertinoPageScaffold(
-        backgroundColor: AppColors.greyBackground,
         child: CustomScrollView(
           physics:
               BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
@@ -32,7 +31,6 @@ class CategoriesScreen extends StatelessWidget {
       );
     } else {
       return Scaffold(
-        backgroundColor: AppColors.white,
         appBar: AppBar(
           title: Text(AppLocalizations.of(context)!.misc_categories),
         ),
@@ -70,33 +68,30 @@ class CategoriesContent extends StatelessWidget {
                   textAlign: TextAlign.start,
                 ),
               ),
-              Container(
-                color: AppColors.white,
-                child: ListView.separated(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  padding: EdgeInsets.only(top: 8),
-                  itemCount: state.expenseCategories.length,
-                  separatorBuilder: (BuildContext context, int index) =>
-                      const Divider(height: 2),
-                  itemBuilder: (BuildContext context, int index) {
-                    final category = state.expenseCategories[index];
-                    return ListTile(
-                      title: Text(category.name),
-                      leading: ListTileLeadingIcon(
-                        icon: category.icon,
-                        color: category.color,
-                      ),
-                      trailing: Platform.isIOS
-                          ? const Icon(CupertinoIcons.forward)
-                          : null,
-                      onTap: () => AppNavigator.navigateToEditCategoryPage(
-                        context,
-                        category: category,
-                      ),
-                    );
-                  },
-                ),
+              ListView.separated(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                padding: EdgeInsets.only(top: 8),
+                itemCount: state.expenseCategories.length,
+                separatorBuilder: (BuildContext context, int index) =>
+                    const Divider(height: 2),
+                itemBuilder: (BuildContext context, int index) {
+                  final category = state.expenseCategories[index];
+                  return ListTile(
+                    title: Text(category.name),
+                    leading: ListTileLeadingIcon(
+                      icon: category.icon,
+                      color: category.color,
+                    ),
+                    trailing: Platform.isIOS
+                        ? const Icon(CupertinoIcons.forward)
+                        : null,
+                    onTap: () => AppNavigator.navigateToEditCategoryPage(
+                      context,
+                      category: category,
+                    ),
+                  );
+                },
               ),
               Padding(
                 padding: const EdgeInsets.only(
@@ -113,35 +108,32 @@ class CategoriesContent extends StatelessWidget {
                   textAlign: TextAlign.start,
                 ),
               ),
-              Container(
-                color: AppColors.white,
-                child: ListView.separated(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  padding: EdgeInsets.only(top: 8),
-                  itemCount: state.incomeCategories.length,
-                  separatorBuilder: (BuildContext context, int index) =>
-                      const Divider(height: 2),
-                  itemBuilder: (BuildContext context, int index) {
-                    final category = state.incomeCategories[index];
-                    return ListTile(
-                      title: Text(state.incomeCategories[index].name),
-                      leading: ListTileLeadingIcon(
-                        icon: category.icon,
-                        color: category.color,
-                      ),
-                      trailing: Platform.isIOS
-                          ? const Icon(CupertinoIcons.forward)
-                          : null,
-                      onTap: () {
-                        AppNavigator.navigateToEditCategoryPage(
-                          context,
-                          category: category,
-                        );
-                      },
-                    );
-                  },
-                ),
+              ListView.separated(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                padding: EdgeInsets.only(top: 8),
+                itemCount: state.incomeCategories.length,
+                separatorBuilder: (BuildContext context, int index) =>
+                    const Divider(height: 2),
+                itemBuilder: (BuildContext context, int index) {
+                  final category = state.incomeCategories[index];
+                  return ListTile(
+                    title: Text(state.incomeCategories[index].name),
+                    leading: ListTileLeadingIcon(
+                      icon: category.icon,
+                      color: category.color,
+                    ),
+                    trailing: Platform.isIOS
+                        ? const Icon(CupertinoIcons.forward)
+                        : null,
+                    onTap: () {
+                      AppNavigator.navigateToEditCategoryPage(
+                        context,
+                        category: category,
+                      );
+                    },
+                  );
+                },
               ),
             ],
           ),

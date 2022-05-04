@@ -111,7 +111,6 @@ class LastTransactionsListTile extends StatelessWidget {
         backgroundColor: Color(transaction.color),
         child: CircleAvatar(
           radius: 16,
-          backgroundColor: AppColors.white,
           child: Icon(
             IconData(
               transaction.icon,

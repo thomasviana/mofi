@@ -20,7 +20,7 @@ class MiniCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: AppColors.white.withOpacity(opacity),
+      color: Theme.of(context).cardColor.withOpacity(opacity),
       margin: EdgeInsets.all(8),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
@@ -60,7 +60,11 @@ class MiniCard extends StatelessWidget {
               amount.toCurrencyFormat(),
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: AppColors.black.withOpacity(opacity),
+                color: Theme.of(context)
+                    .textTheme
+                    .bodyText1!
+                    .color!
+                    .withOpacity(opacity),
               ),
             ),
           ],

@@ -14,7 +14,6 @@ class BudgetsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     if (Platform.isIOS) {
       return CupertinoPageScaffold(
-        backgroundColor: AppColors.greyBackground,
         child: CustomScrollView(
           physics:
               BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
@@ -40,7 +39,6 @@ class BudgetsScreen extends StatelessWidget {
       );
     } else {
       return Scaffold(
-        backgroundColor: AppColors.white,
         appBar: AppBar(
           title: Text(AppLocalizations.of(context)!.misc_budgets),
           actions: [

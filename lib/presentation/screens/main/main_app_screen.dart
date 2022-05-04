@@ -153,8 +153,8 @@ class NavBarButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: MaterialButton(
-        highlightColor: AppColors.white,
-        splashColor: AppColors.white,
+        highlightColor: Colors.transparent,
+        splashColor: Colors.transparent,
         onPressed: onPressed,
         child: Icon(
           isSelected ? iconSelected : icon,

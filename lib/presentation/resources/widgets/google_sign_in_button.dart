@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../colors.dart';
+import '../resources.dart';
 
 class GoogleSignInButton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -13,11 +13,12 @@ class GoogleSignInButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        primary: AppColors.white,
+        primary: _isDarkMode ? AppColors.greyPrimary : AppColors.white,
         elevation: 8,
-        minimumSize: Size(200, 50),
+        minimumSize: Size(240, 50),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25),
         ),
@@ -29,14 +30,15 @@ class GoogleSignInButton extends StatelessWidget {
         children: [
           CircleAvatar(
             backgroundImage: AssetImage('assets/images/google_icon.png'),
-            backgroundColor: AppColors.greyBackground,
+            backgroundColor:
+                _isDarkMode ? AppColors.greyPrimary : AppColors.white,
           ),
           SizedBox(width: 8),
           Text(
             AppLocalizations.of(context)!.widgets_google_sign_in_button,
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              color: AppColors.textColor,
+              color: Theme.of(context).textTheme.bodyText1!.color,
             ),
           ),
         ],

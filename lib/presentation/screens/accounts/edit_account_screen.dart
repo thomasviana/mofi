@@ -43,7 +43,6 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
   Widget _buildState(BuildContext context, EditAccountScreenState state) {
     if (Platform.isIOS) {
       return CupertinoPageScaffold(
-        backgroundColor: AppColors.greyBackground,
         child: CustomScrollView(
           physics:
               BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
@@ -102,7 +101,6 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
       );
     } else {
       return Scaffold(
-        backgroundColor: AppColors.white,
         appBar: AppBar(
           title: Text(
             state.isEditMode
@@ -216,75 +214,72 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
               textAlign: TextAlign.start,
             ),
           ),
-          Container(
-            color: AppColors.white,
-            child: Column(
-              children: [
-                ListTile(
-                  leading: Icon(Icons.drive_file_rename_outline_outlined),
-                  minLeadingWidth: 2,
-                  title: Text(AppLocalizations.of(context)!.misc_name),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      if (state.account!.name.isNotEmpty)
-                        Text(
-                          state.account!.name,
-                          style: TextStyle(color: AppColors.greySecondary),
-                        ),
-                      if (state.account!.name.isEmpty)
-                        Text(
-                          AppLocalizations.of(context)!.misc_required,
-                          style: TextStyle(color: AppColors.red),
-                        ),
-                      SizedBox(width: 10),
-                      if (Platform.isIOS) const Icon(CupertinoIcons.forward),
-                    ],
-                  ),
-                  onTap: () => AppNavigator.navigateToEditAccountNamePage(
-                    context,
-                    name: state.account!.name,
-                  ),
-                ),
-                if (Platform.isIOS) Divider(height: 2),
-                ListTile(
-                  leading: Icon(
-                    IconData(
-                      state.account!.icon,
-                      fontFamily: 'MaterialIcons',
-                    ),
-                  ),
-                  minLeadingWidth: 2,
-                  title: Text(AppLocalizations.of(context)!.misc_type),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
+          Column(
+            children: [
+              ListTile(
+                leading: Icon(Icons.drive_file_rename_outline_outlined),
+                minLeadingWidth: 2,
+                title: Text(AppLocalizations.of(context)!.misc_name),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (state.account!.name.isNotEmpty)
                       Text(
-                        state.account!.typeAsString,
+                        state.account!.name,
                         style: TextStyle(color: AppColors.greySecondary),
                       ),
-                      SizedBox(width: 10),
-                      if (Platform.isIOS) const Icon(CupertinoIcons.forward),
-                    ],
-                  ),
-                  onTap: () {
-                    showModalBottomSheet(
-                      backgroundColor: Colors.transparent,
-                      isScrollControlled: true,
-                      context: context,
-                      builder: (context) => _EditTypeBottomSheet(
-                        state: state,
-                        onCancelPressed: () {},
-                        onTypeSelected: (accountType) {
-                          bloc.add(TypeChanged(accountType));
-                          AppNavigator.navigateBack(context);
-                        },
+                    if (state.account!.name.isEmpty)
+                      Text(
+                        AppLocalizations.of(context)!.misc_required,
+                        style: TextStyle(color: AppColors.red),
                       ),
-                    );
-                  },
+                    SizedBox(width: 10),
+                    if (Platform.isIOS) const Icon(CupertinoIcons.forward),
+                  ],
                 ),
-              ],
-            ),
+                onTap: () => AppNavigator.navigateToEditAccountNamePage(
+                  context,
+                  name: state.account!.name,
+                ),
+              ),
+              if (Platform.isIOS) Divider(height: 2),
+              ListTile(
+                leading: Icon(
+                  IconData(
+                    state.account!.icon,
+                    fontFamily: 'MaterialIcons',
+                  ),
+                ),
+                minLeadingWidth: 2,
+                title: Text(AppLocalizations.of(context)!.misc_type),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      state.account!.typeAsString,
+                      style: TextStyle(color: AppColors.greySecondary),
+                    ),
+                    SizedBox(width: 10),
+                    if (Platform.isIOS) const Icon(CupertinoIcons.forward),
+                  ],
+                ),
+                onTap: () {
+                  showModalBottomSheet(
+                    backgroundColor: Colors.transparent,
+                    isScrollControlled: true,
+                    context: context,
+                    builder: (context) => _EditTypeBottomSheet(
+                      state: state,
+                      onCancelPressed: () {},
+                      onTypeSelected: (accountType) {
+                        bloc.add(TypeChanged(accountType));
+                        AppNavigator.navigateBack(context);
+                      },
+                    ),
+                  );
+                },
+              ),
+            ],
           ),
         ],
       );
@@ -459,12 +454,13 @@ class _EditTypeBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return DraggableScrollableSheet(
       initialChildSize: 0.95,
       maxChildSize: 0.95,
       builder: (context, controller) => Container(
-        decoration: const BoxDecoration(
-          color: Colors.white,
+        decoration: BoxDecoration(
+          color: _isDarkMode ? AppColors.greyPrimary : Colors.white,
           borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
         ),
         padding: const EdgeInsets.symmetric(vertical: 8.0),

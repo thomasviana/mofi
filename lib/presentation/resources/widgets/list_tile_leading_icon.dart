@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../resources.dart';
+import '../colors.dart';
 
 class ListTileLeadingIcon extends StatelessWidget {
   final int icon;
@@ -14,12 +14,13 @@ class ListTileLeadingIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return CircleAvatar(
       backgroundColor: Color(color),
       radius: 20,
       child: CircleAvatar(
+        backgroundColor: _isDarkMode ? AppColors.greyPrimary : AppColors.white,
         radius: 18,
-        backgroundColor: AppColors.white,
         child: Icon(
           IconData(
             icon,
