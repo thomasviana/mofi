@@ -36,12 +36,14 @@ class TransactionsBloc extends Bloc<TransactionEvent, TransactionsState> {
             status: Status.failure,
           ),
         ),
-        (transactions) => emit(
-          state.copyWith(
-            transactions: transactions,
-            status: Status.success,
-          ),
-        ),
+        (transactions) => transactions.isEmpty
+            ? emit(state.copyWith(status: Status.failure))
+            : emit(
+                state.copyWith(
+                  transactions: transactions,
+                  status: Status.success,
+                ),
+              ),
       ),
     );
   }
