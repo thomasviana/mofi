@@ -64,6 +64,14 @@ class AppNavigator {
     Navigator.pushNamed(context, ROUTE_AUTH_PAGE);
   }
 
+  static void navigateBackToAuthPage(BuildContext context) {
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      ROUTE_AUTH_PAGE,
+      (route) => false,
+    );
+  }
+
   static void navigateToMainPage(BuildContext context) {
     Navigator.pushNamedAndRemoveUntil(
       context,

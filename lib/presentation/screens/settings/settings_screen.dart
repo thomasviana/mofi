@@ -105,7 +105,7 @@ class SettingsContent extends StatelessWidget {
           leading: Icon(Icons.logout, color: AppColors.red),
           onTap: () {
             context.read<AuthBloc>().add(LogoutRequested());
-            AppNavigator.navigateToAuthPage(context);
+            AppNavigator.navigateBackToAuthPage(context);
           },
         ),
         Divider(height: 2),
