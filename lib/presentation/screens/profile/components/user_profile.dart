@@ -54,8 +54,7 @@ class UserProfile extends StatelessWidget {
                       child: SizedBox(height: 150, width: 150, child: image),
                     ),
                   ),
-                  const SizedBox(height: 12),
-                  Text(user.id.value),
+                  const SizedBox(height: 20),
                   Form(
                     child: Column(
                       children: [
