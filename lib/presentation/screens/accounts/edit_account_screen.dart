@@ -64,25 +64,27 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                     state.account?.id.value != 'wallet',
                     state.isEditMode
                   ].flatten())
-                    GestureDetector(
-                      child: Icon(
+                    CupertinoButton(
+                      child: const Icon(
                         CupertinoIcons.trash_circle,
                         color: AppColors.red,
-                        size: 24,
+                        size: 28,
                       ),
-                      onTap: () {
+                      padding: EdgeInsets.zero,
+                      onPressed: () {
                         bloc.add(AccountDeleted());
                         AppNavigator.navigateBack(context);
                       },
                     ),
-                  SizedBox(width: 8),
-                  GestureDetector(
-                    child: Icon(
+                  SizedBox(width: 4),
+                  CupertinoButton(
+                    child: const Icon(
                       CupertinoIcons.checkmark_circle,
                       color: AppColors.primaryColor,
-                      size: 24,
+                      size: 28,
                     ),
-                    onTap: () {
+                    padding: EdgeInsets.zero,
+                    onPressed: () {
                       if (state.account!.name.isEmpty) return;
                       bloc.add(AccountSaved());
                       AppNavigator.navigateBack(context);

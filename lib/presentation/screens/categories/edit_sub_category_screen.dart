@@ -47,25 +47,27 @@ class _EditSubCategoryScreenState extends State<EditSubCategoryScreen> {
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  GestureDetector(
-                    child: Icon(
+                  CupertinoButton(
+                    child: const Icon(
                       CupertinoIcons.trash_circle,
                       color: AppColors.red,
-                      size: 24,
+                      size: 28,
                     ),
-                    onTap: () {
+                    padding: EdgeInsets.zero,
+                    onPressed: () {
                       bloc.add(SubCategoryDeleted());
                       AppNavigator.navigateBack(context);
                     },
                   ),
-                  SizedBox(width: 8),
-                  GestureDetector(
-                    child: Icon(
+                  SizedBox(width: 4),
+                  CupertinoButton(
+                    child: const Icon(
                       CupertinoIcons.checkmark_circle,
                       color: AppColors.primaryColor,
-                      size: 24,
+                      size: 28,
                     ),
-                    onTap: () {
+                    padding: EdgeInsets.zero,
+                    onPressed: () {
                       bloc.add(SubCategorySaved());
                       AppNavigator.navigateBack(context);
                     },
@@ -130,6 +132,7 @@ class EditSubCategoryContent extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         } else {
+          final _isDarkMode = Theme.of(context).brightness == Brightness.dark;
           return SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -154,6 +157,9 @@ class EditSubCategoryContent extends StatelessWidget {
                           radius: 40,
                           backgroundColor: Color(state.subCategory!.color),
                           child: CircleAvatar(
+                            backgroundColor: _isDarkMode
+                                ? AppColors.greyPrimary
+                                : AppColors.white,
                             radius: 36,
                             child: Icon(
                               IconData(

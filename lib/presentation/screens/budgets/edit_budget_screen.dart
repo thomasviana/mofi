@@ -63,25 +63,27 @@ class _EditBudgetScreenState extends State<EditBudgetScreen> {
                     state.budget?.id.value != 'seg',
                     state.budget?.id.value != 'dar'
                   ].flatten())
-                    GestureDetector(
-                      child: Icon(
+                    CupertinoButton(
+                      child: const Icon(
                         CupertinoIcons.trash_circle,
                         color: AppColors.red,
-                        size: 24,
+                        size: 28,
                       ),
-                      onTap: () {
+                      padding: EdgeInsets.zero,
+                      onPressed: () {
                         bloc.add(BudgetDeleted());
                         AppNavigator.navigateBack(context);
                       },
                     ),
-                  SizedBox(width: 8),
-                  GestureDetector(
-                    child: Icon(
+                  SizedBox(width: 4),
+                  CupertinoButton(
+                    child: const Icon(
                       CupertinoIcons.checkmark_circle,
                       color: AppColors.primaryColor,
-                      size: 24,
+                      size: 28,
                     ),
-                    onTap: () {
+                    padding: EdgeInsets.zero,
+                    onPressed: () {
                       if (state.budget!.name.isEmpty) return;
                       bloc.add(BudgetSaved());
                       AppNavigator.navigateBack(context);
