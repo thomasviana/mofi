@@ -29,8 +29,8 @@ class CashFlowDetails extends StatelessWidget {
                     color: AppColors.green,
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child:
-                      Icon(Icons.arrow_forward_rounded, color: AppColors.white),
+                  child: const Icon(Icons.arrow_forward_rounded,
+                      color: AppColors.white),
                 ),
                 title: Text(
                   AppLocalizations.of(context)!.stats_cash_flow_total_incomes,
@@ -46,7 +46,8 @@ class CashFlowDetails extends StatelessWidget {
                     color: AppColors.red,
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Icon(Icons.arrow_back_rounded, color: AppColors.white),
+                  child: const Icon(Icons.arrow_back_rounded,
+                      color: AppColors.white),
                 ),
                 title: Text(
                   AppLocalizations.of(context)!.stats_cash_flow_total_expenses,

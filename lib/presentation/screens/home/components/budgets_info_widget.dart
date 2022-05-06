@@ -79,7 +79,7 @@ class BudgetsInfoWidget extends StatelessWidget {
                               ],
                             ),
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           AnimatedProgressBar(
                             currentValue: budgetData.percent,
                             displayText: '%',

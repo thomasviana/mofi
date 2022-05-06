@@ -36,7 +36,7 @@ class UserProfile extends StatelessWidget {
               imageUrl: user.photoUrl!,
               progressIndicatorBuilder: (_, __, progress) =>
                   CircularProgressIndicator(value: progress.progress),
-              errorWidget: (_, __, ___) => Icon(Icons.error),
+              errorWidget: (_, __, ___) => const Icon(Icons.error),
               fit: BoxFit.cover,
             );
           }
@@ -88,7 +88,7 @@ class UserProfile extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
                   BlocBuilder<ProfileScreenBloc, ProfileScreenState>(
                     builder: (context, state) {
                       if (state.formStatus == FormStatus.saving) {

@@ -69,7 +69,7 @@ class BudgetsContent extends StatelessWidget {
           padding: EdgeInsets.zero,
           itemCount: state.budgets.length,
           separatorBuilder: (BuildContext context, int index) =>
-              Platform.isIOS ? const Divider(height: 2) : SizedBox(),
+              Platform.isIOS ? const Divider(height: 2) : const SizedBox(),
           itemBuilder: (BuildContext context, int index) {
             final budget = state.budgets[index];
             bool hasAbbreviation = true;
@@ -89,7 +89,7 @@ class BudgetsContent extends StatelessWidget {
                           color: AppColors.white,
                         ),
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.inbox,
                         color: AppColors.white,
                       ),

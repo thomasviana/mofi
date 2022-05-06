@@ -83,7 +83,7 @@ class SelectBudgetScreen extends StatelessWidget {
                             fontSize: 14,
                           ),
                         )
-                      : Icon(
+                      : const Icon(
                           Icons.inbox,
                           color: AppColors.white,
                         ),
@@ -93,7 +93,8 @@ class SelectBudgetScreen extends StatelessWidget {
                   () => null,
                   (stateBudget) {
                     if (stateBudget.id == budget.id) {
-                      return Icon(Icons.check, color: AppColors.primaryColor);
+                      return const Icon(Icons.check,
+                          color: AppColors.primaryColor);
                     }
                     return null;
                   },

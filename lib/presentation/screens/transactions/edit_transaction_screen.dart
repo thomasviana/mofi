@@ -228,7 +228,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
             controller: _scrollController,
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             children: [
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: CupertinoSlidingSegmentedControl(
@@ -279,7 +279,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Divider(height: 2),
@@ -299,7 +299,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
                       account.name,
                       style: TextStyle(color: AppColors.greySecondary),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     const Icon(CupertinoIcons.forward)
                   ],
                 ),
@@ -406,7 +406,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
                               color: AppColors.white,
                             ),
                           )
-                        : Icon(
+                        : const Icon(
                             Icons.inbox,
                             color: AppColors.white,
                           ),
@@ -436,7 +436,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
                   leading: CircleAvatar(
                     maxRadius: 20,
                     backgroundColor: AppColors.primaryColor,
-                    child: Icon(
+                    child: const Icon(
                       Icons.all_inbox_rounded,
                       color: AppColors.white,
                     ),
@@ -475,7 +475,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
                 ),
               Divider(height: 2),
               ListTile(
-                leading: Icon(Icons.drive_file_rename_outline_outlined),
+                leading: const Icon(Icons.drive_file_rename_outline_outlined),
                 minLeadingWidth: 2,
                 title: Text(AppLocalizations.of(context)!.misc_note),
                 trailing: Row(
@@ -485,7 +485,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
                       state.transaction.note ?? '',
                       style: TextStyle(color: AppColors.greySecondary),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     const Icon(CupertinoIcons.forward)
                   ],
                 ),
@@ -501,7 +501,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
                 data: Theme.of(context)
                     .copyWith(dividerColor: Colors.transparent),
                 child: ExpansionTile(
-                  leading: Icon(Icons.calendar_today_rounded),
+                  leading: const Icon(Icons.calendar_today_rounded),
                   title: Transform.translate(
                     offset: Offset(-20, 0),
                     child: Text(AppLocalizations.of(context)!.misc_date),
@@ -513,10 +513,10 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
                         getFormattedDate(dateTime.toDate()),
                         style: TextStyle(color: AppColors.greySecondary),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       Transform.rotate(
                         angle: dateArrowTransform,
-                        child: Icon(CupertinoIcons.forward),
+                        child: const Icon(CupertinoIcons.forward),
                       )
                     ],
                   ),

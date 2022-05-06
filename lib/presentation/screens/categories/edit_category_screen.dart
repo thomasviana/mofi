@@ -125,7 +125,7 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Center(
               child: InkWell(
                 onTap: () {
@@ -166,7 +166,7 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
               ),
             ),
             if (Platform.isAndroid) ...[
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Divider(height: 2),
             ],
             Padding(
@@ -201,7 +201,7 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
                           AppLocalizations.of(context)!.misc_required,
                           style: TextStyle(color: AppColors.red),
                         ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       if (Platform.isIOS) const Icon(CupertinoIcons.forward),
                     ],
                   ),
@@ -226,7 +226,7 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
                                   .categories_type_expense_category,
                           style: TextStyle(color: AppColors.greySecondary),
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         if (Platform.isIOS) const Icon(CupertinoIcons.forward),
                       ],
                     ),
@@ -280,7 +280,7 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
                 );
               },
             ),
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
             if (Platform.isAndroid) Divider(height: 2),
             ListTile(
               title: Text(
@@ -298,7 +298,7 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
                   Platform.isIOS ? const Icon(CupertinoIcons.forward) : null,
               onTap: () => bloc.add(SubcategoryAdded()),
             ),
-            SizedBox(height: 80),
+            const SizedBox(height: 80),
           ],
         ),
       );

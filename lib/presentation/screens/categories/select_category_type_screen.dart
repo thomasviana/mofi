@@ -38,7 +38,7 @@ class SelectCategoryTypeScreen extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: Icon(
+            leading: const Icon(
               Icons.monetization_on_outlined,
               color: AppColors.red,
             ),
@@ -47,7 +47,7 @@ class SelectCategoryTypeScreen extends StatelessWidget {
               AppLocalizations.of(context)!.categories_type_expense_category,
             ),
             trailing: state.category!.type == CategoryType.expense
-                ? Icon(Icons.check, color: AppColors.primaryColor)
+                ? const Icon(Icons.check, color: AppColors.primaryColor)
                 : null,
             onTap: () {
               context
@@ -58,7 +58,7 @@ class SelectCategoryTypeScreen extends StatelessWidget {
           ),
           const Divider(height: 0),
           ListTile(
-            leading: Icon(
+            leading: const Icon(
               Icons.monetization_on_outlined,
               color: AppColors.green,
             ),
@@ -67,7 +67,7 @@ class SelectCategoryTypeScreen extends StatelessWidget {
               AppLocalizations.of(context)!.categories_type_income_category,
             ),
             trailing: state.category!.type == CategoryType.income
-                ? Icon(Icons.check, color: AppColors.primaryColor)
+                ? const Icon(Icons.check, color: AppColors.primaryColor)
                 : null,
             onTap: () {
               context

@@ -68,7 +68,7 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
       ),
       body: Column(
         children: [
-          SizedBox(height: 50),
+          const SizedBox(height: 50),
           TextField(
             controller: textEditingController,
             keyboardType: TextInputType.name,

@@ -43,7 +43,7 @@ class ExpensesScreen extends StatelessWidget {
               ExpensesByBudget(),
               ExpensesByAccount(),
               SliverToBoxAdapter(
-                child: SizedBox(height: 16),
+                child: const SizedBox(height: 16),
               )
             ],
           );

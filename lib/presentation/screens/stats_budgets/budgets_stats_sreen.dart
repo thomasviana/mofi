@@ -39,7 +39,7 @@ class BudgetsStatsScreen extends StatelessWidget {
               BudgetsProgress(),
               BudgetsSavings(),
               SliverToBoxAdapter(
-                child: SizedBox(height: 16),
+                child: const SizedBox(height: 16),
               )
             ],
           );

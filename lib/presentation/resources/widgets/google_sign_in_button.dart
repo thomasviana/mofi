@@ -33,7 +33,7 @@ class GoogleSignInButton extends StatelessWidget {
             backgroundColor:
                 _isDarkMode ? AppColors.greyPrimary : AppColors.white,
           ),
-          SizedBox(width: 8),
+          const SizedBox(width: 8),
           Text(
             AppLocalizations.of(context)!.widgets_google_sign_in_button,
             style: TextStyle(

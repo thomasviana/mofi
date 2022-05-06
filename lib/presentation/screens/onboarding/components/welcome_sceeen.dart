@@ -20,7 +20,7 @@ class WelcomeScreen extends StatelessWidget {
             width: 250,
             height: 250,
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           RichText(
             text: TextSpan(
               text:
@@ -36,9 +36,9 @@ class WelcomeScreen extends StatelessWidget {
             ),
             textAlign: TextAlign.center,
           ),
-          SizedBox(height: 60),
+          const SizedBox(height: 60),
           Text(AppLocalizations.of(context)!.onboarding_welcome_swipe_message),
-          SizedBox(height: 60),
+          const SizedBox(height: 60),
         ],
       ),
     );

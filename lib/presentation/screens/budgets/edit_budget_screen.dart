@@ -75,7 +75,7 @@ class _EditBudgetScreenState extends State<EditBudgetScreen> {
                         AppNavigator.navigateBack(context);
                       },
                     ),
-                  SizedBox(width: 4),
+                  const SizedBox(width: 4),
                   CupertinoButton(
                     child: const Icon(
                       CupertinoIcons.checkmark_circle,
@@ -115,7 +115,7 @@ class _EditBudgetScreenState extends State<EditBudgetScreen> {
               state.budget?.id.value != 'dar'
             ].flatten())
               IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.delete_outline,
                   color: AppColors.red,
                 ),
@@ -125,7 +125,7 @@ class _EditBudgetScreenState extends State<EditBudgetScreen> {
                 },
               ),
             IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.check,
               ),
               onPressed: () {
@@ -176,7 +176,7 @@ class _EditBudgetScreenState extends State<EditBudgetScreen> {
                               color: AppColors.white,
                             ),
                           )
-                        : Icon(
+                        : const Icon(
                             Icons.inbox,
                             color: AppColors.white,
                             size: 40,
@@ -184,7 +184,7 @@ class _EditBudgetScreenState extends State<EditBudgetScreen> {
                   ),
                   CircleAvatar(
                     maxRadius: 15,
-                    child: Icon(
+                    child: const Icon(
                       Icons.edit,
                       color: AppColors.white,
                       size: 15,
@@ -196,7 +196,7 @@ class _EditBudgetScreenState extends State<EditBudgetScreen> {
             ),
           ),
           if (Platform.isAndroid) ...[
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Divider(height: 2),
           ],
           Padding(
@@ -215,7 +215,7 @@ class _EditBudgetScreenState extends State<EditBudgetScreen> {
           Column(
             children: [
               ListTile(
-                leading: Icon(Icons.drive_file_rename_outline_outlined),
+                leading: const Icon(Icons.drive_file_rename_outline_outlined),
                 minLeadingWidth: 2,
                 title: Text(AppLocalizations.of(context)!.misc_name),
                 trailing: Row(
@@ -231,7 +231,7 @@ class _EditBudgetScreenState extends State<EditBudgetScreen> {
                         AppLocalizations.of(context)!.misc_required,
                         style: TextStyle(color: AppColors.red),
                       ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     if (Platform.isIOS) const Icon(CupertinoIcons.forward),
                   ],
                 ),
@@ -242,7 +242,7 @@ class _EditBudgetScreenState extends State<EditBudgetScreen> {
               ),
               if (Platform.isIOS) Divider(height: 2),
               ListTile(
-                leading: Icon(Icons.inbox),
+                leading: const Icon(Icons.inbox),
                 minLeadingWidth: 2,
                 title: Text(AppLocalizations.of(context)!.butgets_abbreviation),
                 trailing: Row(
@@ -252,7 +252,7 @@ class _EditBudgetScreenState extends State<EditBudgetScreen> {
                       state.budget!.abbreviation ?? '',
                       style: TextStyle(color: AppColors.greySecondary),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     if (Platform.isIOS) const Icon(CupertinoIcons.forward),
                   ],
                 ),

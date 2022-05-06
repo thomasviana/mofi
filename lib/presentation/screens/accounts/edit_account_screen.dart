@@ -76,7 +76,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                         AppNavigator.navigateBack(context);
                       },
                     ),
-                  SizedBox(width: 4),
+                  const SizedBox(width: 4),
                   CupertinoButton(
                     child: const Icon(
                       CupertinoIcons.checkmark_circle,
@@ -117,7 +117,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
               state.isEditMode
             ].flatten())
               IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.delete_outline,
                   color: AppColors.red,
                 ),
@@ -127,7 +127,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                 },
               ),
             IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.check,
               ),
               onPressed: () {
@@ -188,7 +188,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                   ),
                   CircleAvatar(
                     maxRadius: 15,
-                    child: Icon(
+                    child: const Icon(
                       Icons.edit,
                       color: AppColors.white,
                       size: 15,
@@ -200,7 +200,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
             ),
           ),
           if (Platform.isAndroid) ...[
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Divider(height: 2),
           ],
           Padding(
@@ -219,7 +219,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
           Column(
             children: [
               ListTile(
-                leading: Icon(Icons.drive_file_rename_outline_outlined),
+                leading: const Icon(Icons.drive_file_rename_outline_outlined),
                 minLeadingWidth: 2,
                 title: Text(AppLocalizations.of(context)!.misc_name),
                 trailing: Row(
@@ -235,7 +235,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                         AppLocalizations.of(context)!.misc_required,
                         style: TextStyle(color: AppColors.red),
                       ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     if (Platform.isIOS) const Icon(CupertinoIcons.forward),
                   ],
                 ),
@@ -261,7 +261,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                       state.account!.typeAsString,
                       style: TextStyle(color: AppColors.greySecondary),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     if (Platform.isIOS) const Icon(CupertinoIcons.forward),
                   ],
                 ),
@@ -514,32 +514,32 @@ class _EditTypeBottomSheet extends StatelessWidget {
             ),
             Divider(height: 2),
             ListTile(
-              leading: Icon(AppIcons.bank),
+              leading: const Icon(AppIcons.bank),
               minLeadingWidth: 2,
               title:
                   Text(AppLocalizations.of(context)!.accounts_banking_account),
               trailing: state.account!.type == AccountType.bank
-                  ? Icon(Icons.check, color: AppColors.primaryColor)
+                  ? const Icon(Icons.check, color: AppColors.primaryColor)
                   : null,
               onTap: () => onTypeSelected(AccountType.bank),
             ),
             Divider(height: 2),
             ListTile(
-              leading: Icon(AppIcons.cash),
+              leading: const Icon(AppIcons.cash),
               minLeadingWidth: 2,
               title: Text(AppLocalizations.of(context)!.accounts_cash),
               trailing: state.account!.type == AccountType.cash
-                  ? Icon(Icons.check, color: AppColors.primaryColor)
+                  ? const Icon(Icons.check, color: AppColors.primaryColor)
                   : null,
               onTap: () => onTypeSelected(AccountType.cash),
             ),
             Divider(height: 2),
             ListTile(
-              leading: Icon(AppIcons.wallet),
+              leading: const Icon(AppIcons.wallet),
               minLeadingWidth: 2,
               title: Text(AppLocalizations.of(context)!.accounts_wallet),
               trailing: state.account!.type == AccountType.wallet
-                  ? Icon(Icons.check, color: AppColors.primaryColor)
+                  ? const Icon(Icons.check, color: AppColors.primaryColor)
                   : null,
               onTap: () => onTypeSelected(AccountType.wallet),
             ),

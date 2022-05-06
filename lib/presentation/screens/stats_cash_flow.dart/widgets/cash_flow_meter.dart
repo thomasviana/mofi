@@ -198,13 +198,13 @@ class _CashFlowMeterState extends State<CashFlowMeter>
                 left: ((meterWidth ?? 0.0) - _indicatorSize) *
                     cashFlowRatio *
                     meterAnimation,
-                child: Icon(
+                child: const Icon(
                   Icons.airplay_rounded,
                   color: AppColors.greySecondary,
                   size: _indicatorSize,
                 ),
               ),
-              SizedBox(height: 90),
+              const SizedBox(height: 90),
               Positioned(
                 top: 58,
                 left: ((meterWidth ?? 0.0) - _resultFixedWidth) *

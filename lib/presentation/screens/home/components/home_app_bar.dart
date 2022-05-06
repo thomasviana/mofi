@@ -41,7 +41,7 @@ class _HomeAppBarDelegate extends SliverPersistentHeaderDelegate {
           if (Platform.isIOS)
             Row(
               children: [
-                SizedBox(width: 16),
+                const SizedBox(width: 16),
                 Observer<HomeScreenBloc, HomeScreenState>(
                   onSuccess: (context, state) {
                     final user = state.user;
@@ -57,7 +57,7 @@ class _HomeAppBarDelegate extends SliverPersistentHeaderDelegate {
                         imageUrl: user.photoUrl!,
                         progressIndicatorBuilder: (_, __, progress) =>
                             CircularProgressIndicator(value: progress.progress),
-                        errorWidget: (_, __, ___) => Icon(Icons.error),
+                        errorWidget: (_, __, ___) => const Icon(Icons.error),
                         fit: BoxFit.cover,
                       );
                     }
@@ -78,11 +78,11 @@ class _HomeAppBarDelegate extends SliverPersistentHeaderDelegate {
             padding: const EdgeInsets.only(left: 8.0),
             child: Row(
               children: const [
-                Icon(
+                const Icon(
                   Icons.donut_large_outlined,
                   color: AppColors.white,
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 Text(
                   'mofi',
                   style: TextStyle(
@@ -100,7 +100,7 @@ class _HomeAppBarDelegate extends SliverPersistentHeaderDelegate {
                 padding: const EdgeInsets.only(right: 4.0),
                 child: IconButton(
                   onPressed: () {},
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.notifications_on,
                     color: Colors.white,
                   ),
@@ -122,7 +122,7 @@ class _HomeAppBarDelegate extends SliverPersistentHeaderDelegate {
                         imageUrl: user.photoUrl!,
                         progressIndicatorBuilder: (_, __, progress) =>
                             CircularProgressIndicator(value: progress.progress),
-                        errorWidget: (_, __, ___) => Icon(Icons.error),
+                        errorWidget: (_, __, ___) => const Icon(Icons.error),
                         fit: BoxFit.cover,
                       );
                     }

@@ -59,7 +59,7 @@ class _AnimatedCheckState extends State<AnimatedCheck>
           axis: Axis.horizontal,
           axisAlignment: -1,
           child: Center(
-            child: Icon(Icons.check, color: Colors.white, size: iconSize),
+            child: const Icon(Icons.check, color: Colors.white, size: iconSize),
           ),
         ),
       ),

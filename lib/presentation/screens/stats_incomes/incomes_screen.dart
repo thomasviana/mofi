@@ -43,7 +43,7 @@ class IncomesScreen extends StatelessWidget {
               IncomesByCategory(),
               IncomesByAccount(),
               SliverToBoxAdapter(
-                child: SizedBox(height: 16),
+                child: const SizedBox(height: 16),
               )
             ],
           );

@@ -44,7 +44,7 @@ class _EditSubCategoryNameScreenState extends State<EditSubCategoryNameScreen> {
           middle: Text(AppLocalizations.of(context)!.misc_name),
           previousPageTitle: AppLocalizations.of(context)!.misc_back,
           trailing: GestureDetector(
-            child: Icon(
+            child: const Icon(
               CupertinoIcons.checkmark_circle,
               color: AppColors.primaryColor,
               size: 24,
@@ -69,7 +69,7 @@ class _EditSubCategoryNameScreenState extends State<EditSubCategoryNameScreen> {
           title: Text(AppLocalizations.of(context)!.misc_name),
           actions: [
             IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.check,
                 color: AppColors.white,
               ),
@@ -104,7 +104,7 @@ class EditCategoryNameContent extends StatelessWidget {
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       children: [
-        SizedBox(
+        const SizedBox(
           height: 50,
         ),
         TextField(

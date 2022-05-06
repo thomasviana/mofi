@@ -101,7 +101,7 @@ class _MainAppScreenState extends State<MainAppScreen> {
                         padding: const EdgeInsets.all(8.0),
                         fillColor: AppColors.primaryColor,
                         shape: CircleBorder(),
-                        child: Icon(
+                        child: const Icon(
                           Icons.add,
                           color: AppColors.white,
                           size: 28,

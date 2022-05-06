@@ -83,7 +83,7 @@ class _BudgetsProgressState extends State<BudgetsProgress> {
                               ],
                             ),
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           AnimatedProgressBar(
                             currentValue: budgetData.percent,
                             displayText: '%',
@@ -94,7 +94,7 @@ class _BudgetsProgressState extends State<BudgetsProgress> {
                             changeColorValue: 105,
                             changeProgressColor: AppColors.red.withOpacity(0.6),
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                         ],
                       );
                     },

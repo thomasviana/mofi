@@ -60,7 +60,7 @@ class Observer<B extends StateStreamable<S>, S extends MyState>
               return onFailure!(context, state);
             }
           default:
-            return SizedBox();
+            return const SizedBox();
         }
       },
     );

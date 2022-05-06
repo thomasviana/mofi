@@ -23,7 +23,7 @@ class SettingsScreen extends StatelessWidget {
               stretch: true,
               largeTitle: Text(AppLocalizations.of(context)!.misc_settings),
               trailing: GestureDetector(
-                child: Icon(
+                child: const Icon(
                   CupertinoIcons.restart,
                   color: AppColors.primaryColor,
                   size: 24,
@@ -46,7 +46,7 @@ class SettingsScreen extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () => _showResetOption(context),
-              icon: Icon(
+              icon: const Icon(
                 Icons.restart_alt,
               ),
             )
@@ -69,7 +69,7 @@ class SettingsContent extends StatelessWidget {
       children: [
         ListTile(
           title: Text(AppLocalizations.of(context)!.misc_profile),
-          leading: Icon(Icons.person_outline),
+          leading: const Icon(Icons.person_outline),
           trailing: Platform.isIOS ? const Icon(CupertinoIcons.forward) : null,
           onTap: () {
             AppNavigator.navigateToProfilePage(context);
@@ -78,21 +78,21 @@ class SettingsContent extends StatelessWidget {
         Divider(height: 2),
         ListTile(
           title: Text(AppLocalizations.of(context)!.misc_categories),
-          leading: Icon(Icons.folder_open),
+          leading: const Icon(Icons.folder_open),
           trailing: Platform.isIOS ? const Icon(CupertinoIcons.forward) : null,
           onTap: () => AppNavigator.navigateToCategoriesPage(context),
         ),
         Divider(height: 2),
         ListTile(
           title: Text(AppLocalizations.of(context)!.misc_accounts),
-          leading: Icon(Icons.account_balance),
+          leading: const Icon(Icons.account_balance),
           trailing: Platform.isIOS ? const Icon(CupertinoIcons.forward) : null,
           onTap: () => AppNavigator.navigateToAccountsPage(context),
         ),
         Divider(height: 2),
         ListTile(
           title: Text(AppLocalizations.of(context)!.misc_budgets),
-          leading: Icon(Icons.all_inbox),
+          leading: const Icon(Icons.all_inbox),
           trailing: Platform.isIOS ? const Icon(CupertinoIcons.forward) : null,
           onTap: () => AppNavigator.navigateToBudgetsPage(context),
         ),
@@ -102,7 +102,7 @@ class SettingsContent extends StatelessWidget {
             AppLocalizations.of(context)!.misc_logOut,
             style: TextStyle(color: AppColors.red),
           ),
-          leading: Icon(Icons.logout, color: AppColors.red),
+          leading: const Icon(Icons.logout, color: AppColors.red),
           onTap: () {
             context.read<AuthBloc>().add(LogoutRequested());
             AppNavigator.navigateBackToAuthPage(context);

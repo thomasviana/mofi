@@ -58,8 +58,8 @@ class _SelectCategoryScreenState extends State<SelectCategoryScreen>
         title: Text(AppLocalizations.of(context)!.misc_category),
         leading: IconButton(
           icon: Platform.isIOS
-              ? Icon(Icons.arrow_back_ios)
-              : Icon(Icons.arrow_back),
+              ? const Icon(Icons.arrow_back_ios)
+              : const Icon(Icons.arrow_back),
           onPressed: () {
             if (_controller.index == 1) {
               _controller.animateTo(0);
@@ -170,7 +170,8 @@ class _SubCategorySuggestions extends StatelessWidget {
                     () => null,
                     (stateCategoryt) {
                       if (stateCategoryt.id == subCategory.id) {
-                        return Icon(Icons.check, color: AppColors.primaryColor);
+                        return const Icon(Icons.check,
+                            color: AppColors.primaryColor);
                       }
                       return null;
                     },
@@ -240,7 +241,8 @@ class _CategoriesList extends StatelessWidget {
                     () => null,
                     (stateCategoryt) {
                       if (stateCategoryt.id == category.id) {
-                        return Icon(Icons.check, color: AppColors.primaryColor);
+                        return const Icon(Icons.check,
+                            color: AppColors.primaryColor);
                       }
                       return null;
                     },
@@ -295,7 +297,8 @@ class _SubCategoriesList extends StatelessWidget {
                 () => null,
                 (stateSubCategory) {
                   if (stateSubCategory.id == state.subCategories!.first.id) {
-                    return Icon(Icons.check, color: AppColors.primaryColor);
+                    return const Icon(Icons.check,
+                        color: AppColors.primaryColor);
                   }
                   return null;
                 },
@@ -325,7 +328,7 @@ class _SubCategoriesList extends StatelessWidget {
             Divider(height: 0),
             if (state.subCategories!.length == 1)
               state.category.fold(
-                () => SizedBox(),
+                () => const SizedBox(),
                 (category) => Padding(
                   padding: const EdgeInsets.all(kDefaultPadding),
                   child: Text(

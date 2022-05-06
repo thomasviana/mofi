@@ -25,13 +25,13 @@ class GetStarted extends StatelessWidget {
               width: 250,
               height: 250,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Text(
               AppLocalizations.of(context)!.onboarding_get_started_ready,
               style: Theme.of(context).textTheme.headline4,
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 60),
+            const SizedBox(height: 60),
             RoundedButton(
               label: AppLocalizations.of(context)!.onboarding_get_started_cta,
               isEnabled: true,

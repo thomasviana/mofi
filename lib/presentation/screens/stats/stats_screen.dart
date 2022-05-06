@@ -63,13 +63,13 @@ class _StatsScreenState extends State<StatsScreen> {
                     .toUpperCase(),
                 amount: state.balance,
                 trailing: state.balance == 0
-                    ? Icon(
+                    ? const Icon(
                         Icons.thumbs_up_down_rounded,
                         size: 50,
                         color: AppColors.greyDisabled,
                       )
                     : state.balance > 0
-                        ? Icon(
+                        ? const Icon(
                             Icons.thumb_up_rounded,
                             size: 50,
                             color: AppColors.green,
@@ -88,7 +88,7 @@ class _StatsScreenState extends State<StatsScreen> {
                 onTap: () => AppNavigator.navigateToBudgetsStatsPage(context),
               ),
               SliverToBoxAdapter(
-                child: SizedBox(height: 16),
+                child: const SizedBox(height: 16),
               )
             ],
           );

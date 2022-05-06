@@ -43,7 +43,7 @@ class MiniCard extends StatelessWidget {
               ),
               child: Icon(icon, color: Colors.white.withOpacity(opacity)),
             ),
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
             Text(
@@ -53,7 +53,7 @@ class MiniCard extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
             Text(

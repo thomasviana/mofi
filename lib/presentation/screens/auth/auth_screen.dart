@@ -74,7 +74,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       width: 180,
                       height: 180,
                     ),
-                    SizedBox(height: 24),
+                    const SizedBox(height: 24),
                     Text(
                       state.isCreateAccountMode
                           ? AppLocalizations.of(context)!
@@ -83,7 +83,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               .auth_screen_login_title,
                       style: Theme.of(context).textTheme.headline6,
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     AuthForm(
                       state: state,
                       enabled: !state.isSubmitting,
@@ -97,7 +97,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         confirmationPassword,
                       ),
                     ),
-                    SizedBox(height: 24),
+                    const SizedBox(height: 24),
                     if (state.isSubmitting)
                       Center(
                         child: CircularProgressIndicator(),
@@ -115,9 +115,9 @@ class _AuthScreenState extends State<AuthScreen> {
                           trySubmit();
                         },
                       ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     CustomDivider(),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -132,7 +132,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         //       .read<AuthScreenCubit>()
                         //       .onSignInWithGoogle(),
                         // ),
-                        // SizedBox(
+                        // const SizedBox(
                         //   width: 20,
                         // ),
                         // LoginButton(
@@ -141,7 +141,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         //       .read<AuthScreenCubit>()
                         //       .onSignInWithFacebook(),
                         // ),
-                        // SizedBox(
+                        // const SizedBox(
                         //   width: 20,
                         // ),
                         // LoginButton(
@@ -152,7 +152,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         // ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 24,
                     ),
                     TextButton(

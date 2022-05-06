@@ -87,13 +87,15 @@ class SelectAccountScreen extends StatelessWidget {
                 trailing: state.account.fold(
                   () {
                     if (account.id == accounts.first.id) {
-                      return Icon(Icons.check, color: AppColors.primaryColor);
+                      return const Icon(Icons.check,
+                          color: AppColors.primaryColor);
                     }
                     return null;
                   },
                   (stateAccount) {
                     if (stateAccount.id == account.id) {
-                      return Icon(Icons.check, color: AppColors.primaryColor);
+                      return const Icon(Icons.check,
+                          color: AppColors.primaryColor);
                     }
                     return null;
                   },

@@ -35,7 +35,7 @@ class TrailingProgressBars extends StatelessWidget {
                   changeProgressColor: AppColors.red.withOpacity(0.6),
                   displayTextStyle: TextStyle(color: Colors.transparent),
                 ),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
               ],
             );
           },

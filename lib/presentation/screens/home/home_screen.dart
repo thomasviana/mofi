@@ -21,7 +21,7 @@ class HomeScreen extends StatelessWidget {
         slivers: [
           HomeAppBar(),
           HomeHeader(),
-          SliverToBoxAdapter(child: SizedBox(height: 16)),
+          SliverToBoxAdapter(child: const SizedBox(height: 16)),
           ...homeWidgets,
         ],
       ),
