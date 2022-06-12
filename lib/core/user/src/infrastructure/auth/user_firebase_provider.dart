@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:injectable/injectable.dart';
@@ -26,10 +27,10 @@ class UserFirebaseProvider {
     return user;
   }
 
-  Stream<UserEntity?> getUser() async* {
+  Stream<Option<UserEntity>> getUser() async* {
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) {
-      yield null;
+      yield None();
     } else {
       yield* _firebaseFirestore
           .doc('users/${user.uid}')
@@ -38,10 +39,10 @@ class UserFirebaseProvider {
         if (snapshot.exists) {
           final userData = UserEntityDTO.fromFirebaseMap(snapshot.data()!);
           final userEntity = userData.toDomain();
-          return userEntity;
+          return Some(userEntity);
         } else {
           final registeredUser = _userFromFirebase(user);
-          return registeredUser;
+          return Some(registeredUser);
         }
       });
     }

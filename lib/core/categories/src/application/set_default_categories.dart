@@ -15,13 +15,12 @@ class SetDefaultCategories {
 
   Future<void> call() async {
     final user = await _getProfileInfo().first;
-
-    if (user != null) {
+    user.fold(() => null, (user) {
       final categories = Category.defaultCategories;
       for (final category in categories) {
         category.setUserId(user.id.value);
       }
       _categoryRepository.saveList(categories);
-    }
+    });
   }
 }

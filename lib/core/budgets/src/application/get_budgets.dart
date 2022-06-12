@@ -19,11 +19,10 @@ class GetBudgets {
 
   Stream<Option<List<Budget>>> call() async* {
     yield* _getProfileInfo().switchMap((user) {
-      if (user != null) {
-        return _budgetRepository.fetchBudgets(BudgetUserId(user.id.value));
-      } else {
-        return Stream.value(None());
-      }
+      return user.fold(
+        () => Stream.value(None()),
+        (user) => _budgetRepository.fetchBudgets(BudgetUserId(user.id.value)),
+      );
     });
   }
 }

@@ -19,11 +19,11 @@ class GetAccounts {
 
   Stream<Option<List<Account>>> call() async* {
     yield* _getProfileInfo().switchMap((user) {
-      if (user != null) {
-        return _accountRepository.fetchAccounts(AccountUserId(user.id.value));
-      } else {
-        return Stream.value(None());
-      }
+      return user.fold(
+        () => Stream.value(None()),
+        (user) =>
+            _accountRepository.fetchAccounts(AccountUserId(user.id.value)),
+      );
     });
   }
 }

@@ -31,8 +31,9 @@ class AddTransaction {
     BudgetManagementMap? budgetManagement,
   }) async {
     final user = await _getProfileInfo().first;
-    if (user != null) {
-      _transactionRepository.save(
+    user.fold(
+      () => null,
+      (user) => _transactionRepository.save(
         Transaction(
           id: TransactionId.auto(),
           transactionType: txType,
@@ -51,7 +52,7 @@ class AddTransaction {
           isIncomeManaged: isIncomeManaged,
           budgetManagement: budgetManagement,
         ),
-      );
-    }
+      ),
+    );
   }
 }

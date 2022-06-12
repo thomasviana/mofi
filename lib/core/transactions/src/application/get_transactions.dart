@@ -19,12 +19,11 @@ class GetTransactions {
 
   Stream<Option<List<Transaction>>> call() async* {
     yield* _getProfileInfo().switchMap((user) {
-      if (user != null) {
-        return _transactionRepository
-            .fetchTransactions(TransactionUserId(user.id.value));
-      } else {
-        return Stream.value(None());
-      }
+      return user.fold(
+        () => Stream.value(None()),
+        (user) => _transactionRepository
+            .fetchTransactions(TransactionUserId(user.id.value)),
+      );
     });
   }
 }

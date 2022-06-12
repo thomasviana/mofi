@@ -20,8 +20,9 @@ class CreateCategory {
     required CategoryType type,
   }) async {
     final user = await _getProfileInfo().first;
-    if (user != null) {
-      _categoryRepository.save(
+    user.fold(
+      () => null,
+      (user) => _categoryRepository.save(
         Category(
           id: CategoryId.auto(),
           name: name,
@@ -30,7 +31,7 @@ class CreateCategory {
           type: type,
           categoryUserId: CategoryUserId(user.id.value),
         ),
-      );
-    }
+      ),
+    );
   }
 }

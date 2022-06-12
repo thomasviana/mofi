@@ -19,8 +19,9 @@ class CreateBudget {
     required int color,
   }) async {
     final user = await _getProfileInfo().first;
-    if (user != null) {
-      _budgetRepository.save(
+    user.fold(
+      () => null,
+      (user) => _budgetRepository.save(
         Budget(
           id: BudgetId.auto(),
           name: name,
@@ -28,7 +29,7 @@ class CreateBudget {
           color: color,
           budgetUserId: BudgetUserId(user.id.value),
         ),
-      );
-    }
+      ),
+    );
   }
 }

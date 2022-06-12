@@ -18,14 +18,13 @@ class GetCategories {
 
   Stream<List<Category>> call({required bool isFirstTimeOpen}) async* {
     yield* _getProfileInfo().switchMap((user) {
-      if (user != null) {
-        return _categoryRepository.fetchCategories(
+      return user.fold(
+        () => Stream.value([]),
+        (user) => _categoryRepository.fetchCategories(
           CategoryUserId(user.id.value),
           isFirstTimeOpen: isFirstTimeOpen,
-        );
-      } else {
-        return Stream.value([]);
-      }
+        ),
+      );
     });
   }
 }

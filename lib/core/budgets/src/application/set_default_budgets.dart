@@ -15,12 +15,12 @@ class SetDefaultBudgets {
 
   Future<void> call() async {
     final user = await _getProfileInfo().first;
-    if (user != null) {
+    user.fold(() => null, (user) {
       final budgets = Budget.defaultBudgets;
       for (final budget in budgets) {
         budget.setUserId(user.id.value);
       }
       _budgetRepository.saveList(budgets);
-    }
+    });
   }
 }

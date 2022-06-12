@@ -20,8 +20,9 @@ class CreateAccount {
     String? imageUrl,
   }) async {
     final user = await _getProfileInfo().first;
-    if (user != null) {
-      _accountRepository.save(
+    user.fold(
+      () => null,
+      (user) => _accountRepository.save(
         Account(
           id: AccountId.auto(),
           name: name,
@@ -30,7 +31,7 @@ class CreateAccount {
           imageUrl: imageUrl,
           accountUserId: AccountUserId(user.id.value),
         ),
-      );
-    }
+      ),
+    );
   }
 }

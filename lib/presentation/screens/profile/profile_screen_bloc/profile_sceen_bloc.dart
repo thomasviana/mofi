@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 
@@ -34,14 +35,13 @@ class ProfileScreenBloc extends Bloc<ProfileScreenEvent, ProfileScreenState> {
     Emitter<ProfileScreenState> emit,
   ) async {
     emit(state.copyWith(status: Status.loading));
-    await emit.onEach<UserEntity?>(
+    await emit.onEach<Option<UserEntity>>(
       getProfileInfo(),
       onData: (user) {
-        if (user != null) {
-          emit(state.copyWith(user: user, status: Status.success));
-        } else {
-          emit(state.copyWith(status: Status.failure));
-        }
+        user.fold(
+          () => emit(state.copyWith(status: Status.failure)),
+          (user) => emit(state.copyWith(user: user, status: Status.success)),
+        );
       },
     );
   }

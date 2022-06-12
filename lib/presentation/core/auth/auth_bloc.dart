@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -28,11 +29,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     AuthStatusRequested event,
     Emitter<AuthState> emit,
   ) async {
-    await emit.onEach<UserEntity?>(
+    await emit.onEach<Option<UserEntity>>(
       _checkAuthStatus(),
-      onData: (user) => user != null
-          ? emit(AuthState.authenticated())
-          : emit(AuthState.unauthenticated()),
+      onData: (user) => user.fold(
+        () => emit(AuthState.unauthenticated()),
+        (user) => emit(AuthState.authenticated()),
+      ),
     );
   }
 

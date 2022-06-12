@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 
@@ -24,23 +25,22 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
     Emitter<HomeScreenState> emit,
   ) async {
     emit(state.copyWith(status: Status.loading));
-    await emit.onEach<UserEntity?>(
+    await emit.onEach<Option<UserEntity>>(
       _getProfileInfo(),
       onData: (user) {
-        if (user != null) {
-          emit(
+        user.fold(
+          () => emit(
+            state.copyWith(
+              status: Status.failure,
+            ),
+          ),
+          (user) => emit(
             state.copyWith(
               user: user,
               status: Status.success,
             ),
-          );
-        } else {
-          emit(
-            state.copyWith(
-              status: Status.failure,
-            ),
-          );
-        }
+          ),
+        );
       },
     );
   }

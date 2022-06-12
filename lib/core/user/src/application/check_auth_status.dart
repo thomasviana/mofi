@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../domain.dart';
@@ -10,5 +11,5 @@ class CheckAuthStatus {
 
   CheckAuthStatus(this._authService);
 
-  Stream<UserEntity?> call() => _authService.getUser();
+  Stream<Option<UserEntity>> call() => _authService.getUser();
 }
