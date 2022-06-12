@@ -30,7 +30,7 @@ class _HomeAppBarDelegate extends SliverPersistentHeaderDelegate {
   ) {
     final double statusbarHeight = MediaQuery.of(context).padding.top;
     final Brightness _brightness =
-        SchedulerBinding.instance!.window.platformBrightness;
+        SchedulerBinding.instance.window.platformBrightness;
     final bool _isDarkMode = _brightness == Brightness.dark;
     return Container(
       padding: EdgeInsets.only(top: statusbarHeight),
@@ -78,11 +78,11 @@ class _HomeAppBarDelegate extends SliverPersistentHeaderDelegate {
             padding: const EdgeInsets.only(left: 8.0),
             child: Row(
               children: const [
-                const Icon(
+                Icon(
                   Icons.donut_large_outlined,
                   color: AppColors.white,
                 ),
-                const SizedBox(width: 8),
+                SizedBox(width: 8),
                 Text(
                   'mofi',
                   style: TextStyle(

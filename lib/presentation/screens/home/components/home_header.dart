@@ -139,7 +139,7 @@ class _AnimatedHeaderState extends State<AnimatedHeader>
   @override
   Widget build(BuildContext context) {
     final Brightness _brightness =
-        SchedulerBinding.instance!.window.platformBrightness;
+        SchedulerBinding.instance.window.platformBrightness;
     final bool _isDarkMode = _brightness == Brightness.dark;
     return BlocBuilder<StatsBloc, StatsState>(
       builder: (context, state) {

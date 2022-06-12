@@ -6,7 +6,7 @@ part of 'budgets_db.dart';
 // MoorGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this
+// ignore_for_file: type=lint
 class BudgetDbDto extends DataClass implements Insertable<BudgetDbDto> {
   final String id;
   final String name;

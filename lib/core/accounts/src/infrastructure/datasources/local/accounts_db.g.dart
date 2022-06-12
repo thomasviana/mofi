@@ -6,7 +6,7 @@ part of 'accounts_db.dart';
 // MoorGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this
+// ignore_for_file: type=lint
 class AccountDbDto extends DataClass implements Insertable<AccountDbDto> {
   final String id;
   final String name;

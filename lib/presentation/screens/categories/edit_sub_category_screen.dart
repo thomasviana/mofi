@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 
 import '../../../core/categories/domain.dart';
@@ -321,27 +320,27 @@ Future<void> _pickIcon(
   BuildContext context, {
   required Function(int icon) onIconUpdated,
 }) async {
-  final materialIcons = AppIcons.materialIcons();
-  final icon = await FlutterIconPicker.showIconPicker(
-    context,
-    title: Text(
-      AppLocalizations.of(context)!.global_select_icon,
-      textAlign: TextAlign.center,
-    ),
-    iconPickerShape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(
-        Radius.circular(16),
-      ),
-    ),
-    searchHintText: AppLocalizations.of(context)!.misc_search,
-    closeChild: Text(AppLocalizations.of(context)!.misc_close),
-    iconSize: 30,
-    customIconPack: materialIcons,
-    iconColor: AppColors.black,
-    iconPackModes: [IconPack.custom],
-  );
+  // final materialIcons = AppIcons.materialIcons();
+  // final icon = await FlutterIconPicker.showIconPicker(
+  //   context,
+  //   title: Text(
+  //     AppLocalizations.of(context)!.global_select_icon,
+  //     textAlign: TextAlign.center,
+  //   ),
+  //   iconPickerShape: RoundedRectangleBorder(
+  //     borderRadius: BorderRadius.all(
+  //       Radius.circular(16),
+  //     ),
+  //   ),
+  //   searchHintText: AppLocalizations.of(context)!.misc_search,
+  //   closeChild: Text(AppLocalizations.of(context)!.misc_close),
+  //   iconSize: 30,
+  //   customIconPack: materialIcons,
+  //   iconColor: AppColors.black,
+  //   iconPackModes: [IconPack.custom],
+  // );
 
-  if (icon != null) {
-    onIconUpdated(icon.codePoint);
-  }
+  // if (icon != null) {
+  //   onIconUpdated(icon.codePoint);
+  // }
 }

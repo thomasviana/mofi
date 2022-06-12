@@ -4,5 +4,5 @@ flutter pub upgrade
 
 cd ios
 rm -f ios/Podfile.lock
-pod install
+pod install --repo-update
 cd ..
