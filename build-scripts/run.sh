@@ -1,6 +1,8 @@
 #!/bin/sh
 
-flutter pub upgrade
+flutter clean
+flutter pub get
+flutter packages pub run build_runner build --delete-conflicting-outputs
 
 cd ios
 rm -f ios/Podfile.lock

@@ -67,15 +67,13 @@ class EditTransactionScreenBloc
     });
 
     on<GetUserSubcategories>((event, emit) async {
-      await emit.onEach<Option<List<SubCategory>>>(
+      await emit.onEach<List<SubCategory>>(
         state.category.fold(
           () => Stream.empty(),
           (category) => getSubCategories(category.id),
         ),
-        onData: (optionSubCategories) => optionSubCategories.fold(
-          () {},
-          (subCategories) => emit(state.copyWith(subCategories: subCategories)),
-        ),
+        onData: (subCategories) =>
+            emit(state.copyWith(subCategories: subCategories)),
       );
     });
 
@@ -208,13 +206,10 @@ class EditTransactionScreenBloc
     );
     on<CategorySelected>(
       (event, emit) async => getSubCategories(event.category.id).first.then(
-            (option) => option.fold(
-              () {},
-              (subCategories) => emit(
-                state.copyWith(
-                  subCategories: subCategories,
-                  category: some(event.category),
-                ),
+            (subCategories) => emit(
+              state.copyWith(
+                subCategories: subCategories,
+                category: some(event.category),
               ),
             ),
           ),

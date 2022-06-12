@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/categories/application.dart';
@@ -46,14 +45,10 @@ class EditCategoryScreenBloc
     });
 
     on<GetUserSubcategories>((event, emit) async {
-      await emit.onEach<Option<List<SubCategory>>>(
+      await emit.onEach<List<SubCategory>>(
         getSubCategories(state.category!.id),
-        onData: (optionSubCategories) => optionSubCategories.fold(
-          () => state.isDefaultCategory
-              ? setDefaultSubCategories()
-              : emit(state.copyWith(subCategories: [])),
-          (subCategories) => emit(state.copyWith(subCategories: subCategories)),
-        ),
+        onData: (subCategories) =>
+            emit(state.copyWith(subCategories: subCategories)),
       );
     });
     on<CategoryDeleted>(

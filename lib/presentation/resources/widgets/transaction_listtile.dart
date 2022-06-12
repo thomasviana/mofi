@@ -36,7 +36,7 @@ class TransactionListTile extends StatelessWidget {
               onPressed: onDeletePressed,
               backgroundColor: AppColors.red,
               icon: Icons.delete_outline_outlined,
-              label: AppLocalizations.of(context)!.misc_delete),
+              label: AppLocalizations.of(context)!.misc_delete,),
         ],
       ),
       child: ListTile(

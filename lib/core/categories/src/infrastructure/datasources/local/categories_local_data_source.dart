@@ -10,7 +10,6 @@ abstract class CategoriesLocalDataSource {
   Stream<Option<List<Category>>> getCachedCategories(CategoryUserId userId);
   Future<void> deleteCategory(CategoryId categoryId);
   Future<void> deleteAllCategories();
-  Future<void> deleteAllSubCategories();
 
   Future<void> cacheSubCategory(SubCategory subCategory);
   Future<void> cacheSubCategories(List<SubCategory> subCategories);
@@ -18,8 +17,8 @@ abstract class CategoriesLocalDataSource {
   Stream<Option<List<SubCategory>>> getCachedSubCategories(
     CategoryId categoryId,
   );
-
   Future<void> deleteSubCategory(CategoryId subCategoryId);
+  Future<void> deleteAllSubCategories();
 }
 
 @LazySingleton(as: CategoriesLocalDataSource)
@@ -44,10 +43,16 @@ class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
 
   @override
   Future<void> cacheCategories(List<Category> categories) {
+    bool firstTime = true;
     return Future.value(_categoryMapper.toDbDtoList(categories)).then(
-      (campanions) => {
-        for (var campanion in campanions)
-          {_categoryDao.createOrUpdate(campanion)}
+      (campanions) {
+        if (firstTime) {
+          for (final campanion in campanions) {
+            _categoryDao.createOrUpdate(campanion);
+          }
+        }
+
+        firstTime = false;
       },
     );
   }
@@ -89,16 +94,6 @@ class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
   }
 
   @override
-  Future<void> deleteSubCategory(CategoryId subCategoryId) {
-    return _subCategoryDao.deleteCategory(subCategoryId.value);
-  }
-
-  @override
-  Future<void> deleteAllSubCategories() {
-    return _subCategoryDao.deleteAllSubCategories();
-  }
-
-  @override
   Stream<Option<List<SubCategory>>> getCachedSubCategories(
     CategoryId categoryId,
   ) {
@@ -116,5 +111,15 @@ class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
               ? none()
               : some(_subCategoryMapper.fromDbDtoList(dtos)),
         );
+  }
+
+  @override
+  Future<void> deleteSubCategory(CategoryId subCategoryId) {
+    return _subCategoryDao.deleteCategory(subCategoryId.value);
+  }
+
+  @override
+  Future<void> deleteAllSubCategories() {
+    return _subCategoryDao.deleteAllSubCategories();
   }
 }

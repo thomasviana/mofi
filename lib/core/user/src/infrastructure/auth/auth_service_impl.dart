@@ -4,13 +4,13 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../domain.dart';
-import 'user_firebase_prov.dart';
+import 'user_firebase_provider.dart';
 
 @LazySingleton(as: AuthService)
 class AuthServiceImpl implements AuthService {
   final FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
-  final UserFirebaseProv _userFirebaseProvider;
+  final UserFirebaseProvider _userFirebaseProvider;
 
   AuthServiceImpl(
     this._firebaseAuth,

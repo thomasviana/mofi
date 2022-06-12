@@ -1,0 +1,28 @@
+{
+  "categories": [
+    {
+      "id": "0",
+      "title": "Odniesienia",
+      "fieldName": "",
+      "direction": ""
+    },
+    {
+      "id": "1",
+      "title": "A - Z",
+      "fieldName": "sortingTitle",
+      "direction": "asc"
+    },
+    {
+      "id": "2",
+      "title": "Z - A",
+      "fieldName": "sortingTitle",
+      "direction": "desc"
+    },
+    {
+      "id": "3",
+      "title": "Najnowsze",
+      "fieldName": "revisionDate",
+      "direction": "desc"
+    }
+  ]
+}

@@ -3,5 +3,14 @@
         "**/*.freezed.dart": true,
         "**/*.g.dart": true,
         "**/*.gr.dart": true
-    }
+    },
+    "editor.defaultFormatter": "Dart-Code.flutter",
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[yaml]": {
+    "editor.autoIndent": "advanced"
+  },
 }

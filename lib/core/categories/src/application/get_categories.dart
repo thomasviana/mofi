@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -17,13 +16,15 @@ class GetCategories {
     this._getProfileInfo,
   );
 
-  Stream<Option<List<Category>>> call() async* {
+  Stream<List<Category>> call({required bool isFirstTimeOpen}) async* {
     yield* _getProfileInfo().switchMap((user) {
       if (user != null) {
-        return _categoryRepository
-            .fetchCategories(CategoryUserId(user.id.value));
+        return _categoryRepository.fetchCategories(
+          CategoryUserId(user.id.value),
+          isFirstTimeOpen: isFirstTimeOpen,
+        );
       } else {
-        return Stream.value(None());
+        return Stream.value([]);
       }
     });
   }

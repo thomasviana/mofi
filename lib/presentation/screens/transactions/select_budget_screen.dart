@@ -94,7 +94,7 @@ class SelectBudgetScreen extends StatelessWidget {
                   (stateBudget) {
                     if (stateBudget.id == budget.id) {
                       return const Icon(Icons.check,
-                          color: AppColors.primaryColor);
+                          color: AppColors.primaryColor,);
                     }
                     return null;
                   },

@@ -20,24 +20,19 @@ class UpdateCategory {
     int? color,
     double? amount,
   }) async {
-    final category = await _getCategories().first.then(
-          (categories) => categories.fold(
-            () => null,
-            (categories) => categories.firstWhere(
-              (category) => category.id == categoryId,
-              orElse: () => throw Exception("Category doesn't exist."),
-            ),
+    final category = await _getCategories(isFirstTimeOpen: false).first.then(
+          (categories) => categories.firstWhere(
+            (category) => category.id == categoryId,
+            orElse: () => throw Exception("Category doesn't exist."),
           ),
         );
-    if (category != null) {
-      _categoryRepository.save(
-        category.copyWith(
-          name: name,
-          icon: icon,
-          color: color,
-          balance: category.balance + (amount ?? 0),
-        ),
-      );
-    }
+    _categoryRepository.save(
+      category.copyWith(
+        name: name,
+        icon: icon,
+        color: color,
+        balance: category.balance + (amount ?? 0),
+      ),
+    );
   }
 }

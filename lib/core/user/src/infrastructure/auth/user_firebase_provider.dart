@@ -11,11 +11,11 @@ import '../../../domain.dart';
 import 'user_entity_dto.dart';
 
 @lazySingleton
-class UserFirebaseProv {
+class UserFirebaseProvider {
   final FirebaseStorage _firebaseStorage;
   final FirebaseFirestore _firebaseFirestore;
 
-  UserFirebaseProv(
+  UserFirebaseProvider(
     this._firebaseStorage,
     this._firebaseFirestore,
   );

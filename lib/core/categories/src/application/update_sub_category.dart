@@ -22,23 +22,18 @@ class UpdateSubCategory {
     double? amount,
   }) async {
     final subCategory = await _getSubCategories(categoryId).first.then(
-          (subCategories) => subCategories.fold(
-            () => null,
-            (subCategories) => subCategories.firstWhere(
-              (subCategory) => subCategory.id == subCategorId,
-              orElse: () => throw Exception("Category doesn't exist."),
-            ),
+          (subCategories) => subCategories.firstWhere(
+            (subCategory) => subCategory.id == subCategorId,
+            orElse: () => throw Exception("Category doesn't exist."),
           ),
         );
-    if (subCategory != null) {
-      _subCategoryRepository.save(
-        subCategory.copyWith(
-          name: name,
-          icon: icon,
-          color: color,
-          balance: subCategory.balance + (amount ?? 0),
-        ),
-      );
-    }
+    _subCategoryRepository.save(
+      subCategory.copyWith(
+        name: name,
+        icon: icon,
+        color: color,
+        balance: subCategory.balance + (amount ?? 0),
+      ),
+    );
   }
 }

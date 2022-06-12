@@ -1,5 +1,5 @@
 abstract class PreferencesService {
   Stream<bool> get firstTimeOpen;
 
-  Future<void> changeFirstTimeOpenToFalse();
+  Future<void> setFirstTimeOpenToFalse();
 }

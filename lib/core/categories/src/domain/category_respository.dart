@@ -1,11 +1,10 @@
-import 'package:dartz/dartz.dart';
-
 import '../../domain.dart';
 
 abstract class CategoryRepository {
-  Stream<Option<List<Category>>> fetchCategories(
-    CategoryUserId userId,
-  );
+  Stream<List<Category>> fetchCategories(
+    CategoryUserId userId, {
+    required bool isFirstTimeOpen,
+  });
 
   Future<void> save(Category category);
 

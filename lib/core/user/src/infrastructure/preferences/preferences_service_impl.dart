@@ -10,10 +10,17 @@
 
 //   static const _keyFirstTimeOpen = 'first_time_open';
 
+<<<<<<< Updated upstream
 //   @override
 //   Future<void> changeFirstTimeOpenToFalse() async {
 //     await _preferences.setBool(_keyFirstTimeOpen, false);
 //   }
+=======
+  @override
+  Future<void> setFirstTimeOpenToFalse() async {
+    await _preferences.setBool(_keyFirstTimeOpen, false);
+  }
+>>>>>>> Stashed changes
 
 //   @override
 //   Stream<bool> get firstTimeOpen => Stream.value(

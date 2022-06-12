@@ -88,14 +88,14 @@ class SelectAccountScreen extends StatelessWidget {
                   () {
                     if (account.id == accounts.first.id) {
                       return const Icon(Icons.check,
-                          color: AppColors.primaryColor);
+                          color: AppColors.primaryColor,);
                     }
                     return null;
                   },
                   (stateAccount) {
                     if (stateAccount.id == account.id) {
                       return const Icon(Icons.check,
-                          color: AppColors.primaryColor);
+                          color: AppColors.primaryColor,);
                     }
                     return null;
                   },

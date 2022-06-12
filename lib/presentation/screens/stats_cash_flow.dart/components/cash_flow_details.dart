@@ -30,7 +30,7 @@ class CashFlowDetails extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: const Icon(Icons.arrow_forward_rounded,
-                      color: AppColors.white),
+                      color: AppColors.white,),
                 ),
                 title: Text(
                   AppLocalizations.of(context)!.stats_cash_flow_total_incomes,
@@ -47,7 +47,7 @@ class CashFlowDetails extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: const Icon(Icons.arrow_back_rounded,
-                      color: AppColors.white),
+                      color: AppColors.white,),
                 ),
                 title: Text(
                   AppLocalizations.of(context)!.stats_cash_flow_total_expenses,

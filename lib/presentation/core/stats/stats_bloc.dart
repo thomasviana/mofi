@@ -5,6 +5,8 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mofi/core/user/application.dart';
+import 'package:rxdart/rxdart.dart';
 
 import '../../../../core/transactions/domain.dart';
 import '../../../common/extensions.dart';
@@ -23,12 +25,16 @@ part 'stats_state.dart';
 
 @injectable
 class StatsBloc extends Bloc<StatsEvent, StatsState> {
+  final GetIsFirstTimeOpen _getIsFirstTimeOpen;
+  final SetFirstTimeOpenToFalse _setFirstTimeOpenToFalse;
   final GetBudgets _getBudgets;
   final GetCategories _getCategories;
   final GetAccounts _getAccounts;
   final GetTransactions _getTransactions;
 
   StatsBloc(
+    this._getIsFirstTimeOpen,
+    this._setFirstTimeOpenToFalse,
     this._getBudgets,
     this._getCategories,
     this._getAccounts,
@@ -73,19 +79,14 @@ class StatsBloc extends Bloc<StatsEvent, StatsState> {
     CategoriesSuscriptionRequested event,
     Emitter<StatsState> emit,
   ) async {
-    await emit.onEach<Option<List<Category>>>(
-      _getCategories(),
-      onData: (optionCategories) {
-        optionCategories.fold(
-          () => emit(
-            state.copyWith(categories: []),
-          ),
-          (categories) {
-            emit(
-              state.copyWith(categories: categories),
-            );
-          },
+    await emit.onEach<List<Category>>(
+      _getIsFirstTimeOpen()
+          .switchMap((value) => _getCategories(isFirstTimeOpen: value)),
+      onData: (categories) {
+        emit(
+          state.copyWith(categories: categories),
         );
+        if (categories.isNotEmpty) _setFirstTimeOpenToFalse();
       },
     );
   }

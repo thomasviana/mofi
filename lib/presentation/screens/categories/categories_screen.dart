@@ -22,6 +22,12 @@ class CategoriesScreen extends StatelessWidget {
               stretch: true,
               largeTitle: Text(AppLocalizations.of(context)!.misc_categories),
               previousPageTitle: AppLocalizations.of(context)!.misc_back,
+              trailing: CupertinoButton(
+                child: Icon(CupertinoIcons.refresh),
+                onPressed: () {
+                  print('refresh');
+                },
+              ),
             ),
             SliverToBoxAdapter(
               child: Material(child: CategoriesContent()),
