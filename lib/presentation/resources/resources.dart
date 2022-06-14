@@ -12,6 +12,7 @@ export './widgets/custom_alert_dialog.dart';
 export './widgets/custom_textfield.dart';
 export './widgets/date_filter_delegate.dart';
 export './widgets/google_sign_in_button.dart';
+export './widgets/gradient_mask.dart';
 export './widgets/list_tile_leading_icon.dart';
 export './widgets/mini_card.dart';
 export './widgets/no_transactions_widget.dart';
