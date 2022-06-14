@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mofi/presentation/screens/backup/backup_screen.dart';
 
 import '../../core/accounts/domain.dart';
 import '../../core/budgets/domain.dart';
@@ -209,8 +210,15 @@ class AppRouter {
       case AppNavigator.ROUTE_CATEGORIES_PAGE:
         return _buildRoute(
           settings,
-          BlocProvider.value(
-            value: _settingsBloc,
+          MultiBlocProvider(
+            providers: [
+              BlocProvider.value(
+                value: _settingsBloc,
+              ),
+              BlocProvider.value(
+                value: _editCategoryScreenBloc,
+              ),
+            ],
             child: CategoriesScreen(),
           ),
         );
@@ -425,6 +433,14 @@ class AppRouter {
               budget: arguments[0] as Budget,
               index: arguments[1] as int,
             ),
+          ),
+        );
+      case AppNavigator.ROUTE_BACKUP_PAGE:
+        return _buildRoute(
+          settings,
+          BlocProvider.value(
+            value: _settingsBloc,
+            child: BackupScreen(),
           ),
         );
       default:

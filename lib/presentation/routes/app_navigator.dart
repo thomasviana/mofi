@@ -39,6 +39,9 @@ class AppNavigator {
   static const ROUTE_EDIT_BUDGET_ABBREVIATION_PAGE =
       '/edit-budget-abbreviation';
 
+  static const ROUTE_BACKUP_PAGE = '/backup';
+
+  // Transactions
   static const ROUTE_EDIT_TRANSACTION_PAGE = '/edit-transaction';
   static const ROUTE_SELECT_ACCOUNT_PAGE = '/select-account';
   static const ROUTE_SELECT_CATEGORY_PAGE = '/select-category';
@@ -215,6 +218,15 @@ class AppNavigator {
       context,
       ROUTE_EDIT_BUDGET_ABBREVIATION_PAGE,
       arguments: abbreviation,
+    );
+  }
+
+  static void navigateToBackupPage(
+    BuildContext context,
+  ) {
+    Navigator.pushNamed(
+      context,
+      ROUTE_BACKUP_PAGE,
     );
   }
 

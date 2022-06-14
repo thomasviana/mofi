@@ -32,6 +32,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   ResetAccounts resetAccounts;
   ResetCategories resetCategories;
   ResetBudgets resetBudgets;
+  BackUpCategories backUpCategories;
 
   SettingsBloc(
     this.getIsFirstTimeOpen,
@@ -46,11 +47,13 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     this.resetAccounts,
     this.resetCategories,
     this.resetBudgets,
+    this.backUpCategories,
   ) : super(SettingsState.initial()) {
     on<GetUserAccounts>(_getUserAccounts);
     on<GetUserCategories>(_getUserCategories);
     on<GetUserBudgets>(_getUserBudgets);
     on<ResetFromFactoryRequested>(_onResetFromFactoryRequested);
+    on<BackUpData>(_onBackUpData);
     developer.log('getUserSettings');
   }
 
@@ -74,8 +77,9 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     Emitter<SettingsState> emit,
   ) async {
     await emit.onEach<List<Category>>(
-      getIsFirstTimeOpen()
-          .switchMap((value) => getCategories(isFirstTimeOpen: value)),
+      getIsFirstTimeOpen().switchMap(
+        (value) => getCategories(isFirstTimeOpen: value),
+      ),
       onData: (categories) {
         emit(state.copyWith(categories: categories));
         if (categories.isNotEmpty) setFirstTimeOpenToFalse();
@@ -104,6 +108,14 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   ) async {
     await resetCategories();
     await resetBudgets();
-    resetAccounts();
+    await resetAccounts();
+    await setDefaultCategories();
+    add(BackUpData());
   }
+
+  Future<void> _onBackUpData(
+    BackUpData event,
+    Emitter<SettingsState> emit,
+  ) =>
+      backUpCategories();
 }

@@ -10,7 +10,6 @@ import '../../resources/colors.dart';
 import '../../routes/app_navigator.dart';
 import '../home/home_bloc/home_screen_bloc.dart';
 import '../home/home_screen.dart';
-import '../settings/cubit/settings_screen_cubit.dart';
 import '../settings/settings_screen.dart';
 import '../stats/stats_screen.dart';
 import '../transactions/transactions_screen.dart';
@@ -53,10 +52,7 @@ class _MainAppScreenState extends State<MainAppScreen> {
       case 2:
         return TransactionsScreen();
       case 3:
-        return BlocProvider(
-          create: (context) => sl<SettingsScreenCubit>(),
-          child: SettingsScreen(),
-        );
+        return SettingsScreen();
       default:
         return Placeholder(color: AppColors.black);
     }
