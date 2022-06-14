@@ -5,7 +5,6 @@ class CategoryDto {
   final String name;
   final int icon;
   final int color;
-  final double balance;
   final int type;
   final String categoryUserId;
   CategoryDto({
@@ -13,7 +12,6 @@ class CategoryDto {
     required this.name,
     required this.icon,
     required this.color,
-    required this.balance,
     required this.type,
     required this.categoryUserId,
   });
@@ -24,8 +22,7 @@ class CategoryDto {
       id: category.id.value,
       name: category.name,
       icon: category.icon,
-      color: category.icon,
-      balance: category.balance,
+      color: category.color,
       type: categoryType.index,
       categoryUserId: category.categoryUserId!.value,
     );
@@ -41,7 +38,6 @@ class CategoryDto {
       name: name,
       icon: icon,
       color: color,
-      balance: balance,
       type: categoryType,
     );
   }
@@ -52,7 +48,6 @@ class CategoryDto {
       name: data['name']! as String,
       icon: data['icon']! as int,
       color: data['color']! as int,
-      balance: data['balance']! as double,
       type: data['type']! as int,
       categoryUserId: data['categoryUserId']! as String,
     );
@@ -64,7 +59,6 @@ class CategoryDto {
       'name': name,
       'icon': icon,
       'color': color,
-      'balance': balance,
       'type': type,
       'categoryUserId': categoryUserId,
     };

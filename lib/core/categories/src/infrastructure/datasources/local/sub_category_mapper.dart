@@ -17,7 +17,6 @@ class SubCategoryMapper {
       name: dto.name,
       icon: dto.icon,
       color: dto.color,
-      balance: dto.balance,
       categoryId: categoryId,
     );
   }
@@ -31,7 +30,6 @@ class SubCategoryMapper {
       name: Value(subCategory.name),
       icon: Value(subCategory.icon),
       color: Value(subCategory.color),
-      balance: Value(subCategory.balance),
       cateogryId: Value(subCategory.categoryId.value),
     );
   }

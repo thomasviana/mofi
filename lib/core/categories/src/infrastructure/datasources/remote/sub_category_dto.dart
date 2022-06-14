@@ -5,14 +5,12 @@ class SubCategoryDto {
   final String name;
   final int icon;
   final int color;
-  final double balance;
   final String categoryId;
   SubCategoryDto({
     required this.id,
     required this.name,
     required this.icon,
     required this.color,
-    required this.balance,
     required this.categoryId,
   });
 
@@ -22,7 +20,6 @@ class SubCategoryDto {
       name: subCategory.name,
       icon: subCategory.icon,
       color: subCategory.icon,
-      balance: subCategory.balance,
       categoryId: subCategory.categoryId.value,
     );
   }
@@ -33,7 +30,6 @@ class SubCategoryDto {
       name: name,
       icon: icon,
       color: color,
-      balance: balance,
       categoryId: CategoryId(categoryId),
     );
   }
@@ -44,7 +40,6 @@ class SubCategoryDto {
       name: data['name']! as String,
       icon: data['icon']! as int,
       color: data['color']! as int,
-      balance: data['balance']! as double,
       categoryId: data['categoryId']! as String,
     );
   }
@@ -55,7 +50,6 @@ class SubCategoryDto {
       'name': name,
       'icon': icon,
       'color': color,
-      'balance': balance,
       'categoryId': categoryId,
     };
   }

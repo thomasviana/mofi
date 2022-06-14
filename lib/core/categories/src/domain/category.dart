@@ -15,7 +15,6 @@ class Category extends CategoryModel {
     String name = '',
     required int icon,
     required int color,
-    double? balance,
     required this.type,
     this.categoryUserId,
   }) : super(
@@ -23,14 +22,12 @@ class Category extends CategoryModel {
           name: name,
           icon: icon,
           color: color,
-          balance: balance ?? 0,
         );
 
   Category copyWith({
     String? name,
     int? icon,
     int? color,
-    double? balance,
     CategoryType? type,
     CategoryUserId? categoryUserId,
   }) {
@@ -39,7 +36,6 @@ class Category extends CategoryModel {
       name: name ?? this.name,
       icon: icon ?? this.icon,
       color: color ?? this.color,
-      balance: balance ?? this.balance,
       type: type ?? this.type,
       categoryUserId: categoryUserId ?? this.categoryUserId,
     );

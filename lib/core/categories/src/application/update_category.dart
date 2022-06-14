@@ -18,7 +18,6 @@ class UpdateCategory {
     String? name,
     int? icon,
     int? color,
-    double? amount,
   }) async {
     final category = await _getCategories(isFirstTimeOpen: false).first.then(
           (categories) => categories.firstWhere(
@@ -31,7 +30,6 @@ class UpdateCategory {
         name: name,
         icon: icon,
         color: color,
-        balance: category.balance + (amount ?? 0),
       ),
     );
   }

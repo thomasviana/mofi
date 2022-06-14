@@ -13,7 +13,6 @@ class CategoryModel extends Entity<CategoryId> {
     required this.name,
     required this.icon,
     required this.color,
-    required this.balance,
   }) : super(id);
 }
 

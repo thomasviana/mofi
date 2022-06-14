@@ -8,21 +8,18 @@ class SubCategory extends CategoryModel {
     required String name,
     required int icon,
     required int color,
-    double? balance,
     required this.categoryId,
   }) : super(
           id: id,
           name: name,
           icon: icon,
           color: color,
-          balance: balance ?? 0,
         );
 
   SubCategory copyWith({
     String? name,
     int? icon,
     int? color,
-    double? balance,
     CategoryId? categoryId,
   }) {
     return SubCategory(
@@ -30,7 +27,6 @@ class SubCategory extends CategoryModel {
       name: name ?? this.name,
       icon: icon ?? this.icon,
       color: color ?? this.color,
-      balance: balance ?? this.balance,
       categoryId: categoryId ?? this.categoryId,
     );
   }

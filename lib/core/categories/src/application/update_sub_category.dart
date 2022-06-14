@@ -19,7 +19,6 @@ class UpdateSubCategory {
     String? name,
     int? icon,
     int? color,
-    double? amount,
   }) async {
     final subCategory = await _getSubCategories(categoryId).first.then(
           (subCategories) => subCategories.firstWhere(
@@ -32,7 +31,6 @@ class UpdateSubCategory {
         name: name,
         icon: icon,
         color: color,
-        balance: subCategory.balance + (amount ?? 0),
       ),
     );
   }
