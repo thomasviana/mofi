@@ -53,7 +53,7 @@ class Category extends CategoryModel {
   // Expense Categories
 
   factory Category.housing() => Category(
-        id: CategoryId('housing'),
+        id: CategoryId('01_housing'),
         name: 'Vivienda',
         icon: 0xe318,
         color: CategoryColors.amber,
@@ -61,7 +61,7 @@ class Category extends CategoryModel {
       );
 
   factory Category.food() => Category(
-        id: CategoryId('food'),
+        id: CategoryId('02_food'),
         name: 'Alimentación',
         icon: 0xe532,
         color: CategoryColors.red,
@@ -69,7 +69,7 @@ class Category extends CategoryModel {
       );
 
   factory Category.transportation() => Category(
-        id: CategoryId('transportation'),
+        id: CategoryId('03_transportation'),
         name: 'Transporte',
         icon: 0xf6b2,
         color: CategoryColors.blue_grey,
@@ -77,7 +77,7 @@ class Category extends CategoryModel {
       );
 
   factory Category.healthCare() => Category(
-        id: CategoryId('healthCare'),
+        id: CategoryId('03_healthCare'),
         name: 'Salud',
         icon: 0xf86f,
         color: CategoryColors.cyan,
@@ -85,7 +85,7 @@ class Category extends CategoryModel {
       );
 
   factory Category.services() => Category(
-        id: CategoryId('services'),
+        id: CategoryId('04_services'),
         name: 'Servicios',
         icon: 0xe6e7,
         color: CategoryColors.indigo,
@@ -93,7 +93,7 @@ class Category extends CategoryModel {
       );
 
   factory Category.recreation() => Category(
-        id: CategoryId('recreation'),
+        id: CategoryId('05_recreation'),
         name: 'Diversión',
         icon: 0xf736,
         color: CategoryColors.purple,
@@ -101,7 +101,7 @@ class Category extends CategoryModel {
       );
 
   factory Category.shopping() => Category(
-        id: CategoryId('shopping'),
+        id: CategoryId('06_shopping'),
         name: 'Compras',
         icon: 0xf016f,
         color: CategoryColors.blue,
@@ -109,7 +109,7 @@ class Category extends CategoryModel {
       );
 
   factory Category.financial() => Category(
-        id: CategoryId('financial'),
+        id: CategoryId('07_financial'),
         name: 'Gastos financieros',
         icon: 0xf58f,
         color: CategoryColors.green,
@@ -117,7 +117,7 @@ class Category extends CategoryModel {
       );
 
   factory Category.education() => Category(
-        id: CategoryId('education'),
+        id: CategoryId('08_education'),
         name: 'Educación',
         icon: 63568,
         color: CategoryColors.deep_purple,
@@ -125,7 +125,7 @@ class Category extends CategoryModel {
       );
 
   factory Category.contribution() => Category(
-        id: CategoryId('contribution'),
+        id: CategoryId('09_contribution'),
         name: 'Contribución',
         icon: 983707,
         color: CategoryColors.pink,
@@ -133,7 +133,7 @@ class Category extends CategoryModel {
       );
 
   factory Category.dependents() => Category(
-        id: CategoryId('dependents'),
+        id: CategoryId('10_dependents'),
         name: 'Dependientes',
         icon: 63036,
         color: CategoryColors.orange,
@@ -141,7 +141,7 @@ class Category extends CategoryModel {
       );
 
   factory Category.investments() => Category(
-        id: CategoryId('investments'),
+        id: CategoryId('11_investments'),
         name: 'Inversiones',
         icon: 63513,
         color: CategoryColors.teal,
@@ -151,7 +151,7 @@ class Category extends CategoryModel {
   // Income Categories
 
   factory Category.salary() => Category(
-        id: CategoryId('salary'),
+        id: CategoryId('01_salary'),
         name: 'Salario',
         icon: 0xf58f,
         color: CategoryColors.amber,
@@ -159,7 +159,7 @@ class Category extends CategoryModel {
       );
 
   factory Category.honorarium() => Category(
-        id: CategoryId('honorarium'),
+        id: CategoryId('02_honorarium'),
         name: 'Honorarios',
         icon: 0xf58f,
         color: CategoryColors.red,
@@ -167,7 +167,7 @@ class Category extends CategoryModel {
       );
 
   factory Category.rental() => Category(
-        id: CategoryId('rental'),
+        id: CategoryId('03_rental'),
         name: 'Renta de capital',
         icon: 0xf58f,
         color: CategoryColors.blue_grey,
@@ -175,7 +175,7 @@ class Category extends CategoryModel {
       );
 
   factory Category.business() => Category(
-        id: CategoryId('business'),
+        id: CategoryId('04_business'),
         name: 'Negocios',
         icon: 0xf58f,
         color: CategoryColors.cyan,
@@ -183,7 +183,7 @@ class Category extends CategoryModel {
       );
 
   factory Category.dividends() => Category(
-        id: CategoryId('dividends'),
+        id: CategoryId('05_dividends'),
         name: 'Dividendos',
         icon: 0xf58f,
         color: CategoryColors.indigo,
@@ -191,7 +191,7 @@ class Category extends CategoryModel {
       );
 
   factory Category.pension() => Category(
-        id: CategoryId('pension'),
+        id: CategoryId('06_pension'),
         name: 'Pensión',
         icon: 0xf58f,
         color: CategoryColors.purple,
@@ -199,7 +199,7 @@ class Category extends CategoryModel {
       );
 
   factory Category.occasional() => Category(
-        id: CategoryId('occasional'),
+        id: CategoryId('07_occasional'),
         name: 'Ocasional',
         icon: 0xf58f,
         color: CategoryColors.blue,
@@ -207,7 +207,7 @@ class Category extends CategoryModel {
       );
 
   factory Category.gift() => Category(
-        id: CategoryId('gift'),
+        id: CategoryId('08_gift'),
         name: 'Regalos',
         icon: 0xf58f,
         color: CategoryColors.teal,
