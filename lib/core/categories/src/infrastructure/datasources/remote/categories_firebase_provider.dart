@@ -24,14 +24,15 @@ class CategoriesFirebaseProvider {
         _firebaseFirestore.collection('users/${currentUser!.uid}/categories');
 
     final categoryDTO = CategoryDto.fromDomain(category);
-    final categoryExist = await ref
-        .where('id', isEqualTo: category.id.value)
-        .get()
-        .then((snapshots) => snapshots.docs.isNotEmpty);
-    if (categoryExist) {
-      ref.doc(category.id.value).update(categoryDTO.toFirebaseMap());
+    final categorySnapshot =
+        await ref.where('id', isEqualTo: category.id.value).get();
+
+    if (categorySnapshot.docs.isNotEmpty) {
+      await ref
+          .doc(categorySnapshot.docs[0].reference.id)
+          .update(categoryDTO.toFirebaseMap());
     } else {
-      ref.add(categoryDTO.toFirebaseMap());
+      await ref.add(categoryDTO.toFirebaseMap());
     }
   }
 
@@ -46,6 +47,7 @@ class CategoriesFirebaseProvider {
   Stream<Option<List<Category>>> getCategories() async* {
     yield* _firebaseFirestore
         .collection('users/${currentUser!.uid}/categories')
+        .orderBy('id', descending: false)
         .snapshots()
         .map((snapshot) {
       if (snapshot.docs.isNotEmpty) {

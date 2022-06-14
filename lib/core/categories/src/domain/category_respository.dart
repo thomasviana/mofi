@@ -13,4 +13,6 @@ abstract class CategoryRepository {
   Future<void> delete(CategoryId categoryId);
 
   Future<void> deleteAll();
+
+  Future<void> backUp(CategoryUserId userId);
 }

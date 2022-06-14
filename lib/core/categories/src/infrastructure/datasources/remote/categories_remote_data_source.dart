@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
@@ -5,7 +7,7 @@ import '../../../../domain.dart';
 import '../../../../infrastructure.dart';
 
 abstract class CategoriesRemoteDataSource {
-  Future<void> saveCategory(Category category);
+  Future<void> addOrUpdateCategory(Category category);
   Future<void> addOrUpdateCategories(List<Category> categories);
   Stream<Option<List<Category>>> getAllCategories();
   Future<void> deleteCategory(CategoryId categoryId);
@@ -30,20 +32,15 @@ class CategoriesRemoteDataSourceImpl implements CategoriesRemoteDataSource {
   );
 
   @override
-  Future<void> saveCategory(Category category) async {
+  Future<void> addOrUpdateCategory(Category category) async {
     _categoryFirebaseProvider.addOrUpdateCategory(category);
   }
 
   @override
   Future<void> addOrUpdateCategories(List<Category> categories) async {
-    bool firstTime = true;
-    if (firstTime) {
-      for (final category in categories) {
-        await _categoryFirebaseProvider.addOrUpdateCategory(category);
-      }
+    for (final category in categories) {
+      await _categoryFirebaseProvider.addOrUpdateCategory(category);
     }
-
-    firstTime = false;
   }
 
   @override

@@ -8,6 +8,7 @@ export './src/application/get_categories.dart';
 export './src/application/get_sub_categories.dart';
 export './src/application/update_category.dart';
 export './src/application/update_sub_category.dart';
+export 'src/application/back_up_categories.dart';
 export 'src/application/reset_categories.dart';
 export 'src/application/set_default_categories.dart';
 export 'src/application/set_default_sub_categories.dart';
