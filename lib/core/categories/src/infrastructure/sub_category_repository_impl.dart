@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
-import 'package:rxdart/rxdart.dart';
 
 import '../../domain.dart';
 import '../../infrastructure.dart';
@@ -19,18 +18,10 @@ class SubCategoryRepositoryImpl implements SubCategoryRepository {
   Stream<List<SubCategory>> fetchSubCategories(
     CategoryId categoryId,
   ) async* {
-    yield* _localDataSource.getCachedSubCategories(categoryId).switchMap(
+    yield* _localDataSource.getCachedSubCategories(categoryId).asyncMap(
           (optionCachedSubCategories) => optionCachedSubCategories.fold(
-            () => _remoteDataSource.getAllSubCategories().switchMap(
-                  (optionRemoteSubCategories) => optionRemoteSubCategories.fold(
-                    () => Stream.value([]),
-                    (remoteSubCategories) {
-                      saveList(remoteSubCategories);
-                      return Stream.value(remoteSubCategories);
-                    },
-                  ),
-                ),
-            (cachedSubCategories) => Stream.value(cachedSubCategories),
+            () => Future.value([]),
+            (cachedSubCategories) => Future.value(cachedSubCategories),
           ),
         );
   }
@@ -43,22 +34,23 @@ class SubCategoryRepositoryImpl implements SubCategoryRepository {
   @override
   Future<void> save(SubCategory subCategory) async {
     await _localDataSource.cacheSubCategory(subCategory);
-    await _remoteDataSource.saveSubCategory(subCategory);
+    await _remoteDataSource.addOrUpdateSubCategory(subCategory);
   }
 
   @override
   Future<void> saveList(List<SubCategory> subCategories) async {
     await _localDataSource.cacheSubCategories(subCategories);
-    await _remoteDataSource.saveSubCategories(subCategories);
   }
 
   @override
-  Future<void> delete(CategoryId subCategoryId) {
-    return _localDataSource.deleteSubCategory(subCategoryId);
+  Future<void> delete(SubCategory subCategory) async {
+    await _localDataSource.deleteSubCategory(subCategory.id);
+    await _remoteDataSource.deleteSubCategory(subCategory);
   }
 
   @override
-  Future<void> deleteAll() {
-    return _localDataSource.deleteAllSubCategories();
+  Future<void> deleteAll() async {
+    await _localDataSource.deleteAllSubCategories();
+    await _remoteDataSource.deleteAllSubCategories();
   }
 }

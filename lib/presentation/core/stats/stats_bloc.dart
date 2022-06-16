@@ -79,14 +79,14 @@ class StatsBloc extends Bloc<StatsEvent, StatsState> {
     CategoriesSuscriptionRequested event,
     Emitter<StatsState> emit,
   ) async {
-    await emit.onEach<List<Category>>(
+    await emit.onEach<Option<List<Category>>>(
       _getIsFirstTimeOpen()
           .switchMap((value) => _getCategories(isFirstTimeOpen: value)),
       onData: (categories) {
         emit(
-          state.copyWith(categories: categories),
+          state.copyWith(categories: categories.getOrElse(() => [])),
         );
-        if (categories.isNotEmpty) _setFirstTimeOpenToFalse();
+        if (categories.isSome()) _setFirstTimeOpenToFalse();
       },
     );
   }

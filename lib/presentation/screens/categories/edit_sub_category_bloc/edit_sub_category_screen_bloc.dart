@@ -22,7 +22,7 @@ class EditSubCategoryScreenBloc
       ),
     );
     on<SubCategoryDeleted>(
-      (event, emit) async => deleteSubCategory(state.subCategory!.id),
+      (event, emit) async => deleteSubCategory(state.subCategory!),
     );
     on<SubCategorySaved>(
       (event, emit) async => updateSubCategory(

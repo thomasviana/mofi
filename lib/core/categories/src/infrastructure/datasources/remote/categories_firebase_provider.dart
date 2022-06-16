@@ -1,3 +1,5 @@
+import 'dart:core';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,6 +21,8 @@ class CategoriesFirebaseProvider {
     return user;
   }
 
+  // CATEGORIES
+
   Future<void> addOrUpdateCategory(Category category) async {
     final ref =
         _firebaseFirestore.collection('users/${currentUser!.uid}/categories');
@@ -35,14 +39,6 @@ class CategoriesFirebaseProvider {
       await ref.add(categoryDTO.toFirebaseMap());
     }
   }
-
-  // Future<void> updateCategory(Category category) async {
-  //   final ref = _firebaseFirestore
-  //       .collection('users/${currentUser!.uid}/categories')
-  //       .doc(category.id.value);
-  //   final categoryDTO = CategoryDto.fromDomain(category);
-  //   await ref.update(categoryDTO.toFirebaseMap());
-  // }
 
   Stream<Option<List<Category>>> getCategories() async* {
     yield* _firebaseFirestore
@@ -78,44 +74,52 @@ class CategoriesFirebaseProvider {
     }
   }
 
-  Future<void> saveSubCategory(SubCategory subCategory) async {
-    final ref = _firebaseFirestore.collection(
-      'users/${currentUser!.uid}/categories/${subCategory.categoryId}',
-    );
-    final subCategoryDTO = SubCategoryDto.fromDomain(subCategory);
-    await ref.add(subCategoryDTO.toFirebaseMap());
-  }
+  // SUBCATEGORIES
 
-  Stream<Option<List<SubCategory>>> getAllSubCategories() async* {
-    yield* _firebaseFirestore
+  Future<void> addOrUpdateSubCategory(SubCategory subCategory) async {
+    final subCategoryDTO = SubCategoryDto.fromDomain(subCategory);
+    final categorySnapshot = await _firebaseFirestore
         .collection('users/${currentUser!.uid}/categories')
-        .snapshots()
-        .map((snapshot) {
-      List<SubCategory> subCategories = [];
-      for (final doc in snapshot.docs) {
-        final snapshots = doc.get('subCategories')
-            as List<QueryDocumentSnapshot<Map<String, dynamic>>>;
-        if (snapshots.isNotEmpty) {
-          final subSategoriesData = snapshots
-              .map(
-                (snapshot) => SubCategoryDto.fromFirebaseMap(snapshot.data()),
-              )
-              .toList();
-          subCategories =
-              subSategoriesData.map((dto) => dto.toDomain()).toList();
-        }
-      }
-      return optionOf(subCategories);
-    });
+        .where('id', isEqualTo: subCategory.categoryId.value)
+        .get();
+    if (categorySnapshot.docs.isEmpty) return;
+    final categoryReferenceId = categorySnapshot.docs[0].reference.id;
+    final ref = _firebaseFirestore
+        .collection(
+          'users/${currentUser!.uid}/categories/',
+        )
+        .doc(categoryReferenceId)
+        .collection('subCategories');
+    final subCategorySnapshot =
+        await ref.where('id', isEqualTo: subCategory.id.value).get();
+
+    if (subCategorySnapshot.docs.isNotEmpty) {
+      await ref
+          .doc(subCategorySnapshot.docs[0].reference.id)
+          .update(subCategoryDTO.toFirebaseMap());
+    } else {
+      await ref.add(subCategoryDTO.toFirebaseMap());
+    }
   }
 
   Stream<Option<List<SubCategory>>> getSubCategoriesByCategory(
     CategoryId categoryId,
   ) async* {
+    final categorySnapshot = await _firebaseFirestore
+        .collection('users/${currentUser!.uid}/categories')
+        .where('id', isEqualTo: categoryId.value)
+        .get();
+
+    if (categorySnapshot.docs.isEmpty) return;
+    final categoryReferenceId = categorySnapshot.docs[0].reference.id;
+
     yield* _firebaseFirestore
         .collection(
-          'users/${currentUser!.uid}/categories/$categoryId/subCategories',
+          'users/${currentUser!.uid}/categories/',
         )
+        .doc(categoryReferenceId)
+        .collection('subCategories')
+        .orderBy('id', descending: false)
         .snapshots()
         .map((snapshot) {
       if (snapshot.docs.isNotEmpty) {
@@ -132,23 +136,48 @@ class CategoriesFirebaseProvider {
   }
 
   Future<void> deleteSubCategory(SubCategory subCategory) async {
+    final categorySnapshot = await _firebaseFirestore
+        .collection('users/${currentUser!.uid}/categories')
+        .where('id', isEqualTo: subCategory.categoryId.value)
+        .get();
+
+    if (categorySnapshot.docs.isEmpty) return;
+    final categoryReferenceId = categorySnapshot.docs[0].reference.id;
     final ref = _firebaseFirestore
         .collection(
-          'users/${currentUser!.uid}/categories/${subCategory.categoryId}}/subCategories',
+          'users/${currentUser!.uid}/categories/',
         )
-        .doc(subCategory.id.value);
-    await ref.delete();
+        .doc(categoryReferenceId)
+        .collection('subCategories');
+
+    final subCategorySnapshot =
+        await ref.where('id', isEqualTo: subCategory.id.value).get();
+
+    if (subCategorySnapshot.docs.isNotEmpty) {
+      await ref.doc(subCategorySnapshot.docs[0].reference.id).delete();
+    }
   }
 
   Future<void> deleteAllSubCategories() async {
     final snapshots = await _firebaseFirestore
         .collection('users/${currentUser!.uid}/categories')
         .get();
-    for (final doc in snapshots.docs) {
-      final reference = (doc.data()['subCategories']
-              as QueryDocumentSnapshot<Map<String, dynamic>>)
-          .reference;
-      await reference.delete();
+    for (final categoryDoc in snapshots.docs) {
+      final categoryReferenceId = categoryDoc.reference.id;
+      _firebaseFirestore
+          .collection(
+            'users/${currentUser!.uid}/categories/',
+          )
+          .doc(categoryReferenceId)
+          .collection('subCategories')
+          .get()
+          .then(
+        (snapshot) {
+          for (final doc in snapshot.docs) {
+            doc.reference.delete();
+          }
+        },
+      );
     }
   }
 }

@@ -76,14 +76,17 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     GetUserCategories event,
     Emitter<SettingsState> emit,
   ) async {
-    await emit.onEach<List<Category>>(
+    await emit.onEach<Option<List<Category>>>(
       getIsFirstTimeOpen().switchMap(
         (value) => getCategories(isFirstTimeOpen: value),
       ),
-      onData: (categories) {
-        emit(state.copyWith(categories: categories));
-        if (categories.isNotEmpty) setFirstTimeOpenToFalse();
-      },
+      onData: (optionCategories) => optionCategories.fold(
+        () => setDefaultCategories(),
+        (categories) {
+          emit(state.copyWith(categories: categories));
+          if (categories.isNotEmpty) setFirstTimeOpenToFalse();
+        },
+      ),
     );
   }
 

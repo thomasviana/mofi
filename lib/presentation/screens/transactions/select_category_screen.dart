@@ -170,8 +170,10 @@ class _SubCategorySuggestions extends StatelessWidget {
                     () => null,
                     (stateCategoryt) {
                       if (stateCategoryt.id == subCategory.id) {
-                        return const Icon(Icons.check,
-                            color: AppColors.primaryColor,);
+                        return const Icon(
+                          Icons.check,
+                          color: AppColors.primaryColor,
+                        );
                       }
                       return null;
                     },
@@ -241,8 +243,10 @@ class _CategoriesList extends StatelessWidget {
                     () => null,
                     (stateCategoryt) {
                       if (stateCategoryt.id == category.id) {
-                        return const Icon(Icons.check,
-                            color: AppColors.primaryColor,);
+                        return const Icon(
+                          Icons.check,
+                          color: AppColors.primaryColor,
+                        );
                       }
                       return null;
                     },
@@ -288,17 +292,19 @@ class _SubCategoriesList extends StatelessWidget {
               ),
             ),
             ListTile(
-              title: Text(state.subCategories!.first.name),
+              title: Text(state.generalSubCategory.name),
               leading: ListTileLeadingIcon(
-                icon: state.subCategories!.first.icon,
-                color: state.subCategories!.first.color,
+                icon: state.generalSubCategory.icon,
+                color: state.generalSubCategory.color,
               ),
               trailing: state.subCategory.fold(
                 () => null,
                 (stateSubCategory) {
-                  if (stateSubCategory.id == state.subCategories!.first.id) {
-                    return const Icon(Icons.check,
-                        color: AppColors.primaryColor,);
+                  if (stateSubCategory.id == state.generalSubCategory.id) {
+                    return const Icon(
+                      Icons.check,
+                      color: AppColors.primaryColor,
+                    );
                   }
                   return null;
                 },
@@ -306,7 +312,7 @@ class _SubCategoriesList extends StatelessWidget {
               onTap: () {
                 context.read<EditTransactionScreenBloc>().add(
                       SubCategorySelected(
-                        subCategory: state.subCategories!.first,
+                        subCategory: state.generalSubCategory,
                       ),
                     );
                 AppNavigator.navigateBack(context);
@@ -326,7 +332,7 @@ class _SubCategoriesList extends StatelessWidget {
               ),
             ),
             Divider(height: 0),
-            if (state.subCategories!.length == 1)
+            if (state.subCategoriesWithoutGeneral.length == 1)
               state.category.fold(
                 () => const SizedBox(),
                 (category) => Padding(
@@ -340,11 +346,11 @@ class _SubCategoriesList extends StatelessWidget {
             ListView.separated(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-              itemCount: state.subCategories!.length - 1,
+              itemCount: state.subCategoriesWithoutGeneral.length,
               separatorBuilder: (BuildContext context, int index) =>
                   const Divider(height: 0),
               itemBuilder: (BuildContext context, int index) {
-                final subCategory = state.subCategories![index + 1];
+                final subCategory = state.subCategoriesWithoutGeneral[index];
                 return ListTile(
                   title: Text(subCategory.name),
                   leading: ListTileLeadingIcon(

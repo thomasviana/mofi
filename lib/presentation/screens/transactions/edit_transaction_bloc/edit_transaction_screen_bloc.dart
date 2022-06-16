@@ -20,13 +20,12 @@ class EditTransactionScreenBloc
   DeleteTransaction deleteTransaction;
   AddTransaction addTransaction;
   GetSubCategories getSubCategories;
-  SetDefaultSubCategories setDefaultSubCategories;
+
   EditTransactionScreenBloc(
     this.updateTransaction,
     this.deleteTransaction,
     this.addTransaction,
     this.getSubCategories,
-    this.setDefaultSubCategories,
   ) : super(EditTransactionScreenState.initial()) {
     on<CheckTransaction>((event, emit) {
       if (event.transaction != null) {

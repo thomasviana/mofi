@@ -16,6 +16,10 @@ class EditCategoryScreenState {
   bool get isDefaultCategory => Category.defaultCategories
       .any((category) => category.id.value == this.category?.id.value);
 
+  List<SubCategory> get subCategoriesWithoutGeneral => (subCategories ?? [])
+      .where((subCategory) => subCategory.id != subCategory.categoryId)
+      .toList();
+
   factory EditCategoryScreenState.initial() => EditCategoryScreenState(
         isLoading: true,
         isEditMode: true,

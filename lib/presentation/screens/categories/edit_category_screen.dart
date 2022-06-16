@@ -112,7 +112,7 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
   }
 
   Widget _buildBody(BuildContext context, EditCategoryScreenState state) {
-    final subCategories = state.subCategories ?? [];
+    final subCategories = state.subCategoriesWithoutGeneral;
 
     if (state.isLoading) {
       return Center(
@@ -252,15 +252,14 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
             ListView.separated(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-              padding: subCategories.length == 1
+              padding: subCategories.isEmpty
                   ? EdgeInsets.zero
                   : EdgeInsets.only(top: 4, bottom: 4),
-              itemCount:
-                  subCategories.isNotEmpty ? subCategories.length - 1 : 0,
+              itemCount: subCategories.isNotEmpty ? subCategories.length : 0,
               separatorBuilder: (BuildContext context, int index) =>
                   Platform.isIOS ? const Divider(height: 2) : const SizedBox(),
               itemBuilder: (BuildContext context, int index) {
-                final subCategory = subCategories[index + 1];
+                final subCategory = subCategories[index];
                 return ListTile(
                   title: Text(subCategory.name),
                   leading: ListTileLeadingIcon(
@@ -376,6 +375,7 @@ Future<void> _pickIcon(
   BuildContext context,
   EditCategoryScreenBloc bloc,
 ) async {
+  // TODO: Solve version or create custom picker
   // final materialIcons = AppIcons.materialIcons();
   // final icon = await FlutterIconPicker.showIconPicker(
   //   context,

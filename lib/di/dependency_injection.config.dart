@@ -223,7 +223,6 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       get<_i40.UpdateSubCategory>(),
       get<_i40.DeleteCategory>(),
       get<_i40.GetSubCategories>(),
-      get<_i40.SetDefaultSubCategories>(),
       get<_i40.CreateSubCategory>(),
       get<_i40.CreateCategory>()));
   gh.factory<_i41.EditSubCategoryScreenBloc>(() =>
@@ -234,8 +233,7 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
           get<_i43.UpdateTransaction>(),
           get<_i43.DeleteTransaction>(),
           get<_i43.AddTransaction>(),
-          get<_i40.GetSubCategories>(),
-          get<_i40.SetDefaultSubCategories>()));
+          get<_i40.GetSubCategories>()));
   gh.lazySingleton<_i44.FirebaseAuth>(
       () => firebaseInjectableModule.firebaseAuth);
   gh.lazySingleton<_i45.FirebaseFirestore>(

@@ -43,6 +43,13 @@ class EditTransactionScreenState {
             .any((defCategory) => defCategory.id.value == category.id.value),
       );
 
+  SubCategory get generalSubCategory => (subCategories ?? [])
+      .firstWhere((subCategory) => subCategory.id == subCategory.categoryId);
+
+  List<SubCategory> get subCategoriesWithoutGeneral => (subCategories ?? [])
+      .where((subCategory) => subCategory.id != subCategory.categoryId)
+      .toList();
+
   factory EditTransactionScreenState.initial() => EditTransactionScreenState(
         transaction: Transaction.empty(),
         isLoading: true,

@@ -14,15 +14,14 @@ class EditCategoryScreenBloc
   UpdateSubCategory updateSubCategory;
   DeleteCategory deleteCategory;
   GetSubCategories getSubCategories;
-  SetDefaultSubCategories setDefaultSubCategories;
   CreateSubCategory createSubCategory;
   CreateCategory createCategory;
+
   EditCategoryScreenBloc(
     this.updateCategory,
     this.updateSubCategory,
     this.deleteCategory,
     this.getSubCategories,
-    this.setDefaultSubCategories,
     this.createSubCategory,
     this.createCategory,
   ) : super(EditCategoryScreenState.initial()) {

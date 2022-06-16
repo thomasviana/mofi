@@ -13,8 +13,12 @@ class GetSubCategories {
     this._subCategoryRepository,
   );
 
-  Stream<List<SubCategory>> call(CategoryId categoryId) =>
-      _subCategoryRepository.fetchSubCategories(categoryId);
+  Stream<List<SubCategory>> call(
+    CategoryId categoryId,
+  ) =>
+      _subCategoryRepository.fetchSubCategories(
+        categoryId,
+      );
 
   Stream<Option<List<SubCategory>>> all() =>
       _subCategoryRepository.fetchAllSubCategories();

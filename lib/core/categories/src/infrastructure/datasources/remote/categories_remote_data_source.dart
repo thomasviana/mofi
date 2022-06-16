@@ -13,8 +13,8 @@ abstract class CategoriesRemoteDataSource {
   Future<void> deleteCategory(CategoryId categoryId);
   Future<void> deleteAllCategories();
 
-  Future<void> saveSubCategory(SubCategory subCategory);
-  Future<void> saveSubCategories(List<SubCategory> subCategories);
+  Future<void> addOrUpdateSubCategory(SubCategory subCategory);
+  Future<void> addOrUpdateSubCategories(List<SubCategory> subCategories);
   Stream<Option<List<SubCategory>>> getAllSubCategories();
   Stream<Option<List<SubCategory>>> getSubCategoriesByCategory(
     CategoryId categoryId,
@@ -25,67 +25,75 @@ abstract class CategoriesRemoteDataSource {
 
 @LazySingleton(as: CategoriesRemoteDataSource)
 class CategoriesRemoteDataSourceImpl implements CategoriesRemoteDataSource {
-  final CategoriesFirebaseProvider _categoryFirebaseProvider;
+  final CategoriesFirebaseProvider _categoriesFirebaseProvider;
 
   CategoriesRemoteDataSourceImpl(
-    this._categoryFirebaseProvider,
+    this._categoriesFirebaseProvider,
   );
 
   @override
-  Future<void> addOrUpdateCategory(Category category) async {
-    _categoryFirebaseProvider.addOrUpdateCategory(category);
-  }
+  Future<void> addOrUpdateCategory(Category category) =>
+      _categoriesFirebaseProvider.addOrUpdateCategory(category);
 
   @override
   Future<void> addOrUpdateCategories(List<Category> categories) async {
     for (final category in categories) {
-      await _categoryFirebaseProvider.addOrUpdateCategory(category);
+      await _categoriesFirebaseProvider.addOrUpdateCategory(category);
     }
   }
 
   @override
   Stream<Option<List<Category>>> getAllCategories() =>
-      _categoryFirebaseProvider.getCategories();
+      _categoriesFirebaseProvider.getCategories();
 
   @override
-  Future<void> deleteCategory(CategoryId categoryId) async {
-    _categoryFirebaseProvider.deleteCategory(categoryId);
-  }
+  Future<void> deleteCategory(CategoryId categoryId) =>
+      _categoriesFirebaseProvider.deleteCategory(categoryId);
 
   @override
-  Future<void> deleteAllCategories() async {
-    _categoryFirebaseProvider.deleteAllCategories();
-  }
+  Future<void> deleteAllCategories() =>
+      _categoriesFirebaseProvider.deleteAllCategories();
 
   @override
-  Future<void> saveSubCategory(SubCategory subCategory) async {
-    _categoryFirebaseProvider.saveSubCategory(subCategory);
-  }
+  Future<void> addOrUpdateSubCategory(SubCategory subCategory) =>
+      _categoriesFirebaseProvider.addOrUpdateSubCategory(subCategory);
 
   @override
-  Future<void> saveSubCategories(List<SubCategory> subCategories) async {
+  Future<void> addOrUpdateSubCategories(List<SubCategory> subCategories) async {
     for (final subCategory in subCategories) {
-      await _categoryFirebaseProvider.saveSubCategory(subCategory);
+      await _categoriesFirebaseProvider.addOrUpdateSubCategory(subCategory);
     }
   }
 
   @override
   Stream<Option<List<SubCategory>>> getAllSubCategories() =>
-      _categoryFirebaseProvider.getAllSubCategories();
+      _categoriesFirebaseProvider.getCategories().asyncMap(
+            (optionCategories) => optionCategories.fold(
+              () => none(),
+              (categories) async {
+                final allSubCategories = <SubCategory>[];
+                for (final category in categories) {
+                  final subCategories = await _categoriesFirebaseProvider
+                      .getSubCategoriesByCategory(category.id)
+                      .first;
+                  allSubCategories.addAll(subCategories.getOrElse(() => []));
+                }
+                return some(allSubCategories);
+              },
+            ),
+          );
 
   @override
   Stream<Option<List<SubCategory>>> getSubCategoriesByCategory(
     CategoryId categoryId,
   ) =>
-      _categoryFirebaseProvider.getSubCategoriesByCategory(categoryId);
+      _categoriesFirebaseProvider.getSubCategoriesByCategory(categoryId);
 
   @override
-  Future<void> deleteSubCategory(SubCategory subCategory) async {
-    _categoryFirebaseProvider.deleteSubCategory(subCategory);
-  }
+  Future<void> deleteSubCategory(SubCategory subCategory) =>
+      _categoriesFirebaseProvider.deleteSubCategory(subCategory);
 
   @override
-  Future<void> deleteAllSubCategories() async {
-    _categoryFirebaseProvider.deleteAllSubCategories();
-  }
+  Future<void> deleteAllSubCategories() =>
+      _categoriesFirebaseProvider.deleteAllSubCategories();
 }

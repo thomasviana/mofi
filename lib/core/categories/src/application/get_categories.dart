@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -16,10 +17,10 @@ class GetCategories {
     this._getProfileInfo,
   );
 
-  Stream<List<Category>> call({required bool isFirstTimeOpen}) async* {
+  Stream<Option<List<Category>>> call({required bool isFirstTimeOpen}) async* {
     yield* _getProfileInfo().switchMap((user) {
       return user.fold(
-        () => Stream.value([]),
+        () => Stream.value(None()),
         (user) => _categoryRepository.fetchCategories(
           CategoryUserId(user.id.value),
           isFirstTimeOpen: isFirstTimeOpen,

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../domain.dart';
@@ -18,7 +19,7 @@ class CategoryRepositoryImpl implements CategoryRepository {
   bool _isFirstTimeOpen = true;
 
   @override
-  Stream<List<Category>> fetchCategories(
+  Stream<Option<List<Category>>> fetchCategories(
     CategoryUserId userId, {
     required bool isFirstTimeOpen,
   }) async* {
@@ -26,8 +27,8 @@ class CategoryRepositoryImpl implements CategoryRepository {
     if (_isFirstTimeOpen) _getRemoteCategoriesOrSetDefault(userId);
     yield* _localDataSource.getCachedCategories(userId).asyncMap(
           (optionCachedCategories) => optionCachedCategories.fold(
-            () => Future.value([]),
-            (cachedCategories) => Future.value(cachedCategories),
+            () => Future.value(None()),
+            (cachedCategories) => Future.value(some(cachedCategories)),
           ),
         );
   }
@@ -44,8 +45,23 @@ class CategoryRepositoryImpl implements CategoryRepository {
                 _isFirstTimeOpen = false;
               },
               (remoteCategories) async {
-                _localDataSource.cacheCategories(remoteCategories);
+                await _localDataSource.cacheCategories(remoteCategories);
                 _isFirstTimeOpen = false;
+
+                _getRemoteSubCategoriesOrSetDefault();
+              },
+            ),
+          );
+
+  Future<void> _getRemoteSubCategoriesOrSetDefault() =>
+      _remoteDataSource.getAllSubCategories().first.then(
+            (optionRemoteSubCategories) => optionRemoteSubCategories.fold(
+              () {
+                final defaultSubCategories = SubCategory.allSubCategories;
+                _localDataSource.cacheSubCategories(defaultSubCategories);
+              },
+              (remoteSubCategories) {
+                _localDataSource.cacheSubCategories(remoteSubCategories);
               },
             ),
           );
@@ -75,11 +91,39 @@ class CategoryRepositoryImpl implements CategoryRepository {
 
   @override
   Future<void> backUp(CategoryUserId userId) async {
-    _localDataSource.getCachedCategories(userId).first.then(
-          (optionLocalCategories) => optionLocalCategories.fold(
-            () {},
-            (categories) => _remoteDataSource.addOrUpdateCategories(categories),
+    _localDataSource.getAllCachedSubCategories().first.then(
+          (optionSubCategories) => optionSubCategories.fold(
+            () async {
+              final defaultSubCategories = SubCategory.allSubCategories;
+              await _localDataSource.cacheSubCategories(defaultSubCategories);
+              _backUpAllCategoriesAndSubCategories(userId);
+            },
+            (_) => _backUpAllCategoriesAndSubCategories(userId),
           ),
         );
   }
+
+  Future<void> _backUpAllCategoriesAndSubCategories(CategoryUserId userId) =>
+      _localDataSource.getCachedCategories(userId).first.then(
+            (optionLocalCategories) => optionLocalCategories.fold(
+              () {},
+              (categories) async {
+                await _remoteDataSource.addOrUpdateCategories(categories);
+                for (final category in categories) {
+                  _localDataSource
+                      .getCachedSubCategories(category.id)
+                      .first
+                      .then(
+                        (optionSubCategories) => {
+                          optionSubCategories.fold(
+                            () {},
+                            (subCategories) => _remoteDataSource
+                                .addOrUpdateSubCategories(subCategories),
+                          )
+                        },
+                      );
+                }
+              },
+            ),
+          );
 }

@@ -20,10 +20,10 @@ class UpdateCategory {
     int? color,
   }) async {
     final category = await _getCategories(isFirstTimeOpen: false).first.then(
-          (categories) => categories.firstWhere(
-            (category) => category.id == categoryId,
-            orElse: () => throw Exception("Category doesn't exist."),
-          ),
+          (categories) => categories.getOrElse(() => []).firstWhere(
+                (category) => category.id == categoryId,
+                orElse: () => throw Exception("Category doesn't exist."),
+              ),
         );
     _categoryRepository.save(
       category.copyWith(

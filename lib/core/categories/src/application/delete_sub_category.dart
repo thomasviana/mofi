@@ -8,7 +8,7 @@ class DeleteSubCategory {
 
   const DeleteSubCategory(this._subCategoryRepository);
 
-  Future<void> call(CategoryId subCategoryId) {
-    return _subCategoryRepository.delete(subCategoryId);
+  Future<void> call(SubCategory subCategory) {
+    return _subCategoryRepository.delete(subCategory);
   }
 }

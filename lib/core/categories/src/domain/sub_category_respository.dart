@@ -13,7 +13,7 @@ abstract class SubCategoryRepository {
 
   Future<void> saveList(List<SubCategory> subCategories);
 
-  Future<void> delete(CategoryId subCategoryId);
+  Future<void> delete(SubCategory subCategory);
 
   Future<void> deleteAll();
 }
