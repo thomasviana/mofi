@@ -77,7 +77,7 @@ class Category extends CategoryModel {
       );
 
   factory Category.healthCare() => Category(
-        id: CategoryId('03_healthCare'),
+        id: CategoryId('04_healthCare'),
         name: 'Salud',
         icon: 0xf86f,
         color: CategoryColors.cyan,
@@ -85,7 +85,7 @@ class Category extends CategoryModel {
       );
 
   factory Category.services() => Category(
-        id: CategoryId('04_services'),
+        id: CategoryId('05_services'),
         name: 'Servicios',
         icon: 0xe6e7,
         color: CategoryColors.indigo,
@@ -93,7 +93,7 @@ class Category extends CategoryModel {
       );
 
   factory Category.recreation() => Category(
-        id: CategoryId('05_recreation'),
+        id: CategoryId('06_recreation'),
         name: 'Diversión',
         icon: 0xf736,
         color: CategoryColors.purple,
@@ -101,7 +101,7 @@ class Category extends CategoryModel {
       );
 
   factory Category.shopping() => Category(
-        id: CategoryId('06_shopping'),
+        id: CategoryId('07_shopping'),
         name: 'Compras',
         icon: 0xf016f,
         color: CategoryColors.blue,
@@ -109,7 +109,7 @@ class Category extends CategoryModel {
       );
 
   factory Category.financial() => Category(
-        id: CategoryId('07_financial'),
+        id: CategoryId('08_financial'),
         name: 'Gastos financieros',
         icon: 0xf58f,
         color: CategoryColors.green,
@@ -117,7 +117,7 @@ class Category extends CategoryModel {
       );
 
   factory Category.education() => Category(
-        id: CategoryId('08_education'),
+        id: CategoryId('09_education'),
         name: 'Educación',
         icon: 63568,
         color: CategoryColors.deep_purple,
@@ -125,7 +125,7 @@ class Category extends CategoryModel {
       );
 
   factory Category.contribution() => Category(
-        id: CategoryId('09_contribution'),
+        id: CategoryId('10_contribution'),
         name: 'Contribución',
         icon: 983707,
         color: CategoryColors.pink,
@@ -133,7 +133,7 @@ class Category extends CategoryModel {
       );
 
   factory Category.dependents() => Category(
-        id: CategoryId('10_dependents'),
+        id: CategoryId('11_dependents'),
         name: 'Dependientes',
         icon: 63036,
         color: CategoryColors.orange,
@@ -141,7 +141,7 @@ class Category extends CategoryModel {
       );
 
   factory Category.investments() => Category(
-        id: CategoryId('11_investments'),
+        id: CategoryId('12_investments'),
         name: 'Inversiones',
         icon: 63513,
         color: CategoryColors.teal,
