@@ -19,7 +19,7 @@ class SubCategoryDto {
       id: subCategory.id.value,
       name: subCategory.name,
       icon: subCategory.icon,
-      color: subCategory.icon,
+      color: subCategory.color,
       categoryId: subCategory.categoryId.value,
     );
   }
