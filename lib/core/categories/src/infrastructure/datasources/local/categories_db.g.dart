@@ -12,7 +12,6 @@ class CategoryDbDto extends DataClass implements Insertable<CategoryDbDto> {
   final String name;
   final int icon;
   final int color;
-  final double balance;
   final CategoryTypeTable type;
   final String? userId;
   CategoryDbDto(
@@ -20,7 +19,6 @@ class CategoryDbDto extends DataClass implements Insertable<CategoryDbDto> {
       required this.name,
       required this.icon,
       required this.color,
-      required this.balance,
       required this.type,
       this.userId});
   factory CategoryDbDto.fromData(Map<String, dynamic> data, {String? prefix}) {
@@ -34,8 +32,6 @@ class CategoryDbDto extends DataClass implements Insertable<CategoryDbDto> {
           .mapFromDatabaseResponse(data['${effectivePrefix}icon'])!,
       color: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}color'])!,
-      balance: const RealType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}balance'])!,
       type: $CategoriesTableTable.$converter0.mapToDart(const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}type']))!,
       userId: const StringType()
@@ -49,7 +45,6 @@ class CategoryDbDto extends DataClass implements Insertable<CategoryDbDto> {
     map['name'] = Variable<String>(name);
     map['icon'] = Variable<int>(icon);
     map['color'] = Variable<int>(color);
-    map['balance'] = Variable<double>(balance);
     {
       final converter = $CategoriesTableTable.$converter0;
       map['type'] = Variable<int>(converter.mapToSql(type)!);
@@ -66,7 +61,6 @@ class CategoryDbDto extends DataClass implements Insertable<CategoryDbDto> {
       name: Value(name),
       icon: Value(icon),
       color: Value(color),
-      balance: Value(balance),
       type: Value(type),
       userId:
           userId == null && nullToAbsent ? const Value.absent() : Value(userId),
@@ -81,7 +75,6 @@ class CategoryDbDto extends DataClass implements Insertable<CategoryDbDto> {
       name: serializer.fromJson<String>(json['name']),
       icon: serializer.fromJson<int>(json['icon']),
       color: serializer.fromJson<int>(json['color']),
-      balance: serializer.fromJson<double>(json['balance']),
       type: serializer.fromJson<CategoryTypeTable>(json['type']),
       userId: serializer.fromJson<String?>(json['userId']),
     );
@@ -94,7 +87,6 @@ class CategoryDbDto extends DataClass implements Insertable<CategoryDbDto> {
       'name': serializer.toJson<String>(name),
       'icon': serializer.toJson<int>(icon),
       'color': serializer.toJson<int>(color),
-      'balance': serializer.toJson<double>(balance),
       'type': serializer.toJson<CategoryTypeTable>(type),
       'userId': serializer.toJson<String?>(userId),
     };
@@ -105,7 +97,6 @@ class CategoryDbDto extends DataClass implements Insertable<CategoryDbDto> {
           String? name,
           int? icon,
           int? color,
-          double? balance,
           CategoryTypeTable? type,
           String? userId}) =>
       CategoryDbDto(
@@ -113,7 +104,6 @@ class CategoryDbDto extends DataClass implements Insertable<CategoryDbDto> {
         name: name ?? this.name,
         icon: icon ?? this.icon,
         color: color ?? this.color,
-        balance: balance ?? this.balance,
         type: type ?? this.type,
         userId: userId ?? this.userId,
       );
@@ -124,7 +114,6 @@ class CategoryDbDto extends DataClass implements Insertable<CategoryDbDto> {
           ..write('name: $name, ')
           ..write('icon: $icon, ')
           ..write('color: $color, ')
-          ..write('balance: $balance, ')
           ..write('type: $type, ')
           ..write('userId: $userId')
           ..write(')'))
@@ -132,7 +121,7 @@ class CategoryDbDto extends DataClass implements Insertable<CategoryDbDto> {
   }
 
   @override
-  int get hashCode => Object.hash(id, name, icon, color, balance, type, userId);
+  int get hashCode => Object.hash(id, name, icon, color, type, userId);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -141,7 +130,6 @@ class CategoryDbDto extends DataClass implements Insertable<CategoryDbDto> {
           other.name == this.name &&
           other.icon == this.icon &&
           other.color == this.color &&
-          other.balance == this.balance &&
           other.type == this.type &&
           other.userId == this.userId);
 }
@@ -151,7 +139,6 @@ class CategoriesTableCompanion extends UpdateCompanion<CategoryDbDto> {
   final Value<String> name;
   final Value<int> icon;
   final Value<int> color;
-  final Value<double> balance;
   final Value<CategoryTypeTable> type;
   final Value<String?> userId;
   const CategoriesTableCompanion({
@@ -159,7 +146,6 @@ class CategoriesTableCompanion extends UpdateCompanion<CategoryDbDto> {
     this.name = const Value.absent(),
     this.icon = const Value.absent(),
     this.color = const Value.absent(),
-    this.balance = const Value.absent(),
     this.type = const Value.absent(),
     this.userId = const Value.absent(),
   });
@@ -168,7 +154,6 @@ class CategoriesTableCompanion extends UpdateCompanion<CategoryDbDto> {
     required String name,
     required int icon,
     required int color,
-    this.balance = const Value.absent(),
     required CategoryTypeTable type,
     this.userId = const Value.absent(),
   })  : id = Value(id),
@@ -181,7 +166,6 @@ class CategoriesTableCompanion extends UpdateCompanion<CategoryDbDto> {
     Expression<String>? name,
     Expression<int>? icon,
     Expression<int>? color,
-    Expression<double>? balance,
     Expression<CategoryTypeTable>? type,
     Expression<String?>? userId,
   }) {
@@ -190,7 +174,6 @@ class CategoriesTableCompanion extends UpdateCompanion<CategoryDbDto> {
       if (name != null) 'name': name,
       if (icon != null) 'icon': icon,
       if (color != null) 'color': color,
-      if (balance != null) 'balance': balance,
       if (type != null) 'type': type,
       if (userId != null) 'user_id': userId,
     });
@@ -201,7 +184,6 @@ class CategoriesTableCompanion extends UpdateCompanion<CategoryDbDto> {
       Value<String>? name,
       Value<int>? icon,
       Value<int>? color,
-      Value<double>? balance,
       Value<CategoryTypeTable>? type,
       Value<String?>? userId}) {
     return CategoriesTableCompanion(
@@ -209,7 +191,6 @@ class CategoriesTableCompanion extends UpdateCompanion<CategoryDbDto> {
       name: name ?? this.name,
       icon: icon ?? this.icon,
       color: color ?? this.color,
-      balance: balance ?? this.balance,
       type: type ?? this.type,
       userId: userId ?? this.userId,
     );
@@ -230,9 +211,6 @@ class CategoriesTableCompanion extends UpdateCompanion<CategoryDbDto> {
     if (color.present) {
       map['color'] = Variable<int>(color.value);
     }
-    if (balance.present) {
-      map['balance'] = Variable<double>(balance.value);
-    }
     if (type.present) {
       final converter = $CategoriesTableTable.$converter0;
       map['type'] = Variable<int>(converter.mapToSql(type.value)!);
@@ -250,7 +228,6 @@ class CategoriesTableCompanion extends UpdateCompanion<CategoryDbDto> {
           ..write('name: $name, ')
           ..write('icon: $icon, ')
           ..write('color: $color, ')
-          ..write('balance: $balance, ')
           ..write('type: $type, ')
           ..write('userId: $userId')
           ..write(')'))
@@ -286,13 +263,6 @@ class $CategoriesTableTable extends CategoriesTable
   late final GeneratedColumn<int?> color = GeneratedColumn<int?>(
       'color', aliasedName, false,
       type: const IntType(), requiredDuringInsert: true);
-  final VerificationMeta _balanceMeta = const VerificationMeta('balance');
-  @override
-  late final GeneratedColumn<double?> balance = GeneratedColumn<double?>(
-      'balance', aliasedName, false,
-      type: const RealType(),
-      requiredDuringInsert: false,
-      defaultValue: const Constant(0.0));
   final VerificationMeta _typeMeta = const VerificationMeta('type');
   @override
   late final GeneratedColumnWithTypeConverter<CategoryTypeTable, int?> type =
@@ -305,8 +275,7 @@ class $CategoriesTableTable extends CategoriesTable
       'user_id', aliasedName, true,
       type: const StringType(), requiredDuringInsert: false);
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, name, icon, color, balance, type, userId];
+  List<GeneratedColumn> get $columns => [id, name, icon, color, type, userId];
   @override
   String get aliasedName => _alias ?? 'categories';
   @override
@@ -339,10 +308,6 @@ class $CategoriesTableTable extends CategoriesTable
     } else if (isInserting) {
       context.missing(_colorMeta);
     }
-    if (data.containsKey('balance')) {
-      context.handle(_balanceMeta,
-          balance.isAcceptableOrUnknown(data['balance']!, _balanceMeta));
-    }
     context.handle(_typeMeta, const VerificationResult.success());
     if (data.containsKey('user_id')) {
       context.handle(_userIdMeta,
@@ -374,14 +339,12 @@ class SubCategoryDbDto extends DataClass
   final String name;
   final int icon;
   final int color;
-  final double balance;
   final String cateogryId;
   SubCategoryDbDto(
       {required this.id,
       required this.name,
       required this.icon,
       required this.color,
-      required this.balance,
       required this.cateogryId});
   factory SubCategoryDbDto.fromData(Map<String, dynamic> data,
       {String? prefix}) {
@@ -395,8 +358,6 @@ class SubCategoryDbDto extends DataClass
           .mapFromDatabaseResponse(data['${effectivePrefix}icon'])!,
       color: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}color'])!,
-      balance: const RealType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}balance'])!,
       cateogryId: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}cateogry_id'])!,
     );
@@ -408,7 +369,6 @@ class SubCategoryDbDto extends DataClass
     map['name'] = Variable<String>(name);
     map['icon'] = Variable<int>(icon);
     map['color'] = Variable<int>(color);
-    map['balance'] = Variable<double>(balance);
     map['cateogry_id'] = Variable<String>(cateogryId);
     return map;
   }
@@ -419,7 +379,6 @@ class SubCategoryDbDto extends DataClass
       name: Value(name),
       icon: Value(icon),
       color: Value(color),
-      balance: Value(balance),
       cateogryId: Value(cateogryId),
     );
   }
@@ -432,7 +391,6 @@ class SubCategoryDbDto extends DataClass
       name: serializer.fromJson<String>(json['name']),
       icon: serializer.fromJson<int>(json['icon']),
       color: serializer.fromJson<int>(json['color']),
-      balance: serializer.fromJson<double>(json['balance']),
       cateogryId: serializer.fromJson<String>(json['cateogryId']),
     );
   }
@@ -444,7 +402,6 @@ class SubCategoryDbDto extends DataClass
       'name': serializer.toJson<String>(name),
       'icon': serializer.toJson<int>(icon),
       'color': serializer.toJson<int>(color),
-      'balance': serializer.toJson<double>(balance),
       'cateogryId': serializer.toJson<String>(cateogryId),
     };
   }
@@ -454,14 +411,12 @@ class SubCategoryDbDto extends DataClass
           String? name,
           int? icon,
           int? color,
-          double? balance,
           String? cateogryId}) =>
       SubCategoryDbDto(
         id: id ?? this.id,
         name: name ?? this.name,
         icon: icon ?? this.icon,
         color: color ?? this.color,
-        balance: balance ?? this.balance,
         cateogryId: cateogryId ?? this.cateogryId,
       );
   @override
@@ -471,14 +426,13 @@ class SubCategoryDbDto extends DataClass
           ..write('name: $name, ')
           ..write('icon: $icon, ')
           ..write('color: $color, ')
-          ..write('balance: $balance, ')
           ..write('cateogryId: $cateogryId')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, name, icon, color, balance, cateogryId);
+  int get hashCode => Object.hash(id, name, icon, color, cateogryId);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -487,7 +441,6 @@ class SubCategoryDbDto extends DataClass
           other.name == this.name &&
           other.icon == this.icon &&
           other.color == this.color &&
-          other.balance == this.balance &&
           other.cateogryId == this.cateogryId);
 }
 
@@ -496,14 +449,12 @@ class SubCategoriesTableCompanion extends UpdateCompanion<SubCategoryDbDto> {
   final Value<String> name;
   final Value<int> icon;
   final Value<int> color;
-  final Value<double> balance;
   final Value<String> cateogryId;
   const SubCategoriesTableCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
     this.icon = const Value.absent(),
     this.color = const Value.absent(),
-    this.balance = const Value.absent(),
     this.cateogryId = const Value.absent(),
   });
   SubCategoriesTableCompanion.insert({
@@ -511,7 +462,6 @@ class SubCategoriesTableCompanion extends UpdateCompanion<SubCategoryDbDto> {
     required String name,
     required int icon,
     required int color,
-    this.balance = const Value.absent(),
     required String cateogryId,
   })  : id = Value(id),
         name = Value(name),
@@ -523,7 +473,6 @@ class SubCategoriesTableCompanion extends UpdateCompanion<SubCategoryDbDto> {
     Expression<String>? name,
     Expression<int>? icon,
     Expression<int>? color,
-    Expression<double>? balance,
     Expression<String>? cateogryId,
   }) {
     return RawValuesInsertable({
@@ -531,7 +480,6 @@ class SubCategoriesTableCompanion extends UpdateCompanion<SubCategoryDbDto> {
       if (name != null) 'name': name,
       if (icon != null) 'icon': icon,
       if (color != null) 'color': color,
-      if (balance != null) 'balance': balance,
       if (cateogryId != null) 'cateogry_id': cateogryId,
     });
   }
@@ -541,14 +489,12 @@ class SubCategoriesTableCompanion extends UpdateCompanion<SubCategoryDbDto> {
       Value<String>? name,
       Value<int>? icon,
       Value<int>? color,
-      Value<double>? balance,
       Value<String>? cateogryId}) {
     return SubCategoriesTableCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
       icon: icon ?? this.icon,
       color: color ?? this.color,
-      balance: balance ?? this.balance,
       cateogryId: cateogryId ?? this.cateogryId,
     );
   }
@@ -568,9 +514,6 @@ class SubCategoriesTableCompanion extends UpdateCompanion<SubCategoryDbDto> {
     if (color.present) {
       map['color'] = Variable<int>(color.value);
     }
-    if (balance.present) {
-      map['balance'] = Variable<double>(balance.value);
-    }
     if (cateogryId.present) {
       map['cateogry_id'] = Variable<String>(cateogryId.value);
     }
@@ -584,7 +527,6 @@ class SubCategoriesTableCompanion extends UpdateCompanion<SubCategoryDbDto> {
           ..write('name: $name, ')
           ..write('icon: $icon, ')
           ..write('color: $color, ')
-          ..write('balance: $balance, ')
           ..write('cateogryId: $cateogryId')
           ..write(')'))
         .toString();
@@ -619,13 +561,6 @@ class $SubCategoriesTableTable extends SubCategoriesTable
   late final GeneratedColumn<int?> color = GeneratedColumn<int?>(
       'color', aliasedName, false,
       type: const IntType(), requiredDuringInsert: true);
-  final VerificationMeta _balanceMeta = const VerificationMeta('balance');
-  @override
-  late final GeneratedColumn<double?> balance = GeneratedColumn<double?>(
-      'balance', aliasedName, false,
-      type: const RealType(),
-      requiredDuringInsert: false,
-      defaultValue: const Constant(0.0));
   final VerificationMeta _cateogryIdMeta = const VerificationMeta('cateogryId');
   @override
   late final GeneratedColumn<String?> cateogryId = GeneratedColumn<String?>(
@@ -634,8 +569,7 @@ class $SubCategoriesTableTable extends SubCategoriesTable
       requiredDuringInsert: true,
       defaultConstraints: 'REFERENCES categories (id)');
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, name, icon, color, balance, cateogryId];
+  List<GeneratedColumn> get $columns => [id, name, icon, color, cateogryId];
   @override
   String get aliasedName => _alias ?? 'subcategories';
   @override
@@ -667,10 +601,6 @@ class $SubCategoriesTableTable extends SubCategoriesTable
           _colorMeta, color.isAcceptableOrUnknown(data['color']!, _colorMeta));
     } else if (isInserting) {
       context.missing(_colorMeta);
-    }
-    if (data.containsKey('balance')) {
-      context.handle(_balanceMeta,
-          balance.isAcceptableOrUnknown(data['balance']!, _balanceMeta));
     }
     if (data.containsKey('cateogry_id')) {
       context.handle(
