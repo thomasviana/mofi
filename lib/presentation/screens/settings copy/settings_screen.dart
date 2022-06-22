@@ -101,7 +101,7 @@ class SettingsContent extends StatelessWidget {
           title: Text(AppLocalizations.of(context)!.settings_app_data),
           leading: const Icon(Icons.backup),
           trailing: Platform.isIOS ? const Icon(CupertinoIcons.forward) : null,
-          onTap: () => context.read<SettingsBloc>().add(BackUpData()),
+          onTap: () => AppNavigator.navigateToBackupPage(context),
         ),
         Divider(height: 2),
         ListTile(
