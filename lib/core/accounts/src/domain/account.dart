@@ -10,7 +10,6 @@ class Account extends Entity<AccountId> {
   AccountType type;
   int color;
   String? imageUrl;
-  double balance;
   AccountUserId? accountUserId;
 
   Account({
@@ -19,7 +18,6 @@ class Account extends Entity<AccountId> {
     required this.type,
     required this.color,
     this.imageUrl,
-    this.balance = 0,
     this.accountUserId,
   }) : super(id);
 
@@ -28,7 +26,6 @@ class Account extends Entity<AccountId> {
     AccountType? type,
     int? color,
     String? imageUrl,
-    double? balance,
     AccountUserId? accountUserId,
   }) {
     return Account(
@@ -37,7 +34,6 @@ class Account extends Entity<AccountId> {
       type: type ?? this.type,
       color: color ?? this.color,
       imageUrl: imageUrl ?? this.imageUrl,
-      balance: balance ?? this.balance,
       accountUserId: accountUserId ?? this.accountUserId,
     );
   }

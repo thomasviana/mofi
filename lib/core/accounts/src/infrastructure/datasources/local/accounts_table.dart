@@ -14,7 +14,6 @@ class AccountsTable extends Table {
   IntColumn get type => intEnum<AccountTypeTable>()();
   IntColumn get color => integer()();
   TextColumn get imageUrl => text().nullable()();
-  RealColumn get balance => real().withDefault(const Constant(0.0))();
   TextColumn get userId => text().nullable()();
 
   @override

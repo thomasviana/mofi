@@ -18,7 +18,6 @@ class AccountMapper {
       name: dto.name,
       type: accountType,
       color: dto.color,
-      balance: dto.balance,
       imageUrl: dto.imageUrl,
       accountUserId: userId,
     );
@@ -34,7 +33,6 @@ class AccountMapper {
       name: Value(account.name),
       type: Value(accountType),
       color: Value(account.color),
-      balance: Value(account.balance),
       imageUrl: Value(account.imageUrl),
       userId: Value(account.accountUserId!.value),
     );

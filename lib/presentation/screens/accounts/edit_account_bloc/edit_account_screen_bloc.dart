@@ -92,12 +92,5 @@ class EditAccountScreenBloc
         ),
       ),
     );
-    on<BalanceChanged>(
-      (event, emit) => emit(
-        state.copyWith(
-          account: state.account!.copyWith(balance: event.balance),
-        ),
-      ),
-    );
   }
 }
