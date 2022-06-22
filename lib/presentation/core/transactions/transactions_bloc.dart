@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mofi/core/user/application.dart';
+import 'package:rxdart/rxdart.dart';
 
 import '../../../../core/transactions/application.dart';
 import '../../../../core/transactions/domain.dart';
@@ -11,16 +15,22 @@ part 'transactions_state.dart';
 
 @injectable
 class TransactionsBloc extends Bloc<TransactionEvent, TransactionsState> {
+  GetIsFirstTimeOpen getIsFirstTimeOpen;
   GetTransactions getTransactions;
   DeleteTransaction deleteTransaction;
+  BackUpTransactions backUpTransactions;
+
   TransactionsBloc(
+    this.getIsFirstTimeOpen,
     this.getTransactions,
     this.deleteTransaction,
+    this.backUpTransactions,
   ) : super(TransactionsState.initial()) {
     on<TransactionsRequested>(_onTransactionsRequested);
     on<TransactionDeleted>(_onTransactionDeleted);
     on<TxsDateUpdated>(_onTxsDateUpdated);
     on<ToggleSortOption>(_onToggleSortOption);
+    on<BackUpTransactionsEvent>(_onBackUpTransactionsEvent);
   }
 
   Future<void> _onTransactionsRequested(
@@ -28,7 +38,9 @@ class TransactionsBloc extends Bloc<TransactionEvent, TransactionsState> {
     Emitter emit,
   ) async {
     await emit.onEach<Option<List<Transaction>>>(
-      getTransactions(),
+      getIsFirstTimeOpen().switchMap(
+        (value) => getTransactions(isFirstTimeOpen: value),
+      ),
       onData: (optionTransactions) => optionTransactions.fold(
         () => emit(
           state.copyWith(
@@ -67,4 +79,10 @@ class TransactionsBloc extends Bloc<TransactionEvent, TransactionsState> {
       emit(state.copyWith(sortOption: SortOption.ascending));
     }
   }
+
+  Future<void> _onBackUpTransactionsEvent(
+    BackUpTransactionsEvent event,
+    Emitter<TransactionsState> emit,
+  ) =>
+      backUpTransactions();
 }

@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 import '../../core/settings/settings_bloc.dart';
+import '../../core/transactions/transactions_bloc.dart';
 import '../../resources/resources.dart';
 
 class BackupScreen extends StatelessWidget {
@@ -62,8 +63,12 @@ class BackupScreen extends StatelessWidget {
                       leading: const Icon(Icons.backup_rounded),
                       onTap: () => _showBackupConfirmationDialog(
                         context,
-                        onBackup: () => BlocProvider.of<SettingsBloc>(context)
-                            .add(BackUpData()),
+                        onBackup: () {
+                          BlocProvider.of<SettingsBloc>(context)
+                              .add(BackUpData());
+                          BlocProvider.of<TransactionsBloc>(context)
+                              .add(BackUpTransactionsEvent());
+                        },
                       ),
                     ),
                   ],

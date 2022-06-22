@@ -121,7 +121,9 @@ class StatsBloc extends Bloc<StatsEvent, StatsState> {
     Emitter<StatsState> emit,
   ) async {
     await emit.onEach<Option<List<Transaction>>>(
-      _getTransactions(),
+      _getIsFirstTimeOpen().switchMap(
+        (value) => _getTransactions(isFirstTimeOpen: value),
+      ),
       onData: (optionTransactions) {
         optionTransactions.fold(
           () => emit(

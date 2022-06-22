@@ -19,3 +19,5 @@ class TxsDateUpdated extends TransactionEvent {
 }
 
 class ToggleSortOption extends TransactionEvent {}
+
+class BackUpTransactionsEvent extends TransactionEvent {}
