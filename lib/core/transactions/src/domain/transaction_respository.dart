@@ -4,10 +4,13 @@ import '../../domain.dart';
 
 abstract class TransactionRepository {
   Stream<Option<List<Transaction>>> fetchTransactions(
-    TransactionUserId userId,
-  );
+    TransactionUserId userId, {
+    required bool isFirstTimeOpen,
+  });
 
   Future<void> save(Transaction transaction);
 
   Future<void> delete(TransactionId txId);
+
+  Future<void> backUp(TransactionUserId userId);
 }
