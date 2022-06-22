@@ -74,10 +74,5 @@ class EditBudgetScreenBloc
         ),
       ),
     );
-    on<BalanceChanged>(
-      (event, emit) => emit(
-        state.copyWith(budget: state.budget!.copyWith(balance: event.balance)),
-      ),
-    );
   }
 }
