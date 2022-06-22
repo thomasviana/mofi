@@ -21,28 +21,28 @@ class BudgetsFirebaseProvider {
     return user;
   }
 
+  CollectionReference<Map<String, dynamic>> collectionReference() =>
+      _firebaseFirestore.collection('users/${currentUser!.uid}/budgets');
+
   // BUDGETS
 
   Future<void> addOrUpdateBudget(Budget budget) async {
-    final ref =
-        _firebaseFirestore.collection('users/${currentUser!.uid}/budgets');
-
     final budgetDTO = BudgetDto.fromDomain(budget);
-    final budgetSnapshot =
-        await ref.where('id', isEqualTo: budget.id.value).get();
+    final budgetSnapshot = await collectionReference()
+        .where('id', isEqualTo: budget.id.value)
+        .get();
 
     if (budgetSnapshot.docs.isNotEmpty) {
-      await ref
+      collectionReference()
           .doc(budgetSnapshot.docs[0].reference.id)
           .update(budgetDTO.toFirebaseMap());
     } else {
-      await ref.add(budgetDTO.toFirebaseMap());
+      collectionReference().add(budgetDTO.toFirebaseMap());
     }
   }
 
   Stream<Option<List<Budget>>> getBudgets() async* {
-    yield* _firebaseFirestore
-        .collection('users/${currentUser!.uid}/budgets')
+    yield* collectionReference()
         .orderBy('id', descending: false)
         .snapshots()
         .map((snapshot) {
@@ -59,16 +59,17 @@ class BudgetsFirebaseProvider {
   }
 
   Future<void> deleteBudget(BudgetId budgetId) async {
-    final ref = _firebaseFirestore
-        .collection('users/${currentUser!.uid}/budgets')
-        .doc(budgetId.value);
-    await ref.delete();
+    final budgetSnapshot = await collectionReference()
+        .where('id', isEqualTo: budgetId.value)
+        .get();
+
+    if (budgetSnapshot.docs.isEmpty) return;
+    final budgetReferenceId = budgetSnapshot.docs[0].reference.id;
+    collectionReference().doc(budgetReferenceId).delete();
   }
 
   Future<void> deleteAllBudgets() async {
-    final snapshots = await _firebaseFirestore
-        .collection('users/${currentUser!.uid}/budgets')
-        .get();
+    final snapshots = await collectionReference().get();
     for (final doc in snapshots.docs) {
       await doc.reference.delete();
     }

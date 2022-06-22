@@ -21,28 +21,28 @@ class AccountsFirebaseProvider {
     return user;
   }
 
+  CollectionReference<Map<String, dynamic>> collectionReference() =>
+      _firebaseFirestore.collection('users/${currentUser!.uid}/accounts');
+
   // ACCOUNTS
 
   Future<void> addOrUpdateAccount(Account account) async {
-    final ref =
-        _firebaseFirestore.collection('users/${currentUser!.uid}/accounts');
-
     final accountDTO = AccountDto.fromDomain(account);
-    final accountSnapshot =
-        await ref.where('id', isEqualTo: account.id.value).get();
+    final accountSnapshot = await collectionReference()
+        .where('id', isEqualTo: account.id.value)
+        .get();
 
     if (accountSnapshot.docs.isNotEmpty) {
-      await ref
+      collectionReference()
           .doc(accountSnapshot.docs[0].reference.id)
           .update(accountDTO.toFirebaseMap());
     } else {
-      await ref.add(accountDTO.toFirebaseMap());
+      collectionReference().add(accountDTO.toFirebaseMap());
     }
   }
 
   Stream<Option<List<Account>>> getAccounts() async* {
-    yield* _firebaseFirestore
-        .collection('users/${currentUser!.uid}/accounts')
+    yield* collectionReference()
         .orderBy('id', descending: false)
         .snapshots()
         .map((snapshot) {
@@ -59,16 +59,17 @@ class AccountsFirebaseProvider {
   }
 
   Future<void> deleteAccount(AccountId accountId) async {
-    final ref = _firebaseFirestore
-        .collection('users/${currentUser!.uid}/accounts')
-        .doc(accountId.value);
-    await ref.delete();
+    final accountSnapshot = await collectionReference()
+        .where('id', isEqualTo: accountId.value)
+        .get();
+
+    if (accountSnapshot.docs.isEmpty) return;
+    final accountReferenceId = accountSnapshot.docs[0].reference.id;
+    collectionReference().doc(accountReferenceId).delete();
   }
 
   Future<void> deleteAllAccounts() async {
-    final snapshots = await _firebaseFirestore
-        .collection('users/${currentUser!.uid}/accounts')
-        .get();
+    final snapshots = await collectionReference().get();
     for (final doc in snapshots.docs) {
       await doc.reference.delete();
     }
