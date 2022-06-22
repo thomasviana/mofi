@@ -34,6 +34,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   ResetBudgets resetBudgets;
   BackUpCategories backUpCategories;
   BackUpAccounts backUpAccounts;
+  BackUpBudgets backUpBudgets;
 
   SettingsBloc(
     this.getIsFirstTimeOpen,
@@ -50,6 +51,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     this.resetBudgets,
     this.backUpCategories,
     this.backUpAccounts,
+    this.backUpBudgets,
   ) : super(SettingsState.initial()) {
     on<GetUserAccounts>(_getUserAccounts);
     on<GetUserCategories>(_getUserCategories);
@@ -97,13 +99,13 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     Emitter<SettingsState> emit,
   ) async {
     await emit.onEach<Option<List<Budget>>>(
-      getBudgets(),
-      onData: (userBudgets) async {
-        userBudgets.fold(
-          () async => setDefaultBudgets(),
-          (budgets) => emit(state.copyWith(budgets: budgets)),
-        );
-      },
+      getIsFirstTimeOpen().switchMap(
+        (value) => getBudgets(isFirstTimeOpen: value),
+      ),
+      onData: (userBudgets) => userBudgets.fold(
+        () => setDefaultBudgets(),
+        (budgets) => emit(state.copyWith(budgets: budgets)),
+      ),
     );
   }
 
@@ -124,5 +126,6 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   ) async {
     await backUpCategories();
     await backUpAccounts();
+    await backUpBudgets();
   }
 }

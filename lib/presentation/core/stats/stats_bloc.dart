@@ -60,7 +60,9 @@ class StatsBloc extends Bloc<StatsEvent, StatsState> {
     Emitter<StatsState> emit,
   ) async {
     await emit.onEach<Option<List<Budget>>>(
-      _getBudgets(),
+      _getIsFirstTimeOpen().switchMap(
+        (value) => _getBudgets(isFirstTimeOpen: value),
+      ),
       onData: (optionBudgets) {
         return optionBudgets.fold(
           () => state.copyWith(budgets: []),
