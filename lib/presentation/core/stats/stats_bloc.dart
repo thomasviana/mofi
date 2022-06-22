@@ -96,7 +96,9 @@ class StatsBloc extends Bloc<StatsEvent, StatsState> {
     Emitter<StatsState> emit,
   ) async {
     await emit.onEach<Option<List<Account>>>(
-      _getAccounts(),
+      _getIsFirstTimeOpen().switchMap(
+        (value) => _getAccounts(isFirstTimeOpen: value),
+      ),
       onData: (optionAccounts) {
         optionAccounts.fold(
           () => emit(
