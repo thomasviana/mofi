@@ -4,8 +4,9 @@ import '../../domain.dart';
 
 abstract class AccountRepository {
   Stream<Option<List<Account>>> fetchAccounts(
-    AccountUserId userId,
-  );
+    AccountUserId userId, {
+    required bool isFirstTimeOpen,
+  });
 
   Future<void> save(Account account);
 
@@ -14,4 +15,6 @@ abstract class AccountRepository {
   Future<void> delete(AccountId accountId);
 
   Future<void> deleteAll();
+
+  Future<void> backUp(AccountUserId userId);
 }
