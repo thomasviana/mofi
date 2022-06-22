@@ -9,7 +9,6 @@ class Budget extends Entity<BudgetId> {
   String name;
   String? abbreviation;
   int color;
-  double balance;
   BudgetUserId? budgetUserId;
 
   Budget({
@@ -17,7 +16,6 @@ class Budget extends Entity<BudgetId> {
     this.name = '',
     this.abbreviation,
     required this.color,
-    this.balance = 0,
     this.budgetUserId,
   }) : super(id);
 
@@ -25,7 +23,6 @@ class Budget extends Entity<BudgetId> {
     String? name,
     String? abbreviation,
     int? color,
-    double? balance,
     BudgetUserId? budgetUserId,
   }) {
     return Budget(
@@ -33,7 +30,6 @@ class Budget extends Entity<BudgetId> {
       name: name ?? this.name,
       abbreviation: abbreviation ?? this.abbreviation,
       color: color ?? this.color,
-      balance: balance ?? this.balance,
       budgetUserId: budgetUserId ?? this.budgetUserId,
     );
   }

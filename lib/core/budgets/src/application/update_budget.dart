@@ -18,7 +18,6 @@ class UpdateBudget {
     String? name,
     String? abbreviation,
     int? color,
-    double? amount,
   }) async {
     final budget = await _getBudgets().first.then(
           (budgets) => budgets.fold(
@@ -35,7 +34,6 @@ class UpdateBudget {
           name: name,
           abbreviation: abbreviation,
           color: color,
-          balance: budget.balance + (amount ?? 0),
         ),
       );
     }

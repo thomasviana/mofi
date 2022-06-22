@@ -17,7 +17,6 @@ class BudgetMapper {
       name: dto.name,
       abbreviation: dto.abbreviation,
       color: dto.color,
-      balance: dto.balance,
       budgetUserId: userId,
     );
   }
@@ -31,7 +30,6 @@ class BudgetMapper {
       name: Value(budget.name),
       abbreviation: Value(budget.abbreviation),
       color: Value(budget.color),
-      balance: Value(budget.balance),
       userId: Value(budget.budgetUserId!.value),
     );
   }
