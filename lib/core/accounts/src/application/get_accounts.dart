@@ -17,12 +17,14 @@ class GetAccounts {
     this._getProfileInfo,
   );
 
-  Stream<Option<List<Account>>> call() async* {
+  Stream<Option<List<Account>>> call({required bool isFirstTimeOpen}) async* {
     yield* _getProfileInfo().switchMap((user) {
       return user.fold(
         () => Stream.value(None()),
-        (user) =>
-            _accountRepository.fetchAccounts(AccountUserId(user.id.value)),
+        (user) => _accountRepository.fetchAccounts(
+          AccountUserId(user.id.value),
+          isFirstTimeOpen: isFirstTimeOpen,
+        ),
       );
     });
   }

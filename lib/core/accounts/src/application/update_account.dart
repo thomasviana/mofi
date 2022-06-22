@@ -20,7 +20,7 @@ class UpdateAccount {
     int? color,
     String? imageUrl,
   }) async {
-    final account = await _getAccounts().first.then(
+    final account = await _getAccounts(isFirstTimeOpen: false).first.then(
           (accounts) => accounts.fold(
             () {},
             (accounts) => accounts.firstWhere(
