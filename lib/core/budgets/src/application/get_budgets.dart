@@ -17,11 +17,14 @@ class GetBudgets {
     this._getProfileInfo,
   );
 
-  Stream<Option<List<Budget>>> call() async* {
+  Stream<Option<List<Budget>>> call({required bool isFirstTimeOpen}) async* {
     yield* _getProfileInfo().switchMap((user) {
       return user.fold(
         () => Stream.value(None()),
-        (user) => _budgetRepository.fetchBudgets(BudgetUserId(user.id.value)),
+        (user) => _budgetRepository.fetchBudgets(
+          BudgetUserId(user.id.value),
+          isFirstTimeOpen: isFirstTimeOpen,
+        ),
       );
     });
   }

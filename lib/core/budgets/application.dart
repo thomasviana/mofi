@@ -1,5 +1,6 @@
 library application;
 
+export 'src/application/back_up_budgets.dart';
 export 'src/application/create_budget.dart';
 export 'src/application/delete_budget.dart';
 export 'src/application/get_budgets.dart';

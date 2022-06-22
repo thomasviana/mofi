@@ -19,7 +19,7 @@ class UpdateBudget {
     String? abbreviation,
     int? color,
   }) async {
-    final budget = await _getBudgets().first.then(
+    final budget = await _getBudgets(isFirstTimeOpen: false).first.then(
           (budgets) => budgets.fold(
             () {},
             (budgets) => budgets.firstWhere(
