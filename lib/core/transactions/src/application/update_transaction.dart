@@ -29,15 +29,16 @@ class UpdateTransaction {
     TransactionType? txType,
     BudgetManagementMap? budgetManagement,
   }) async {
-    final transaction = await _getTransactions().first.then(
-          (transactions) => transactions.fold(
-            () => null,
-            (transactions) => transactions.firstWhere(
-              (transaction) => transaction.id == transactionId,
-              orElse: () => throw Exception("Transaction doesn't exist."),
-            ),
-          ),
-        );
+    final transaction =
+        await _getTransactions(isFirstTimeOpen: false).first.then(
+              (transactions) => transactions.fold(
+                () => null,
+                (transactions) => transactions.firstWhere(
+                  (transaction) => transaction.id == transactionId,
+                  orElse: () => throw Exception("Transaction doesn't exist."),
+                ),
+              ),
+            );
     if (transaction != null) {
       _transactionRepository.save(
         transaction.copyWith(
