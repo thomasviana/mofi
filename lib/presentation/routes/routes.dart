@@ -109,7 +109,8 @@ class AppRouter {
                 value: _settingsBloc
                   ..add(GetUserAccounts())
                   ..add(GetUserBudgets())
-                  ..add(GetUserCategories()),
+                  ..add(GetUserCategories())
+                  ..add(GetUserSubCategories()),
               ),
               BlocProvider.value(
                 value: _statsBloc

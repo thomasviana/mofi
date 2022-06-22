@@ -25,6 +25,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   SetFirstTimeOpenToFalse setFirstTimeOpenToFalse;
   GetAccounts getAccounts;
   GetCategories getCategories;
+  GetSubCategories getSubCategories;
   GetBudgets getBudgets;
   SetDefaultAccounts setDefaultAccounts;
   SetDefaultCategories setDefaultCategories;
@@ -43,6 +44,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     this.setFirstTimeOpenToFalse,
     this.getAccounts,
     this.getCategories,
+    this.getSubCategories,
     this.getBudgets,
     this.setDefaultAccounts,
     this.setDefaultCategories,
@@ -56,15 +58,16 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     this.backUpAccounts,
     this.backUpBudgets,
   ) : super(SettingsState.initial()) {
-    on<GetUserAccounts>(_getUserAccounts);
-    on<GetUserCategories>(_getUserCategories);
-    on<GetUserBudgets>(_getUserBudgets);
+    on<GetUserAccounts>(_onGetUserAccounts);
+    on<GetUserCategories>(_onGetUserCategories);
+    on<GetUserSubCategories>(_onGetUserSubCategories);
+    on<GetUserBudgets>(_onGetUserBudgets);
     on<ResetFromFactoryRequested>(_onResetFromFactoryRequested);
     on<BackUpData>(_onBackUpData);
     developer.log('getUserSettings');
   }
 
-  Future<void> _getUserAccounts(
+  Future<void> _onGetUserAccounts(
     GetUserAccounts event,
     Emitter<SettingsState> emit,
   ) async {
@@ -79,7 +82,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     );
   }
 
-  Future<void> _getUserCategories(
+  Future<void> _onGetUserCategories(
     GetUserCategories event,
     Emitter<SettingsState> emit,
   ) async {
@@ -97,7 +100,20 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     );
   }
 
-  Future<void> _getUserBudgets(
+  Future<void> _onGetUserSubCategories(
+    GetUserSubCategories event,
+    Emitter<SettingsState> emit,
+  ) async {
+    await emit.onEach<Option<List<SubCategory>>>(
+      getSubCategories.all(),
+      onData: (optionSubCategories) => optionSubCategories.fold(
+        () => emit(state.copyWith(subCategories: [])),
+        (subCategories) => emit(state.copyWith(subCategories: subCategories)),
+      ),
+    );
+  }
+
+  Future<void> _onGetUserBudgets(
     GetUserBudgets event,
     Emitter<SettingsState> emit,
   ) async {
