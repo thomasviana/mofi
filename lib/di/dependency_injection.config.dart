@@ -73,7 +73,7 @@ import '../core/categories/src/application/get_sub_categories.dart' as _i101;
 import '../core/categories/src/application/reset_categories.dart' as _i105;
 import '../core/categories/src/application/set_default_categories.dart' as _i64;
 import '../core/categories/src/application/set_default_sub_categories.dart'
-    as _i106;
+    as _i107;
 import '../core/categories/src/application/update_category.dart' as _i82;
 import '../core/categories/src/application/update_sub_category.dart' as _i83;
 import '../core/categories/src/infrastructure/category_repository_impl.dart'
@@ -101,6 +101,7 @@ import '../core/transactions/src/application/add_transaction.dart' as _i87;
 import '../core/transactions/src/application/back_up_transactions.dart' as _i92;
 import '../core/transactions/src/application/delete_transaction.dart' as _i99;
 import '../core/transactions/src/application/get_transactions.dart' as _i102;
+import '../core/transactions/src/application/reset_transactions.dart' as _i106;
 import '../core/transactions/src/application/update_transaction.dart' as _i84;
 import '../core/transactions/src/infrastructure/datasources/local/transaction_mapper.dart'
     as _i72;
@@ -120,14 +121,14 @@ import '../core/user/application.dart' as _i12;
 import '../core/user/domain.dart' as _i88;
 import '../core/user/src/application/check_auth_status.dart' as _i95;
 import '../core/user/src/application/create_user.dart' as _i97;
-import '../core/user/src/application/get_is_first_time_open.dart' as _i110;
+import '../core/user/src/application/get_is_first_time_open.dart' as _i111;
 import '../core/user/src/application/get_profile_info.dart' as _i100;
 import '../core/user/src/application/log_out.dart' as _i103;
 import '../core/user/src/application/pick_user_image.dart' as _i58;
 import '../core/user/src/application/set_is_first_time_open_false.dart'
-    as _i107;
-import '../core/user/src/application/sign_in.dart' as _i108;
-import '../core/user/src/application/update_user_info.dart' as _i109;
+    as _i108;
+import '../core/user/src/application/sign_in.dart' as _i109;
+import '../core/user/src/application/update_user_info.dart' as _i110;
 import '../core/user/src/infrastructure/auth/auth_service_impl.dart' as _i89;
 import '../core/user/src/infrastructure/auth/user_firebase_provider.dart'
     as _i85;
@@ -156,11 +157,11 @@ import '../presentation/screens/transactions/edit_transaction_bloc/edit_transact
     as _i45;
 import '../presentation/screens/transactions/manage_income_bloc/manage_income_screen_bloc.dart'
     as _i57;
-import 'db_injectable_module.dart' as _i111;
-import 'firebase_injectable_module.dart' as _i112;
-import 'image_picker_injectable_module.dart' as _i113;
+import 'db_injectable_module.dart' as _i112;
+import 'firebase_injectable_module.dart' as _i113;
+import 'image_picker_injectable_module.dart' as _i114;
 import 'preferences_injectable_module.dart'
-    as _i114; // ignore_for_file: unnecessary_lambdas
+    as _i115; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -306,6 +307,7 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       get<_i39.ResetAccounts>(),
       get<_i43.ResetCategories>(),
       get<_i41.ResetBudgets>(),
+      get<_i46.ResetTransactions>(),
       get<_i43.BackUpCategories>(),
       get<_i39.BackUpAccounts>(),
       get<_i41.BackUpBudgets>()));
@@ -396,22 +398,24 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       () => _i104.ImplPreferencesService(get<_i66.SharedPreferences>()));
   gh.factory<_i105.ResetCategories>(() => _i105.ResetCategories(
       get<_i29.CategoryRepository>(), get<_i29.SubCategoryRepository>()));
-  gh.factory<_i106.SetDefaultSubCategories>(
-      () => _i106.SetDefaultSubCategories(get<_i29.SubCategoryRepository>()));
-  gh.factory<_i107.SetFirstTimeOpenToFalse>(
-      () => _i107.SetFirstTimeOpenToFalse(get<_i88.PreferencesService>()));
-  gh.factory<_i108.SignIn>(() => _i108.SignIn(get<_i88.AuthService>()));
-  gh.factory<_i109.UpdateUserInfo>(
-      () => _i109.UpdateUserInfo(get<_i88.AuthService>()));
-  gh.factory<_i110.GetIsFirstTimeOpen>(
-      () => _i110.GetIsFirstTimeOpen(get<_i88.PreferencesService>()));
+  gh.factory<_i106.ResetTransactions>(
+      () => _i106.ResetTransactions(get<_i73.TransactionRepository>()));
+  gh.factory<_i107.SetDefaultSubCategories>(
+      () => _i107.SetDefaultSubCategories(get<_i29.SubCategoryRepository>()));
+  gh.factory<_i108.SetFirstTimeOpenToFalse>(
+      () => _i108.SetFirstTimeOpenToFalse(get<_i88.PreferencesService>()));
+  gh.factory<_i109.SignIn>(() => _i109.SignIn(get<_i88.AuthService>()));
+  gh.factory<_i110.UpdateUserInfo>(
+      () => _i110.UpdateUserInfo(get<_i88.AuthService>()));
+  gh.factory<_i111.GetIsFirstTimeOpen>(
+      () => _i111.GetIsFirstTimeOpen(get<_i88.PreferencesService>()));
   return get;
 }
 
-class _$DbInjectableModule extends _i111.DbInjectableModule {}
+class _$DbInjectableModule extends _i112.DbInjectableModule {}
 
-class _$FirebaseInjectableModule extends _i112.FirebaseInjectableModule {}
+class _$FirebaseInjectableModule extends _i113.FirebaseInjectableModule {}
 
-class _$ImagePickerInjectableModule extends _i113.ImagePickerInjectableModule {}
+class _$ImagePickerInjectableModule extends _i114.ImagePickerInjectableModule {}
 
-class _$PreferencesInjectableModule extends _i114.PreferencesInjectableModule {}
+class _$PreferencesInjectableModule extends _i115.PreferencesInjectableModule {}

@@ -12,5 +12,7 @@ abstract class TransactionRepository {
 
   Future<void> delete(TransactionId txId);
 
+  Future<void> deleteAll();
+
   Future<void> backUp(TransactionUserId userId);
 }

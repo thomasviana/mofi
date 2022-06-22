@@ -5,6 +5,7 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mofi/core/transactions/application.dart';
 import 'package:mofi/core/user/application.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -32,6 +33,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   ResetAccounts resetAccounts;
   ResetCategories resetCategories;
   ResetBudgets resetBudgets;
+  ResetTransactions resetTransactions;
   BackUpCategories backUpCategories;
   BackUpAccounts backUpAccounts;
   BackUpBudgets backUpBudgets;
@@ -49,6 +51,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     this.resetAccounts,
     this.resetCategories,
     this.resetBudgets,
+    this.resetTransactions,
     this.backUpCategories,
     this.backUpAccounts,
     this.backUpBudgets,
@@ -116,6 +119,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     await resetCategories();
     await resetBudgets();
     await resetAccounts();
+    await resetTransactions();
     await setDefaultCategories();
     add(BackUpData());
   }

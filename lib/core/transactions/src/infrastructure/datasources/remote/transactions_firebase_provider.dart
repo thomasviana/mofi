@@ -21,28 +21,28 @@ class TransactionsFirebaseProvider {
     return user;
   }
 
-  // TRANSACTIONS
+  CollectionReference<Map<String, dynamic>> collectionReference() =>
+      _firebaseFirestore.collection('users/${currentUser!.uid}/transactions');
+
+  // Transactions
 
   Future<void> addOrUpdateTransaction(Transaction transaction) async {
-    final ref =
-        _firebaseFirestore.collection('users/${currentUser!.uid}/transactions');
-
     final transactionDTO = TransactionDto.fromDomain(transaction);
-    final transactionSnapshot =
-        await ref.where('id', isEqualTo: transaction.id.value).get();
+    final transactionSnapshot = await collectionReference()
+        .where('id', isEqualTo: transaction.id.value)
+        .get();
 
     if (transactionSnapshot.docs.isNotEmpty) {
-      await ref
+      collectionReference()
           .doc(transactionSnapshot.docs[0].reference.id)
           .update(transactionDTO.toFirebaseMap());
     } else {
-      await ref.add(transactionDTO.toFirebaseMap());
+      collectionReference().add(transactionDTO.toFirebaseMap());
     }
   }
 
   Stream<Option<List<Transaction>>> getTransactions() async* {
-    yield* _firebaseFirestore
-        .collection('users/${currentUser!.uid}/transactions')
+    yield* collectionReference()
         .orderBy('id', descending: false)
         .snapshots()
         .map((snapshot) {
@@ -59,35 +59,20 @@ class TransactionsFirebaseProvider {
     });
   }
 
-  // Future<void> deleteTransaction(TransactionId transactionId) async {
-  //   final ref = _firebaseFirestore
-  //       .collection('users/${currentUser!.uid}/transactions')
-  //       .doc(transactionId.value);
-  //   await ref.delete();
-  // }
-
   Future<void> deleteTransaction(TransactionId transactionId) async {
-    final transactionSnapshot = await _firebaseFirestore
-        .collection('users/${currentUser!.uid}/transactions')
+    final transactionSnapshot = await collectionReference()
         .where('id', isEqualTo: transactionId.value)
         .get();
 
     if (transactionSnapshot.docs.isEmpty) return;
     final transactionReferenceId = transactionSnapshot.docs[0].reference.id;
-    final ref = _firebaseFirestore
-        .collection(
-          'users/${currentUser!.uid}/transactions/',
-        )
-        .doc(transactionReferenceId);
-    await ref.delete();
+    collectionReference().doc(transactionReferenceId).delete();
   }
 
   Future<void> deleteAllTransactions() async {
-    final snapshots = await _firebaseFirestore
-        .collection('users/${currentUser!.uid}/transactions')
-        .get();
-    for (final doc in snapshots.docs) {
-      await doc.reference.delete();
+    final snapshots = await collectionReference().get();
+    for (final transactionDoc in snapshots.docs) {
+      await transactionDoc.reference.delete();
     }
   }
 }

@@ -55,6 +55,12 @@ class TransactionRepositoryImpl implements TransactionRepository {
   }
 
   @override
+  Future<void> deleteAll() async {
+    await _transactionsLocalDataSource.deleteAllTransactions();
+    await _transactionsRemoteDataSource.deleteAllTransactions();
+  }
+
+  @override
   Future<void> backUp(TransactionUserId userId) async {
     _transactionsLocalDataSource.getCachedTransactions(userId).first.then(
           (optionLocalTransactions) => optionLocalTransactions.fold(

@@ -23,6 +23,7 @@ class BudgetManagement {
 }
 
 enum TransactionTypeTable { expense, income }
+
 enum IncomeTypeTable { active, pasive }
 
 class BudgetManagementConverter
@@ -94,4 +95,6 @@ class TransactionDao extends DatabaseAccessor<TransactionsDatabase>
   Future<void> deleteTransaction(String transactionId) =>
       (delete(transactionsTable)..where((tbl) => tbl.id.equals(transactionId)))
           .go();
+
+  Future<void> deleteAllTransactions() => delete(transactionsTable).go();
 }

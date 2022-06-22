@@ -11,6 +11,7 @@ abstract class TransactionsLocalDataSource {
     TransactionUserId userId,
   );
   Future<void> deleteTransaction(TransactionId transactionId);
+  Future<void> deleteAllTransactions();
 }
 
 @LazySingleton(as: TransactionsLocalDataSource)
@@ -53,4 +54,9 @@ class TransactionsLocalDataSourceImpl implements TransactionsLocalDataSource {
                 ? none()
                 : some(_transactionMapper.fromDbDtoList(dtos)),
           );
+
+  @override
+  Future<void> deleteAllTransactions() {
+    return _transactionDao.deleteAllTransactions();
+  }
 }
