@@ -6,7 +6,6 @@ class CategoryModel extends Entity<CategoryId> {
   String name;
   int icon;
   int color;
-  double balance = 0;
 
   CategoryModel({
     required CategoryId id,
