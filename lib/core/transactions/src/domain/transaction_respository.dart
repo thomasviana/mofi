@@ -15,4 +15,15 @@ abstract class TransactionRepository {
   Future<void> deleteAll();
 
   Future<void> backUp(TransactionUserId userId);
+
+  // Scheduled Transaction
+
+  Stream<Option<List<ScheduledTransaction>>> fetchScheduledTransactions(
+    TransactionUserId userId, {
+    required bool isFirstTimeOpen,
+  });
+
+  Future<void> saveScheduledTransaction(
+    ScheduledTransaction scheduledTransaction,
+  );
 }
