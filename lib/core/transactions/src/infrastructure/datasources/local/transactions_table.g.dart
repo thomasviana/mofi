@@ -26,3 +26,7 @@ mixin _$TransactionDaoMixin on DatabaseAccessor<TransactionsDatabase> {
   $TransactionsTableTable get transactionsTable =>
       attachedDatabase.transactionsTable;
 }
+mixin _$ScheduledTransactionDaoMixin on DatabaseAccessor<TransactionsDatabase> {
+  $ScheduledTransactionsTableTable get scheduledTransactionsTable =>
+      attachedDatabase.scheduledTransactionsTable;
+}

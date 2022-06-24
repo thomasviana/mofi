@@ -1,9 +1,11 @@
 library infrastructure;
 
+export 'src/infrastructure/datasources/local/scheduled_transaction_mapper.dart';
 export 'src/infrastructure/datasources/local/transaction_mapper.dart';
 export 'src/infrastructure/datasources/local/transactions_db.dart';
 export 'src/infrastructure/datasources/local/transactions_local_data_source.dart';
 export 'src/infrastructure/datasources/local/transactions_table.dart';
+export 'src/infrastructure/datasources/remote/scheduled_transaction_dto.dart';
 export 'src/infrastructure/datasources/remote/transaction_dto.dart';
 export 'src/infrastructure/datasources/remote/transactions_firebase_provider.dart';
 export 'src/infrastructure/datasources/remote/transactions_remote_data_source.dart';

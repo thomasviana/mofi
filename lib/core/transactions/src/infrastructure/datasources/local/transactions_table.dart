@@ -77,6 +77,35 @@ class TransactionsTable extends Table {
   String get tableName => 'transactions';
 }
 
+@DataClassName('ScheduledTransactionDbDto')
+class ScheduledTransactionsTable extends Table {
+  TextColumn get id => text().customConstraint('UNIQUE')();
+  IntColumn get transactionType => intEnum<TransactionTypeTable>()();
+  TextColumn get title => text().withDefault(const Constant(''))();
+  RealColumn get amount => real().withDefault(const Constant(0.0))();
+  DateTimeColumn get date => dateTime()();
+  TextColumn get note => text().withDefault(const Constant(''))();
+  IntColumn get icon => integer()();
+  IntColumn get color => integer()();
+  TextColumn get userId => text().nullable()();
+  TextColumn get categoryId => text().nullable()();
+  TextColumn get subCategoryId => text().nullable()();
+  TextColumn get accountId => text().nullable()();
+  TextColumn get budgetId => text().nullable()();
+  IntColumn get incomeType => intEnum<IncomeTypeTable>().nullable()();
+  BoolColumn get isIncomeManaged =>
+      boolean().withDefault(const Constant(false))();
+  TextColumn get budgetManagement =>
+      text().map(const BudgetManagementConverter()).nullable()();
+  DateTimeColumn get dueDate => dateTime()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+
+  @override
+  String get tableName => 'scheduledTransactions';
+}
+
 @lazySingleton
 @DriftAccessor(tables: [TransactionsTable])
 class TransactionDao extends DatabaseAccessor<TransactionsDatabase>
@@ -97,4 +126,30 @@ class TransactionDao extends DatabaseAccessor<TransactionsDatabase>
           .go();
 
   Future<void> deleteAllTransactions() => delete(transactionsTable).go();
+}
+
+@lazySingleton
+@DriftAccessor(tables: [ScheduledTransactionsTable])
+class ScheduledTransactionDao extends DatabaseAccessor<TransactionsDatabase>
+    with _$ScheduledTransactionDaoMixin {
+  ScheduledTransactionDao(TransactionsDatabase db) : super(db);
+
+  Stream<List<ScheduledTransactionDbDto>> getTransactions(String? userId) {
+    final query = select(scheduledTransactionsTable)
+      ..where((tbl) => tbl.userId.equals(userId));
+    return query.watch();
+  }
+
+  Future<void> createOrUpdate(
+          Insertable<ScheduledTransactionDbDto> scheduledTransaction) =>
+      into(scheduledTransactionsTable)
+          .insertOnConflictUpdate(scheduledTransaction);
+
+  Future<void> deleteTransaction(String transactionId) =>
+      (delete(scheduledTransactionsTable)
+            ..where((tbl) => tbl.id.equals(transactionId)))
+          .go();
+
+  Future<void> deleteAllTransactions() =>
+      delete(scheduledTransactionsTable).go();
 }

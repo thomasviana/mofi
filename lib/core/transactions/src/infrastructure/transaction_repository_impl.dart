@@ -70,4 +70,45 @@ class TransactionRepositoryImpl implements TransactionRepository {
           ),
         );
   }
+
+  // Scheduled Transactions
+
+  @override
+  Future<void> saveScheduledTransaction(
+    ScheduledTransaction scheduledTransaction,
+  ) async {
+    await _transactionsLocalDataSource
+        .cacheScheduledTransaction(scheduledTransaction);
+    await _transactionsRemoteDataSource
+        .addOrUpdateScheduledTransaction(scheduledTransaction);
+  }
+
+  @override
+  Stream<Option<List<ScheduledTransaction>>> fetchScheduledTransactions(
+    TransactionUserId userId, {
+    required bool isFirstTimeOpen,
+  }) async* {
+    if (_isFirstTimeOpen) _getRemoteScheduledTransactions(userId);
+    yield* _transactionsLocalDataSource
+        .getCachedScheduledTransactions(userId)
+        .asyncMap(
+          (optionCachedTransactions) => optionCachedTransactions.fold(
+            () => Future.value(None()),
+            (cachedScheduledTransactions) =>
+                Future.value(some(cachedScheduledTransactions)),
+          ),
+        );
+  }
+
+  Future<void> _getRemoteScheduledTransactions(TransactionUserId userId) =>
+      _transactionsRemoteDataSource.getAllScheduledTransactions().first.then(
+            (optionRemoteTransactions) => optionRemoteTransactions.fold(
+              () {},
+              (remoteScheduledTransactions) async {
+                await _transactionsLocalDataSource
+                    .cacheScheduledTransactions(remoteScheduledTransactions);
+                _isFirstTimeOpen = false;
+              },
+            ),
+          );
 }

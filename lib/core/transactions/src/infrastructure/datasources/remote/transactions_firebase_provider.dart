@@ -24,6 +24,10 @@ class TransactionsFirebaseProvider {
   CollectionReference<Map<String, dynamic>> collectionReference() =>
       _firebaseFirestore.collection('users/${currentUser!.uid}/transactions');
 
+  CollectionReference<Map<String, dynamic>> scheduledCollectionReference() =>
+      _firebaseFirestore
+          .collection('users/${currentUser!.uid}/scheduledTransactions');
+
   // Transactions
 
   Future<void> addOrUpdateTransaction(Transaction transaction) async {
@@ -74,5 +78,44 @@ class TransactionsFirebaseProvider {
     for (final transactionDoc in snapshots.docs) {
       await transactionDoc.reference.delete();
     }
+  }
+
+  // Scheduled Transactions
+
+  Future<void> addOrUpdateScheduledTransaction(
+    ScheduledTransaction scheduledTransaction,
+  ) async {
+    final scheduledTransactionDTO =
+        ScheduledTransactionDto.fromDomain(scheduledTransaction);
+    final transactionSnapshot = await scheduledCollectionReference()
+        .where('id', isEqualTo: scheduledTransaction.transaction.id.value)
+        .get();
+
+    if (transactionSnapshot.docs.isNotEmpty) {
+      collectionReference()
+          .doc(transactionSnapshot.docs[0].reference.id)
+          .update(scheduledTransactionDTO.toFirebaseMap());
+    } else {
+      collectionReference().add(scheduledTransactionDTO.toFirebaseMap());
+    }
+  }
+
+  Stream<Option<List<ScheduledTransaction>>> getScheduledTransactions() async* {
+    yield* scheduledCollectionReference()
+        .orderBy('id', descending: false)
+        .snapshots()
+        .map((snapshot) {
+      if (snapshot.docs.isNotEmpty) {
+        final scheduledTransactionsData = snapshot.docs
+            .map((snapshot) =>
+                ScheduledTransactionDto.fromFirebaseMap(snapshot.data()))
+            .toList();
+        final scheduledTransactions =
+            scheduledTransactionsData.map((dto) => dto.toDomain()).toList();
+        return some(scheduledTransactions);
+      } else {
+        return none();
+      }
+    });
   }
 }

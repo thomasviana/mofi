@@ -12,16 +12,31 @@ abstract class TransactionsLocalDataSource {
   );
   Future<void> deleteTransaction(TransactionId transactionId);
   Future<void> deleteAllTransactions();
+
+  // Scheduled Transactions
+  Future<void> cacheScheduledTransaction(
+    ScheduledTransaction scheduledTransaction,
+  );
+  Future<void> cacheScheduledTransactions(
+    List<ScheduledTransaction> scheduledTransaction,
+  );
+  Stream<Option<List<ScheduledTransaction>>> getCachedScheduledTransactions(
+    TransactionUserId userId,
+  );
 }
 
 @LazySingleton(as: TransactionsLocalDataSource)
 class TransactionsLocalDataSourceImpl implements TransactionsLocalDataSource {
   final TransactionDao _transactionDao;
+  final ScheduledTransactionDao _scheduledTransactionDao;
   final TransactionMapper _transactionMapper;
+  final ScheduledTransactionMapper _scheduledTransactionMapper;
 
   TransactionsLocalDataSourceImpl(
     this._transactionDao,
+    this._scheduledTransactionDao,
     this._transactionMapper,
+    this._scheduledTransactionMapper,
   );
 
   @override
@@ -58,5 +73,40 @@ class TransactionsLocalDataSourceImpl implements TransactionsLocalDataSource {
   @override
   Future<void> deleteAllTransactions() {
     return _transactionDao.deleteAllTransactions();
+  }
+
+  @override
+  Future<void> cacheScheduledTransaction(
+    ScheduledTransaction scheduledTransaction,
+  ) {
+    return Future.value(
+      _scheduledTransactionMapper.toDbDto(scheduledTransaction),
+    ).then(
+      (campanion) => _scheduledTransactionDao.createOrUpdate(campanion),
+    );
+  }
+
+  @override
+  Stream<Option<List<ScheduledTransaction>>> getCachedScheduledTransactions(
+    TransactionUserId userId,
+  ) =>
+      _scheduledTransactionDao.getTransactions(userId.value).map(
+            (dtos) => dtos.isEmpty
+                ? none()
+                : some(_scheduledTransactionMapper.fromDbDtoList(dtos)),
+          );
+
+  @override
+  Future<void> cacheScheduledTransactions(
+    List<ScheduledTransaction> scheduledTransaction,
+  ) {
+    return Future.value(
+            _scheduledTransactionMapper.toDbDtoList(scheduledTransaction))
+        .then(
+      (campanions) => {
+        for (var campanion in campanions)
+          {_scheduledTransactionDao.createOrUpdate(campanion)}
+      },
+    );
   }
 }

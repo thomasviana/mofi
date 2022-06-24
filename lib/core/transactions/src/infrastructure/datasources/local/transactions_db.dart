@@ -19,8 +19,8 @@ LazyDatabase _openConnection() {
 }
 
 @DriftDatabase(
-  tables: [TransactionsTable],
-  daos: [TransactionDao],
+  tables: [TransactionsTable, ScheduledTransactionsTable],
+  daos: [TransactionDao, ScheduledTransactionDao],
 )
 class TransactionsDatabase extends _$TransactionsDatabase {
   TransactionsDatabase() : super(_openConnection());
