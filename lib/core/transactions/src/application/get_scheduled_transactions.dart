@@ -17,13 +17,13 @@ class GetScheduledTransactions {
     this._getProfileInfo,
   );
 
-  Stream<Option<List<Transaction>>> call({
+  Stream<Option<List<ScheduledTransaction>>> call({
     required bool isFirstTimeOpen,
   }) async* {
     yield* _getProfileInfo().switchMap((user) {
       return user.fold(
         () => Stream.value(None()),
-        (user) => _transactionRepository.fetchTransactions(
+        (user) => _transactionRepository.fetchScheduledTransactions(
           TransactionUserId(user.id.value),
           isFirstTimeOpen: isFirstTimeOpen,
         ),
