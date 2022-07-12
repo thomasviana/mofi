@@ -92,11 +92,12 @@ class TransactionsFirebaseProvider {
         .get();
 
     if (transactionSnapshot.docs.isNotEmpty) {
-      collectionReference()
+      scheduledCollectionReference()
           .doc(transactionSnapshot.docs[0].reference.id)
           .update(scheduledTransactionDTO.toFirebaseMap());
     } else {
-      collectionReference().add(scheduledTransactionDTO.toFirebaseMap());
+      scheduledCollectionReference()
+          .add(scheduledTransactionDTO.toFirebaseMap());
     }
   }
 
@@ -107,8 +108,10 @@ class TransactionsFirebaseProvider {
         .map((snapshot) {
       if (snapshot.docs.isNotEmpty) {
         final scheduledTransactionsData = snapshot.docs
-            .map((snapshot) =>
-                ScheduledTransactionDto.fromFirebaseMap(snapshot.data()))
+            .map(
+              (snapshot) =>
+                  ScheduledTransactionDto.fromFirebaseMap(snapshot.data()),
+            )
             .toList();
         final scheduledTransactions =
             scheduledTransactionsData.map((dto) => dto.toDomain()).toList();
@@ -117,5 +120,22 @@ class TransactionsFirebaseProvider {
         return none();
       }
     });
+  }
+
+  Future<void> deleteScheduledTransaction(TransactionId transactionId) async {
+    final transactionSnapshot = await scheduledCollectionReference()
+        .where('id', isEqualTo: transactionId.value)
+        .get();
+
+    if (transactionSnapshot.docs.isEmpty) return;
+    final transactionReferenceId = transactionSnapshot.docs[0].reference.id;
+    scheduledCollectionReference().doc(transactionReferenceId).delete();
+  }
+
+  Future<void> deleteAllScheduledTransactions() async {
+    final snapshots = await scheduledCollectionReference().get();
+    for (final transactionDoc in snapshots.docs) {
+      await transactionDoc.reference.delete();
+    }
   }
 }

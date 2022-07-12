@@ -23,6 +23,8 @@ abstract class TransactionsLocalDataSource {
   Stream<Option<List<ScheduledTransaction>>> getCachedScheduledTransactions(
     TransactionUserId userId,
   );
+  Future<void> deleteScheduledTransaction(TransactionId transactionId);
+  Future<void> deleteAllScheduledTransactions();
 }
 
 @LazySingleton(as: TransactionsLocalDataSource)
@@ -56,11 +58,6 @@ class TransactionsLocalDataSourceImpl implements TransactionsLocalDataSource {
   }
 
   @override
-  Future<void> deleteTransaction(TransactionId transactionId) {
-    return _transactionDao.deleteTransaction(transactionId.value);
-  }
-
-  @override
   Stream<Option<List<Transaction>>> getCachedTransactions(
     TransactionUserId userId,
   ) =>
@@ -71,9 +68,16 @@ class TransactionsLocalDataSourceImpl implements TransactionsLocalDataSource {
           );
 
   @override
+  Future<void> deleteTransaction(TransactionId transactionId) {
+    return _transactionDao.deleteTransaction(transactionId.value);
+  }
+
+  @override
   Future<void> deleteAllTransactions() {
     return _transactionDao.deleteAllTransactions();
   }
+
+  // Scheduled Transactions
 
   @override
   Future<void> cacheScheduledTransaction(
@@ -101,12 +105,22 @@ class TransactionsLocalDataSourceImpl implements TransactionsLocalDataSource {
     List<ScheduledTransaction> scheduledTransaction,
   ) {
     return Future.value(
-            _scheduledTransactionMapper.toDbDtoList(scheduledTransaction))
-        .then(
+      _scheduledTransactionMapper.toDbDtoList(scheduledTransaction),
+    ).then(
       (campanions) => {
         for (var campanion in campanions)
           {_scheduledTransactionDao.createOrUpdate(campanion)}
       },
     );
+  }
+
+  @override
+  Future<void> deleteScheduledTransaction(TransactionId transactionId) {
+    return _scheduledTransactionDao.deleteTransaction(transactionId.value);
+  }
+
+  @override
+  Future<void> deleteAllScheduledTransactions() {
+    return _scheduledTransactionDao.deleteAllTransactions();
   }
 }

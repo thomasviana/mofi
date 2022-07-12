@@ -111,4 +111,32 @@ class TransactionRepositoryImpl implements TransactionRepository {
               },
             ),
           );
+
+  @override
+  Future<void> deleteScheduled(TransactionId transactionId) async {
+    await _transactionsLocalDataSource
+        .deleteScheduledTransaction(transactionId);
+    await _transactionsRemoteDataSource
+        .deleteScheduledTransaction(transactionId);
+  }
+
+  @override
+  Future<void> deleteAllScheduled() async {
+    await _transactionsLocalDataSource.deleteAllScheduledTransactions();
+    await _transactionsRemoteDataSource.deleteAllScheduledTransactions();
+  }
+
+  @override
+  Future<void> backUpScheduled(TransactionUserId userId) async {
+    _transactionsLocalDataSource
+        .getCachedScheduledTransactions(userId)
+        .first
+        .then(
+          (optionLocalTransactions) => optionLocalTransactions.fold(
+            () {},
+            (scheduledTransactions) => _transactionsRemoteDataSource
+                .addOrUpdateScheduledTransactions(scheduledTransactions),
+          ),
+        );
+  }
 }

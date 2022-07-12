@@ -141,7 +141,8 @@ class ScheduledTransactionDao extends DatabaseAccessor<TransactionsDatabase>
   }
 
   Future<void> createOrUpdate(
-          Insertable<ScheduledTransactionDbDto> scheduledTransaction) =>
+    Insertable<ScheduledTransactionDbDto> scheduledTransaction,
+  ) =>
       into(scheduledTransactionsTable)
           .insertOnConflictUpdate(scheduledTransaction);
 

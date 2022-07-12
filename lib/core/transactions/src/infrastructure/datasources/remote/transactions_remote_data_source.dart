@@ -17,7 +17,12 @@ abstract class TransactionsRemoteDataSource {
   Future<void> addOrUpdateScheduledTransaction(
     ScheduledTransaction scheduledTransaction,
   );
+  Future<void> addOrUpdateScheduledTransactions(
+    List<ScheduledTransaction> transactions,
+  );
   Stream<Option<List<ScheduledTransaction>>> getAllScheduledTransactions();
+  Future<void> deleteScheduledTransaction(TransactionId transactionId);
+  Future<void> deleteAllScheduledTransactions();
 }
 
 @LazySingleton(as: TransactionsRemoteDataSource)
@@ -61,6 +66,24 @@ class TransactionsRemoteDataSourceImpl implements TransactionsRemoteDataSource {
           .addOrUpdateScheduledTransaction(scheduledTransaction);
 
   @override
+  Future<void> addOrUpdateScheduledTransactions(
+    List<ScheduledTransaction> scheduledTransactions,
+  ) async {
+    for (final scheduledTransaction in scheduledTransactions) {
+      await _transactionsFirebaseProvider
+          .addOrUpdateScheduledTransaction(scheduledTransaction);
+    }
+  }
+
+  @override
   Stream<Option<List<ScheduledTransaction>>> getAllScheduledTransactions() =>
       _transactionsFirebaseProvider.getScheduledTransactions();
+
+  @override
+  Future<void> deleteScheduledTransaction(TransactionId transactionId) =>
+      _transactionsFirebaseProvider.deleteScheduledTransaction(transactionId);
+
+  @override
+  Future<void> deleteAllScheduledTransactions() =>
+      _transactionsFirebaseProvider.deleteAllScheduledTransactions();
 }
