@@ -26,4 +26,10 @@ abstract class TransactionRepository {
   Future<void> saveScheduledTransaction(
     ScheduledTransaction scheduledTransaction,
   );
+
+  Future<void> deleteScheduled(TransactionId txId);
+
+  Future<void> deleteAllScheduled();
+
+  Future<void> backUpScheduled(TransactionUserId userId);
 }
