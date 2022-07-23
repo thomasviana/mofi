@@ -118,8 +118,9 @@ class ScheduledTransactionDto {
       txBudgetId: data['txBudgetId']! as String,
       incomeType: data['incomeType'] as int?,
       isIncomeManaged: data['isIncomeManaged']! as bool,
-      budgetManagement: (data['budgetManagement']! as Map<String, dynamic>)
-          .map((key, value) => MapEntry(key, value as double)),
+      budgetManagement:
+          ((data['budgetManagement'] ?? {}) as Map<String, dynamic>)
+              .map((key, value) => MapEntry(key, value as double)),
       dueDate: (data['dueDate']! as Timestamp).toDate(),
     );
   }
