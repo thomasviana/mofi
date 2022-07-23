@@ -30,8 +30,6 @@ class ScheduleTransaction {
     TransactionAccountId? txAccountId,
     TransactionBudgetId? txBudgetId,
     IncomeType? incomeType,
-    bool isIncomeManaged = false,
-    BudgetManagementMap? budgetManagement,
     required DateTime dueDate,
   }) async {
     final user = await _getProfileInfo().first;
@@ -56,8 +54,6 @@ class ScheduleTransaction {
               txSubCategoryId: txSubCategoryId,
               txBudgetId: txBudgetId,
               incomeType: incomeType,
-              isIncomeManaged: isIncomeManaged,
-              budgetManagement: budgetManagement,
             ),
           ),
         );
