@@ -332,7 +332,7 @@ class _SubCategoriesList extends StatelessWidget {
               ),
             ),
             Divider(height: 0),
-            if (state.subCategoriesWithoutGeneral.length == 1)
+            if (state.subCategoriesWithoutGeneral.isEmpty)
               state.category.fold(
                 () => const SizedBox(),
                 (category) => Padding(
