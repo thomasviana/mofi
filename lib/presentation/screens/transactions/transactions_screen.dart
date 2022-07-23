@@ -94,7 +94,8 @@ class _TransactionssScreenState extends State<TransactionsScreen> {
           ),
           if (state.filteredTransactions.isNotEmpty)
             ..._sliverListTransactions(),
-          if (state.status == Status.failure)
+          if (state.status == Status.failure ||
+              state.filteredTransactions.isEmpty)
             SliverToBoxAdapter(
               child: Center(
                 child: Padding(

@@ -37,42 +37,47 @@ class RecurringIncomes extends StatelessWidget {
       },
       content: Observer<ScheduledTransactionsBloc, ScheduledTransactionsState>(
         onSuccess: (context, state) {
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ListView.builder(
-                shrinkWrap: true,
-                padding: EdgeInsets.zero,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  final scheduledTransaction =
-                      state.filteredScheduledTransactions[index];
-                  return ScheduledTransactionListTile(
-                    transaction: scheduledTransaction.transaction,
-                    dueDate: scheduledTransaction.dueDate,
-                    budget:
-                        _getBudget(scheduledTransaction.transaction.txBudgetId),
-                    onPressed: () =>
-                        AppNavigator.navigateToEditScheduledTransactionPage(
-                      context,
-                      arguments: [
-                        scheduledTransaction.transaction.transactionType,
-                        scheduledTransaction
-                      ],
-                    ),
-                    onDeletePressed: (_) => context
-                        .read<ScheduledTransactionsBloc>()
-                        .add(
-                          ScheduledTransactionDeleted(
-                            transactionId: scheduledTransaction.transaction.id,
-                          ),
-                        ),
-                  );
-                },
-                itemCount: state.filteredScheduledTransactions.length,
-              ),
-            ],
-          );
+          if (state.filteredScheduledTransactions.isNotEmpty) {
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ListView.builder(
+                  shrinkWrap: true,
+                  padding: EdgeInsets.zero,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    final scheduledTransaction =
+                        state.filteredScheduledTransactions[index];
+                    return ScheduledTransactionListTile(
+                      transaction: scheduledTransaction.transaction,
+                      dueDate: scheduledTransaction.dueDate,
+                      budget: _getBudget(
+                        scheduledTransaction.transaction.txBudgetId,
+                      ),
+                      onPressed: () =>
+                          AppNavigator.navigateToEditScheduledTransactionPage(
+                        context,
+                        arguments: [
+                          scheduledTransaction.transaction.transactionType,
+                          scheduledTransaction
+                        ],
+                      ),
+                      onDeletePressed: (_) =>
+                          context.read<ScheduledTransactionsBloc>().add(
+                                ScheduledTransactionDeleted(
+                                  transactionId:
+                                      scheduledTransaction.transaction.id,
+                                ),
+                              ),
+                    );
+                  },
+                  itemCount: state.filteredScheduledTransactions.length,
+                ),
+              ],
+            );
+          } else {
+            return NoTransactionsWidget(onDate: state.date);
+          }
         },
         onFailure: (context, state) => NoTransactionsWidget(onDate: state.date),
       ),

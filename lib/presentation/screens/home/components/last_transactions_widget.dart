@@ -30,30 +30,35 @@ class LastTransactionsWidget extends StatelessWidget {
           context.read<MainScreenCubit>().onSelectedPageIndexChanged(2),
       content: Observer<TransactionsBloc, TransactionsState>(
         onSuccess: (context, state) {
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ListView.builder(
-                shrinkWrap: true,
-                padding: EdgeInsets.zero,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  final transaction = state.filteredTransactions[index];
-                  return LastTransactionsListTile(
-                    transaction: transaction,
-                    budget: _getBudget(transaction.txBudgetId),
-                    onPressed: () => AppNavigator.navigateToEditTransactionPage(
-                      context,
+          if (state.filteredTransactions.isNotEmpty) {
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ListView.builder(
+                  shrinkWrap: true,
+                  padding: EdgeInsets.zero,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    final transaction = state.filteredTransactions[index];
+                    return LastTransactionsListTile(
                       transaction: transaction,
-                    ),
-                  );
-                },
-                itemCount: state.filteredTransactions.length < 4
-                    ? state.filteredTransactions.length
-                    : 4,
-              ),
-            ],
-          );
+                      budget: _getBudget(transaction.txBudgetId),
+                      onPressed: () =>
+                          AppNavigator.navigateToEditTransactionPage(
+                        context,
+                        transaction: transaction,
+                      ),
+                    );
+                  },
+                  itemCount: state.filteredTransactions.length < 4
+                      ? state.filteredTransactions.length
+                      : 4,
+                ),
+              ],
+            );
+          } else {
+            return NoTransactionsWidget(onDate: state.date);
+          }
         },
         onFailure: (context, state) => NoTransactionsWidget(onDate: state.date),
       ),
