@@ -6,6 +6,7 @@ import '../../../di/dependency_injection.dart';
 import '../../core/date/date_bloc.dart';
 import '../../core/stats/stats_bloc.dart';
 import '../../core/transactions/transactions_bloc.dart';
+import '../../core/transactions_scheduled/scheduled_transactions_bloc.dart';
 import '../../resources/colors.dart';
 import '../../routes/app_navigator.dart';
 import '../home/home_bloc/home_screen_bloc.dart';
@@ -23,6 +24,7 @@ class MainAppScreen extends StatefulWidget {
 class _MainAppScreenState extends State<MainAppScreen> {
   late DateBloc dateBloc;
   late TransactionsBloc txBloc;
+  late ScheduledTransactionsBloc scheduledTxBloc;
   late StatsBloc statsBloc;
   late MainScreenCubit cubit;
 
@@ -30,6 +32,7 @@ class _MainAppScreenState extends State<MainAppScreen> {
   void initState() {
     dateBloc = context.read<DateBloc>();
     txBloc = context.read<TransactionsBloc>();
+    scheduledTxBloc = context.read<ScheduledTransactionsBloc>();
     statsBloc = context.read<StatsBloc>();
     cubit = context.read<MainScreenCubit>();
     super.initState();
@@ -63,6 +66,7 @@ class _MainAppScreenState extends State<MainAppScreen> {
     return BlocListener<DateBloc, DateState>(
       listener: (context, state) {
         txBloc.add(TxsDateUpdated(date: state.date));
+        scheduledTxBloc.add(ScheduledTxsDateUpdated(date: state.date));
         statsBloc.add(StatsDateUpdated(date: state.date));
       },
       child: BlocBuilder<MainScreenCubit, MainScreenState>(
