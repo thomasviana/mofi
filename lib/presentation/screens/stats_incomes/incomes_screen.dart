@@ -10,6 +10,7 @@ import '../../resources/resources.dart';
 import 'components/incomes_by_account.dart';
 import 'components/incomes_by_category.dart';
 import 'components/incomes_by_type.dart';
+import 'components/recurring_incomes.dart';
 
 class IncomesScreen extends StatelessWidget {
   @override
@@ -39,6 +40,7 @@ class IncomesScreen extends StatelessWidget {
                 pinned: true,
                 delegate: DateFilterDelegate(),
               ),
+              RecurringIncomes(),
               IncomesByType(),
               IncomesByCategory(),
               IncomesByAccount(),
