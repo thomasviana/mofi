@@ -43,12 +43,25 @@ class AppNavigator {
 
   // Transactions
   static const ROUTE_EDIT_TRANSACTION_PAGE = '/edit-transaction';
-  static const ROUTE_SELECT_ACCOUNT_PAGE = '/select-account';
-  static const ROUTE_SELECT_CATEGORY_PAGE = '/select-category';
-  static const ROUTE_SELECT_BUDGET_PAGE = '/select-budget';
-  static const ROUTE_EDIT_NOTE_PAGE = '/edit-note';
-  static const ROUTE_MANAGE_INCOME_PAGE = '/manage-income';
-  static const ROUTE_MANAGE_INCOME_BUDGET_PAGE = '/manage-income-budget';
+  static const ROUTE_SELECT_ACCOUNT_PAGE = '/edit-transaction/select-account';
+  static const ROUTE_SELECT_CATEGORY_PAGE = '/edit-transaction/select-category';
+  static const ROUTE_SELECT_BUDGET_PAGE = '/edit-transaction/select-budget';
+  static const ROUTE_EDIT_NOTE_PAGE = '/edit-transaction/edit-note';
+  static const ROUTE_MANAGE_INCOME_PAGE = '/edit-transaction/manage-income';
+  static const ROUTE_MANAGE_INCOME_BUDGET_PAGE =
+      '/edit-transaction/manage-income-budget';
+
+  // Scheduled Transactions
+  static const ROUTE_EDIT_SCHEDULED_TRANSACTION_PAGE =
+      '/edit-scheduled-transaction';
+  static const ROUTE_EDIT_SCHEDULED_TRANSACTION_SELECT_ACCOUNT_PAGE =
+      '/edit-scheduled-transaction/select-account';
+  static const ROUTE_EDIT_SCHEDULED_TRANSACTION_SELECT_CATEGORY_PAGE =
+      '/edit-scheduled-transaction/select-category';
+  static const ROUTE_EDIT_SCHEDULED_TRANSACTION_SELECT_BUDGET_PAGE =
+      '/edit-scheduled-transaction/select-budget';
+  static const ROUTE_EDIT_SCHEDULED_TRANSACTION_EDIT_NOTE_PAGE =
+      '/edit-scheduled-transaction/edit-note';
 
   static void navigateBack(BuildContext context) => Navigator.pop(context);
 
@@ -291,6 +304,59 @@ class AppNavigator {
       context,
       ROUTE_MANAGE_INCOME_BUDGET_PAGE,
       arguments: arguments,
+    );
+  }
+
+  static void navigateToEditScheduledTransactionPage(
+    BuildContext context, {
+    List<dynamic>? arguments,
+  }) {
+    Navigator.pushNamed(
+      context,
+      ROUTE_EDIT_SCHEDULED_TRANSACTION_PAGE,
+      arguments: arguments,
+    );
+  }
+
+  static void navigateToEditScheduledTransactionSelectAccountPage(
+    BuildContext context,
+    List<Account>? accounts,
+  ) {
+    Navigator.pushNamed(
+      context,
+      ROUTE_EDIT_SCHEDULED_TRANSACTION_SELECT_ACCOUNT_PAGE,
+      arguments: accounts,
+    );
+  }
+
+  static void navigateToEditScheduledTransactionSelectCategoryPage(
+    BuildContext context,
+  ) {
+    Navigator.pushNamed(
+      context,
+      ROUTE_EDIT_SCHEDULED_TRANSACTION_SELECT_CATEGORY_PAGE,
+    );
+  }
+
+  static void navigateToEditScheduledTransactionSelectBudgetPage(
+    BuildContext context, {
+    List<Budget>? budgets,
+  }) {
+    Navigator.pushNamed(
+      context,
+      ROUTE_EDIT_SCHEDULED_TRANSACTION_SELECT_BUDGET_PAGE,
+      arguments: budgets,
+    );
+  }
+
+  static void navigateToEditScheduledTransactionEditNotePage(
+    BuildContext context, {
+    String? content,
+  }) {
+    Navigator.pushNamed(
+      context,
+      ROUTE_EDIT_SCHEDULED_TRANSACTION_EDIT_NOTE_PAGE,
+      arguments: content,
     );
   }
 }

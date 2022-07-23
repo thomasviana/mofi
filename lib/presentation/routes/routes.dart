@@ -10,6 +10,7 @@ import '../../di/dependency_injection.dart';
 import '../core/settings/settings_bloc.dart';
 import '../core/stats/stats_bloc.dart';
 import '../core/transactions/transactions_bloc.dart';
+import '../core/transactions_scheduled/scheduled_transactions_bloc.dart';
 import '../screens/accounts/accounts_screen.dart';
 import '../screens/accounts/edit_account_bloc/edit_account_screen_bloc.dart';
 import '../screens/accounts/edit_account_name_screen.dart';
@@ -48,6 +49,12 @@ import '../screens/transactions/manage_income_screen.dart';
 import '../screens/transactions/select_account_screen.dart';
 import '../screens/transactions/select_budget_screen.dart';
 import '../screens/transactions/select_category_screen.dart';
+import '../screens/transactions_scheduled/edit_scheduled_note_screen.dart';
+import '../screens/transactions_scheduled/edit_scheduled_transaction_bloc/edit_scheduled_transaction_screen_bloc.dart';
+import '../screens/transactions_scheduled/edit_scheduled_transaction_screen.dart';
+import '../screens/transactions_scheduled/select_scheduled_account_screen.dart';
+import '../screens/transactions_scheduled/select_scheduled_budget_screen.dart';
+import '../screens/transactions_scheduled/select_scheduled_category_screen.dart';
 import 'app_navigator.dart';
 
 class AppRouter {
@@ -69,8 +76,14 @@ class AppRouter {
 
   final TransactionsBloc _transactionsBloc = sl<TransactionsBloc>();
 
+  final ScheduledTransactionsBloc _scheduledTransactionsBloc =
+      sl<ScheduledTransactionsBloc>();
+
   final ManageIncomeScreenBloc _manageIncomeScreenBloc =
       sl<ManageIncomeScreenBloc>();
+
+  final EditScheduledTransactionScreenBloc _editScheduledTransactionScreenBloc =
+      sl<EditScheduledTransactionScreenBloc>();
 
   final StatsBloc _statsBloc = sl<StatsBloc>();
 
@@ -106,6 +119,9 @@ class AppRouter {
                 value: _transactionsBloc..add(TransactionsRequested()),
               ),
               BlocProvider.value(
+                value: _scheduledTransactionsBloc,
+              ),
+              BlocProvider.value(
                 value: _settingsBloc
                   ..add(GetUserAccounts())
                   ..add(GetUserBudgets())
@@ -128,6 +144,13 @@ class AppRouter {
           settings,
           MultiBlocProvider(
             providers: [
+              BlocProvider.value(
+                value: _settingsBloc,
+              ),
+              BlocProvider.value(
+                value: _scheduledTransactionsBloc
+                  ..add(ScheduledTransactionsRequested()),
+              ),
               BlocProvider.value(
                 value: _statsBloc
                   ..add(CategoriesSuscriptionRequested())
@@ -436,14 +459,92 @@ class AppRouter {
             ),
           ),
         );
+
       case AppNavigator.ROUTE_BACKUP_PAGE:
         return _buildRoute(
           settings,
-          BlocProvider.value(
-            value: _settingsBloc,
+          MultiBlocProvider(
+            providers: [
+              BlocProvider.value(
+                value: _settingsBloc,
+              ),
+              BlocProvider.value(
+                value: _transactionsBloc,
+              ),
+            ],
             child: BackupScreen(),
           ),
         );
+      case AppNavigator.ROUTE_EDIT_SCHEDULED_TRANSACTION_PAGE:
+        final arguments = settings.arguments as List<dynamic>?;
+        return MaterialPageRoute(
+          fullscreenDialog: true,
+          settings: settings,
+          builder: (context) => MultiBlocProvider(
+            providers: [
+              BlocProvider.value(
+                value: _editScheduledTransactionScreenBloc,
+              ),
+              BlocProvider.value(
+                value: _settingsBloc,
+              ),
+            ],
+            child: EditScheduledTransactionScreen(
+              transactionType: arguments?[0] as TransactionType,
+              scheduledTransaction: arguments?[1] as ScheduledTransaction?,
+            ),
+          ),
+        );
+      case AppNavigator.ROUTE_EDIT_SCHEDULED_TRANSACTION_SELECT_ACCOUNT_PAGE:
+        final accounts = settings.arguments! as List<Account>;
+        return _buildRoute(
+          settings,
+          BlocProvider.value(
+            value: _editScheduledTransactionScreenBloc,
+            child: SelectScheduledAccountScreen(
+              accounts: accounts,
+            ),
+          ),
+        );
+      case AppNavigator.ROUTE_EDIT_SCHEDULED_TRANSACTION_SELECT_CATEGORY_PAGE:
+        return _buildRoute(
+          settings,
+          MultiBlocProvider(
+            providers: [
+              BlocProvider.value(
+                value: _editScheduledTransactionScreenBloc,
+              ),
+              BlocProvider.value(
+                value: _settingsBloc,
+              ),
+            ],
+            child: SelectScheduledCategoryScreen(),
+          ),
+        );
+      case AppNavigator.ROUTE_EDIT_SCHEDULED_TRANSACTION_SELECT_BUDGET_PAGE:
+        final budgets = settings.arguments! as List<Budget>;
+        return _buildRoute(
+          settings,
+          BlocProvider.value(
+            value: _editScheduledTransactionScreenBloc,
+            child: SelectScheduledBudgetScreen(
+              budgets: budgets,
+            ),
+          ),
+        );
+
+      case AppNavigator.ROUTE_EDIT_SCHEDULED_TRANSACTION_EDIT_NOTE_PAGE:
+        final content = settings.arguments! as String;
+        return _buildRoute(
+          settings,
+          BlocProvider.value(
+            value: _editScheduledTransactionScreenBloc,
+            child: EditScheduledNoteScreen(
+              content: content,
+            ),
+          ),
+        );
+
       default:
         return MaterialPageRoute(
           settings: settings,
