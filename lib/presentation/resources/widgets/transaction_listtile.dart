@@ -33,10 +33,11 @@ class TransactionListTile extends StatelessWidget {
             DismissiblePane(onDismissed: () => onDeletePressed(context)),
         children: [
           SlidableAction(
-              onPressed: onDeletePressed,
-              backgroundColor: AppColors.red,
-              icon: Icons.delete_outline_outlined,
-              label: AppLocalizations.of(context)!.misc_delete,),
+            onPressed: onDeletePressed,
+            backgroundColor: AppColors.red,
+            icon: Icons.delete_outline_outlined,
+            label: AppLocalizations.of(context)!.misc_delete,
+          ),
         ],
       ),
       child: ListTile(
@@ -164,6 +165,94 @@ class LastTransactionsListTile extends StatelessWidget {
         ],
       ),
       onTap: onPressed,
+    );
+  }
+}
+
+class ScheduledTransactionListTile extends StatelessWidget {
+  final Transaction transaction;
+  final DateTime dueDate;
+  final Budget budget;
+  final VoidCallback onPressed;
+  final Function(BuildContext?) onDeletePressed;
+
+  const ScheduledTransactionListTile({
+    Key? key,
+    required this.transaction,
+    required this.dueDate,
+    required this.budget,
+    required this.onPressed,
+    required this.onDeletePressed,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final _isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    return Slidable(
+      key: UniqueKey(),
+      endActionPane: ActionPane(
+        extentRatio: 0.25,
+        motion: ScrollMotion(),
+        dismissible:
+            DismissiblePane(onDismissed: () => onDeletePressed(context)),
+        children: [
+          SlidableAction(
+            onPressed: onDeletePressed,
+            backgroundColor: AppColors.red,
+            icon: Icons.delete_outline_outlined,
+            label: AppLocalizations.of(context)!.misc_delete,
+          ),
+        ],
+      ),
+      child: ListTile(
+        minLeadingWidth: 8,
+        contentPadding: EdgeInsets.zero,
+        leading: CircleAvatar(
+          radius: 18,
+          backgroundColor: Color(transaction.color),
+          child: CircleAvatar(
+            backgroundColor:
+                _isDarkMode ? AppColors.greyPrimary : AppColors.white,
+            radius: 16,
+            child: Text(
+              dueDate.day.toString(),
+              style: TextStyle(
+                color: Color(transaction.color),
+              ),
+            ),
+          ),
+        ),
+        title: Text(
+          transaction.title ?? '',
+        ),
+        subtitle: Row(
+          children: [
+            Text(
+              transaction.isExpense
+                  ? budget.abbreviation!
+                  : transaction.incomeType == IncomeType.active
+                      ? AppLocalizations.of(context)!.global_incomes_ai
+                      : AppLocalizations.of(context)!.global_incomes_pi,
+              style: TextStyle(
+                color: Color(budget.color),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            if (transaction.note!.isNotEmpty)
+              Text(
+                ' - ${transaction.note}',
+                style: TextStyle(fontWeight: FontWeight.w200),
+              )
+          ],
+        ),
+        trailing: Text(
+          transaction.amount.toCurrencyFormat(),
+          style: TextStyle(
+            color: transaction.isExpense ? AppColors.red : AppColors.green,
+          ),
+        ),
+        onTap: onPressed,
+      ),
     );
   }
 }
