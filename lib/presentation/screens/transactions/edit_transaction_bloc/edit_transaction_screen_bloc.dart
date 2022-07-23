@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' as f;
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
@@ -44,6 +45,7 @@ class EditTransactionScreenBloc
     on<IncomeManagementDone>(_onIncomeManagementDone);
     on<DateUpdated>(_onDateUpdated);
     on<NoteUpdated>(_onNoteUpdated);
+    on<TimestampChanged>(_onTimestampChanged);
     on<Dispose>(_onDispose);
   }
 
@@ -71,6 +73,7 @@ class EditTransactionScreenBloc
           subCategory: some(subCategory),
           budget: some(budget),
           budgets: event.budgets,
+          timestamp: f.Timestamp.fromDate(event.transaction!.date),
         ),
       );
     } else {
@@ -139,7 +142,7 @@ class EditTransactionScreenBloc
         title:
             state.subCategory.fold(() => '', (subCategory) => subCategory.name),
         amount: event.amount,
-        date: event.date,
+        date: state.transaction.date,
         note: state.transaction.note,
         icon: state.subCategory
             .fold(() => 0xe532, (subCategory) => subCategory.icon),
@@ -169,7 +172,7 @@ class EditTransactionScreenBloc
         title:
             state.subCategory.fold(() => '', (subCategory) => subCategory.name),
         amount: event.amount,
-        date: event.date,
+        date: state.transaction.date,
         note: state.transaction.note ?? '',
         icon: state.subCategory
             .fold(() => 0xe532, (subCategory) => subCategory.icon),
@@ -248,7 +251,7 @@ class EditTransactionScreenBloc
     CategorySelected event,
     Emitter<EditTransactionScreenState> emit,
   ) async {
-    getSubCategories(event.category.id).first.then(
+    await getSubCategories(event.category.id).first.then(
           (subCategories) => emit(
             state.copyWith(
               subCategories: subCategories,
@@ -323,6 +326,18 @@ class EditTransactionScreenBloc
     emit(
       state.copyWith(
         transaction: state.transaction.copyWith(note: event.note),
+      ),
+    );
+  }
+
+  Future<void> _onTimestampChanged(
+    TimestampChanged event,
+    Emitter<EditTransactionScreenState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        transaction: state.transaction.copyWith(date: event.timestamp.toDate()),
+        timestamp: event.timestamp,
       ),
     );
   }

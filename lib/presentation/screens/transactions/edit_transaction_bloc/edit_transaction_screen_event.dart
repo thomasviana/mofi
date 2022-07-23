@@ -26,10 +26,8 @@ class SearchSubCategory extends EditTransactionScreenEvent {
 
 class TransactionSaved extends EditTransactionScreenEvent {
   final double amount;
-  final DateTime date;
   TransactionSaved({
     required this.amount,
-    required this.date,
   });
 }
 
@@ -93,6 +91,13 @@ class NoteUpdated extends EditTransactionScreenEvent {
   final String note;
   NoteUpdated({
     required this.note,
+  });
+}
+
+class TimestampChanged extends EditTransactionScreenEvent {
+  final f.Timestamp timestamp;
+  TimestampChanged({
+    required this.timestamp,
   });
 }
 

@@ -34,7 +34,6 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
   late EditTransactionScreenBloc bloc;
   late SettingsBloc settingsBloc;
   late CurrencyTextInputFormatter formatter;
-  late f.Timestamp dateTime;
   late Animation<double> _animation;
   late AnimationController _animationController;
   late ScrollController _scrollController;
@@ -55,7 +54,6 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
       ..add(GetAllUserSubcategories());
     formatter = CurrencyTextInputFormatter(symbol: '\$', decimalDigits: 0);
 
-    dateTime = f.Timestamp.now();
     initializeDateFormatting();
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 100),
@@ -143,10 +141,11 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
       Widget buildDatePicker() => Padding(
             padding: const EdgeInsets.all(8.0),
             child: SfDateRangePicker(
+              initialSelectedDate: state.timestamp.toDate(),
               onSelectionChanged: (args) {
                 if (args.value is DateTime) {
                   final date = args.value as DateTime;
-                  final timeStamp = f.Timestamp.fromDate(
+                  final selectedTimestamp = f.Timestamp.fromDate(
                     DateTime(
                       date.year,
                       date.month,
@@ -155,9 +154,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
                       DateTime.now().minute,
                     ),
                   );
-                  setState(() {
-                    dateTime = timeStamp;
-                  });
+                  bloc.add(TimestampChanged(timestamp: selectedTimestamp));
                 }
               },
             ),
@@ -214,7 +211,6 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
                           bloc.add(
                             TransactionSaved(
                               amount: state.transaction.amount,
-                              date: dateTime.toDate(),
                             ),
                           );
                           AppNavigator.navigateBack(context);
@@ -510,7 +506,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen>
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        getFormattedDate(dateTime.toDate()),
+                        getFormattedDate(state.timestamp.toDate()),
                         style: TextStyle(color: AppColors.greySecondary),
                       ),
                       const SizedBox(width: 10),
