@@ -57,11 +57,32 @@ class ScheduleTransaction {
             ),
           ),
         );
+        final ScheduledTask scheduledTask = _cron.schedule(
+          // Schedule.parse('*/${dueDate.day} * * * * *'),
+          Schedule.parse('*/5 * * * * *'),
+          () async {
+            await _transactionRepository.save(
+              Transaction(
+                id: TransactionId.auto(),
+                transactionType: txType,
+                title: title,
+                amount: amount,
+                date: DateTime.now(),
+                note: note,
+                icon: icon,
+                color: color,
+                txUserId: TransactionUserId(user.id.value),
+                txAccountId: txAccountId,
+                txCategoryId: txCategoryId,
+                txSubCategoryId: txSubCategoryId,
+                txBudgetId: txBudgetId,
+                incomeType: incomeType,
+              ),
+            );
+          },
         );
-        _cron.schedule(
-          Schedule.parse('/5 * * * * *'),
-          () async => _transactionRepository.save(transaction),
-        );
+        await Future.delayed(Duration(minutes: 1));
+        scheduledTask.cancel();
       },
     );
   }
