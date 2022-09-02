@@ -5,6 +5,7 @@ import '../resources.dart';
 class WidgetCard extends StatelessWidget {
   final String title;
   final String? actionTitle;
+  final Icon? actionIcon;
   final VoidCallback? onActionPressed;
   final Widget content;
 
@@ -12,6 +13,7 @@ class WidgetCard extends StatelessWidget {
     Key? key,
     required this.title,
     this.actionTitle,
+    this.actionIcon,
     this.onActionPressed,
     required this.content,
   }) : super(key: key);
@@ -41,10 +43,16 @@ class WidgetCard extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                   ),
-                  TextButton(
-                    child: Text(actionTitle ?? ''),
-                    onPressed: onActionPressed,
-                  )
+                  if (actionTitle != null)
+                    TextButton(
+                      child: Text(actionTitle!),
+                      onPressed: onActionPressed,
+                    ),
+                  if (actionIcon != null)
+                    IconButton(
+                      icon: actionIcon!,
+                      onPressed: onActionPressed,
+                    )
                 ],
               ),
               Divider(

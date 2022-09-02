@@ -27,9 +27,11 @@ class StatsState extends MyState {
 
   List<Transaction> get filteredTransactions {
     final filteredTransactions = transactions
-        .where((transaction) =>
-            transaction.date.month == date.month &&
-            transaction.date.year == date.year)
+        .where(
+          (transaction) =>
+              transaction.date.month == date.month &&
+              transaction.date.year == date.year,
+        )
         .toList();
     return filteredTransactions;
   }

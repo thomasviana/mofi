@@ -4,6 +4,17 @@ import '../../../../common/value_objects.dart';
 import '../../../../presentation/resources/resources.dart';
 
 enum TransactionType { expense, income }
+
+extension TransactionTypeExtension on TransactionType {
+  bool get isExpense {
+    return index == 0;
+  }
+
+  bool get isIncome {
+    return index == 1;
+  }
+}
+
 enum IncomeType { active, pasive }
 
 typedef BudgetManagementMap = Map<String, double>;

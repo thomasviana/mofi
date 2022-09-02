@@ -159,7 +159,7 @@ import '../presentation/screens/transactions/manage_income_bloc/manage_income_sc
     as _i57;
 import 'db_injectable_module.dart' as _i112;
 import 'firebase_injectable_module.dart' as _i113;
-import 'image_picker_injectable_module.dart' as _i114;
+import 'packages_injectable_module.dart' as _i114;
 import 'preferences_injectable_module.dart'
     as _i115; // ignore_for_file: unnecessary_lambdas
 
@@ -170,7 +170,7 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   final gh = _i2.GetItHelper(get, environment, environmentFilter);
   final dbInjectableModule = _$DbInjectableModule();
   final firebaseInjectableModule = _$FirebaseInjectableModule();
-  final imagePickerInjectableModule = _$ImagePickerInjectableModule();
+  final packagesInjectableModule = _$PackagesInjectableModule();
   final preferencesInjectableModule = _$PreferencesInjectableModule();
   gh.lazySingleton<_i3.AccountDao>(
       () => _i3.AccountDao(get<_i4.AccountsDatabase>()));
@@ -274,7 +274,7 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.factory<_i54.HomeScreenBloc>(
       () => _i54.HomeScreenBloc(get<_i12.GetProfileInfo>()));
   gh.lazySingleton<_i55.ImagePicker>(
-      () => imagePickerInjectableModule.imagePicker);
+      () => packagesInjectableModule.imagePicker);
   gh.factory<_i56.MainScreenCubit>(() => _i56.MainScreenCubit());
   gh.factory<_i57.ManageIncomeScreenBloc>(() => _i57.ManageIncomeScreenBloc(
       get<_i41.UpdateBudget>(), get<_i46.UpdateTransaction>()));
@@ -417,6 +417,6 @@ class _$DbInjectableModule extends _i112.DbInjectableModule {}
 
 class _$FirebaseInjectableModule extends _i113.FirebaseInjectableModule {}
 
-class _$ImagePickerInjectableModule extends _i114.ImagePickerInjectableModule {}
+class _$PackagesInjectableModule extends _i114.PackagesInjectableModule {}
 
 class _$PreferencesInjectableModule extends _i115.PreferencesInjectableModule {}

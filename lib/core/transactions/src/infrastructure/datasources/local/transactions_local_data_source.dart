@@ -41,11 +41,6 @@ class TransactionsLocalDataSourceImpl implements TransactionsLocalDataSource {
   }
 
   @override
-  Future<void> deleteTransaction(TransactionId transactionId) {
-    return _transactionDao.deleteTransaction(transactionId.value);
-  }
-
-  @override
   Stream<Option<List<Transaction>>> getCachedTransactions(
     TransactionUserId userId,
   ) =>
@@ -54,6 +49,11 @@ class TransactionsLocalDataSourceImpl implements TransactionsLocalDataSource {
                 ? none()
                 : some(_transactionMapper.fromDbDtoList(dtos)),
           );
+
+  @override
+  Future<void> deleteTransaction(TransactionId transactionId) {
+    return _transactionDao.deleteTransaction(transactionId.value);
+  }
 
   @override
   Future<void> deleteAllTransactions() {

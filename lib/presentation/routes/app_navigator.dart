@@ -43,12 +43,13 @@ class AppNavigator {
 
   // Transactions
   static const ROUTE_EDIT_TRANSACTION_PAGE = '/edit-transaction';
-  static const ROUTE_SELECT_ACCOUNT_PAGE = '/select-account';
-  static const ROUTE_SELECT_CATEGORY_PAGE = '/select-category';
-  static const ROUTE_SELECT_BUDGET_PAGE = '/select-budget';
-  static const ROUTE_EDIT_NOTE_PAGE = '/edit-note';
-  static const ROUTE_MANAGE_INCOME_PAGE = '/manage-income';
-  static const ROUTE_MANAGE_INCOME_BUDGET_PAGE = '/manage-income-budget';
+  static const ROUTE_SELECT_ACCOUNT_PAGE = '/edit-transaction/select-account';
+  static const ROUTE_SELECT_CATEGORY_PAGE = '/edit-transaction/select-category';
+  static const ROUTE_SELECT_BUDGET_PAGE = '/edit-transaction/select-budget';
+  static const ROUTE_EDIT_NOTE_PAGE = '/edit-transaction/edit-note';
+  static const ROUTE_MANAGE_INCOME_PAGE = '/edit-transaction/manage-income';
+  static const ROUTE_MANAGE_INCOME_BUDGET_PAGE =
+      '/edit-transaction/manage-income-budget';
 
   static void navigateBack(BuildContext context) => Navigator.pop(context);
 

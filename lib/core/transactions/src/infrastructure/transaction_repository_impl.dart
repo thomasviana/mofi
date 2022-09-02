@@ -25,7 +25,7 @@ class TransactionRepositoryImpl implements TransactionRepository {
     yield* _transactionsLocalDataSource.getCachedTransactions(userId).asyncMap(
           (optionCachedTransactions) => optionCachedTransactions.fold(
             () => Future.value(None()),
-            (cachedTransactions) => Future.value(some(cachedTransactions)),
+            (cachedTransactions) => Future.value(optionOf(cachedTransactions)),
           ),
         );
   }

@@ -439,8 +439,15 @@ class AppRouter {
       case AppNavigator.ROUTE_BACKUP_PAGE:
         return _buildRoute(
           settings,
+          MultiBlocProvider(
+            providers: [
           BlocProvider.value(
             value: _settingsBloc,
+              ),
+              BlocProvider.value(
+                value: _transactionsBloc,
+              ),
+            ],
             child: BackupScreen(),
           ),
         );
